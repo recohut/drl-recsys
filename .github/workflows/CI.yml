@@ -1,0 +1,35 @@
+name: CI
+on:
+  workflow_dispatch:
+
+jobs:     
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copy Repository Contents
+      uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install python libraries
+      run: |
+        python -m pip install --upgrade pip
+        pip install jupyter-book
+        pip install ghp-import
+        pip install -U git+https://github.com/tensorflow/docs
+    - name: Notebook formatting and linting
+      run: |
+        python3 -m tensorflow_docs.tools.nbfmt docs
+        python3 -m tensorflow_docs.tools.nblint --fix docs
+    - name: Building HTML site
+      run: |
+        jupyter-book build docs
+        mkdir -p docs/_build/html/_images
+        mv docs/_images/*.png docs/_build/html/_images
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/_build/html
+        publish_branch: gh-pages
