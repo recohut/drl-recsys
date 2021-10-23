@@ -1,6 +1,10 @@
 format: jb-book
 root: R984600_DRL_in_RecSys
 parts:
+- caption: Concepts
+  chapters:
+  - file: L268705_Offline_Reinforcement_Learning
+  - file: L732057_Markov_Decision_Process
 - caption: Tutorials
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
