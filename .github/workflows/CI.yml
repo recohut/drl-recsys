@@ -26,7 +26,7 @@ jobs:
       run: |
         jupyter-book build docs
         mkdir -p docs/_build/html/_images
-        mv docs/_images/*.png docs/_build/html/_images
+        mv docs/_images/* docs/_build/html/_images
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
