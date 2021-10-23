@@ -1,0 +1,7 @@
+format: jb-book
+root: R984600_DRL_in_RecSys
+parts:
+- caption: Tutorials
+  chapters:
+  - file: T000348_Multi_armed_Bandit_for_Banner_Ad
+  - file: T119194_Contextual_RL_Product_Recommender
