@@ -54,7 +54,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contextual Recommender with Vowpal Wabbit" href="T119194_Contextual_RL_Product_Recommender.html" />
-    <link rel="prev" title="Overview" href="R984600_DRL_in_RecSys.html" />
+    <link rel="prev" title="Markov Decision Process" href="L732057_Markov_Decision_Process.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -86,7 +86,24 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="R984600_DRL_in_RecSys.html">
-   Overview
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
   </a>
  </li>
 </ul>
@@ -202,74 +219,60 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Multi-armed Bandit for Banner Ad
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setup">
-     Setup
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#installations">
-       Installations
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#imports">
-       Imports
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#environments">
-       Environments
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#create-the-bandit-environment-in-gym">
-     Create the Bandit environment in Gym
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installations">
+     Installations
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#epsilon-greedy">
-     <span class="math notranslate nohighlight">
-      \(\epsilon\)
-     </span>
-     -Greedy
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imports">
+     Imports
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#softmax">
-     Softmax
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ucb">
-     UCB
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ts">
-     TS
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#environments">
+     Environments
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#finding-the-best-advertisement-banner-using-bandits">
-   Finding the best advertisement banner using bandits
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-the-bandit-environment-in-gym">
+   Create the Bandit environment in Gym
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#contextual-bandits">
-     Contextual bandits
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#epsilon-greedy">
+   <span class="math notranslate nohighlight">
+    \(\epsilon\)
+   </span>
+   -Greedy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#softmax">
+   Softmax
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ucb">
+   UCB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ts">
+   TS
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contextual-bandits">
+   Contextual bandits
+  </a>
  </li>
 </ul>
 
@@ -823,10 +826,7 @@ The optimal arm is arm 1
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="finding-the-best-advertisement-banner-using-bandits">
-<h1>Finding the best advertisement banner using bandits<a class="headerlink" href="#finding-the-best-advertisement-banner-using-bandits" title="Permalink to this headline">¶</a></h1>
+<p><strong>Finding the best advertisement banner using bandits</strong></p>
 <p>Bandits can be used as an alternative to AB testing. AB testing is one of the most commonly used classic methods of testing. Say we have two versions of the landing page of our website. Suppose we want to know which version of the landing page is most liked by the users. In this case, we conduct AB testing to understand which version of the landing page is most liked by the users. So, we show version 1 of the landing page to a particular set of users and version 2 of the landing page to other set of users. Then we measure several metrics, such as click-through rate, average time spent on the website, and so on, to understand which version of the landing page is most liked by the users. Once we understand which version of the landing page is most liked by the users, then we will start showing that version to all the users.</p>
 <p>Thus, in AB testing, we schedule a separate time for exploration and exploitation. That is, AB testing has two different dedicated periods for exploration and exploitation. But the problem with AB testing is that it will incur high regret. We can minimize the regret using the various exploration strategies that we have used to solve the MAB problem. So, instead of performing complete exploration and exploitation separately, we can perform exploration and exploitation simultaneously in an adaptive fashion with the various exploration strategies</p>
 <p>Suppose we are running a website and we have five different banners for a single advertisement on our website and say we want to figure out which advertisement banner is most liked by the users. We can frame this problem as a MAB problem. The five advertisement banners represent the five arms of the bandit, and we assign +1 reward if the user clicks the advertisement and 0 rewards if the user does not click the advertisement. So, to find out which advertisement banner is most clicked by the users, that is, which advertisement banner can give us the maximum reward, we can use various exploration strategies.</p>
@@ -908,6 +908,7 @@ The optimal arm is arm 1
 <img alt="_images/T000348_Multi_armed_Bandit_for_Banner_Ad_21_0.png" src="_images/T000348_Multi_armed_Bandit_for_Banner_Ad_21_0.png" />
 </div>
 </div>
+</div>
 <div class="section" id="contextual-bandits">
 <h2>Contextual bandits<a class="headerlink" href="#contextual-bandits" title="Permalink to this headline">¶</a></h2>
 <p>The banner preference varies from user to user. That is, user A likes banner 1, but user B might like banner 3, and so on. Each user has their own preferences. So, we have to personalize advertisement banners according to each user. How can we do that? This is where we use contextual bandits. In the MAB problem, we just perform the action and receive a reward. But with contextual bandits, we take actions based on the state of the environment and the state holds the context. For instance, in the advertisement banner example, the state specifies the user behavior and we will take action (show the banner) according to the state (user behavior) that will result in the maximum reward (ad clicks). Contextual bandits are widely used for personalizing content according to the user’s behavior. They are also used to solve the cold-start problems faced by recommendation systems. Netflix uses contextual bandits for personalizing the artwork for TV shows according to user behavior.</p>
@@ -944,11 +945,11 @@ The optimal arm is arm 1
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="R984600_DRL_in_RecSys.html" title="previous page">
+        <a class="left-prev" href="L732057_Markov_Decision_Process.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Overview</p>
+                <p class="prevnext-title">Markov Decision Process</p>
             </div>
         </a>
     </div>
