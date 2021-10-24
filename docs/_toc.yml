@@ -11,6 +11,7 @@ parts:
   - file: T705437_CartPole_using_Cross_Entropy
   - file: T163940_FrozenLake_using_Cross_Entropy
   - file: T471382_FrozenLake_using_Value_Iteration
+  - file: T587798_FrozenLake_using_Q_Learning
 - caption: RecSys Tutorials
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
