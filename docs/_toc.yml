@@ -15,6 +15,7 @@ parts:
   - file: T752494_CartPole_using_REINFORCE_in_PyTorch
   - file: T294930_Cartpole_in_PyTorch
   - file: T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake
+  - file: T441700_REINFORCE
 - caption: RecSys Tutorials
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
