@@ -23,6 +23,7 @@ parts:
   - file: T365137_REINFORCE_in_PyTorch
   - file: T159137_MDP_Basics_with_Inventory_Control
   - file: T046728_n_step_algorithms_and_eligibility_traces
+  - file: T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions
 - caption: RecSys Tutorials
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
