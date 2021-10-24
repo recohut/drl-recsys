@@ -1,0 +1,1319 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top-K Off-Policy Correction for a REINFORCE Recommender System &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Neural Interactive Collaborative Filtering" href="T239645_Neural_Interactive_Collaborative_Filtering.html" />
+    <link rel="prev" title="Contextual Recommender with Vowpal Wabbit" href="T119194_Contextual_RL_Product_Recommender.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Top-K Off-Policy Correction for a REINFORCE Recommender System
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T239645_Neural_Interactive_Collaborative_Filtering.html">
+   Neural Interactive Collaborative Filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T985223_Batch_Constrained_Deep_Q_Learning.html">
+   Batch-Constrained Deep Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T616640_Pydeep_Recsys.html">
+   Pydeep Recsys
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T219174_Recsim_Catalyst.html">
+   Recsim Catalyst
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079222_Solving_Multi_armed_Bandit_Problems.html">
+   Solving Multi-armed Bandit Problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T734685_Deep_Reinforcement_Learning_in_Large_Discrete_Action_Spaces.html">
+   Deep Reinforcement Learning in Large Discrete Action Spaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T257798_Off_Policy_Learning_in_Two_stage_Recommender_Systems.html">
+   Off-Policy Learning in Two-stage Recommender Systems
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T373316_Top_K_Off_Policy_Correction_for_a_REINFORCE_Recommender_System.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T373316_Top_K_Off_Policy_Correction_for_a_REINFORCE_Recommender_System.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T373316_Top_K_Off_Policy_Correction_for_a_REINFORCE_Recommender_System.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cli-run">
+   CLI run
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-analysis">
+   Code analysis
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-preparation">
+     Data preparation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#embeddings">
+     Embeddings
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reinforce-model">
+   REINFORCE model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trainer">
+   Trainer
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="top-k-off-policy-correction-for-a-reinforce-recommender-system">
+<h1>Top-K Off-Policy Correction for a REINFORCE Recommender System<a class="headerlink" href="#top-k-off-policy-correction-for-a-reinforce-recommender-system" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cli-run">
+<h2>CLI run<a class="headerlink" href="#cli-run" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!gdown --id 1erBjYEOa7IuOIGpI8pGPn1WNBAC4Rv0-
+!git clone https://github.com/massquantity/DBRL.git
+!unzip /content/ECommAI_EUIR_round2_train_20190821.zip
+!mv ECommAI_EUIR_round2_train_20190816/*.csv DBRL/dbrl/resources
+%cd DBRL/dbrl
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading...
+From: https://drive.google.com/uc?id=1erBjYEOa7IuOIGpI8pGPn1WNBAC4Rv0-
+To: /content/ECommAI_EUIR_round2_train_20190821.zip
+100% 894M/894M [00:06&lt;00:00, 146MB/s]
+Cloning into &#39;DBRL&#39;...
+remote: Enumerating objects: 118, done.
+remote: Counting objects: 100% (118/118), done.
+remote: Compressing objects: 100% (83/83), done.
+remote: Total 118 (delta 29), reused 114 (delta 25), pack-reused 0
+Receiving objects: 100% (118/118), 203.89 KiB | 2.87 MiB/s, done.
+Resolving deltas: 100% (29/29), done.
+Archive:  /content/ECommAI_EUIR_round2_train_20190821.zip
+   creating: ECommAI_EUIR_round2_train_20190816/
+  inflating: ECommAI_EUIR_round2_train_20190816/user_behavior.csv  
+  inflating: ECommAI_EUIR_round2_train_20190816/item.csv  
+  inflating: ECommAI_EUIR_round2_train_20190816/user.csv  
+/content/DBRL/dbrl
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!python run_prepare_data.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;seed&#39;: 0}
+tcmalloc: large alloc 1931411456 bytes == 0x559fe1e9e000 @  0x7fbeb7c811e7 0x7fbeb580146e 0x7fbeb5851c7b 0x7fbeb585235f 0x7fbeb58f4103 0x559fd33e4544 0x559fd33e4240 0x559fd3458627 0x559fd33e5afa 0x559fd3453915 0x559fd34529ee 0x559fd33e5bda 0x559fd3453915 0x559fd33e5afa 0x559fd3453915 0x559fd33e5afa 0x559fd3453915 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd3452ced 0x559fd33e5bda 0x559fd3454737 0x559fd3452ced 0x559fd33e648c 0x559fd3427159 0x559fd34240a4 0x559fd33e4d49 0x559fd345894f 0x559fd34529ee 0x559fd33e5bda
+tcmalloc: large alloc 1931411456 bytes == 0x55a1625c8000 @  0x7fbeb7c811e7 0x7fbeb580146e 0x7fbeb5851c7b 0x7fbeb585235f 0x7fbeb58f4103 0x559fd33e4544 0x559fd33e4240 0x559fd3458627 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd3452ced 0x559fd33e5bda 0x559fd3453915 0x559fd3452ced 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd3452ced 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd34526f3 0x559fd351c4c2 0x559fd351c83d 0x559fd351c6e6
+tcmalloc: large alloc 1931411456 bytes == 0x55a1d57b8000 @  0x7fbeb7c811e7 0x7fbeb580146e 0x7fbeb5851c7b 0x7fbeb5851d97 0x7fbeb584b4a5 0x7fbeb58e8eab 0x559fd33e44b0 0x559fd34d5e1d 0x559fd3457e99 0x559fd34529ee 0x559fd33e648c 0x559fd33e6698 0x559fd3454fe4 0x559fd3452ced 0x559fd33e5bda 0x559fd3454737 0x559fd3452ced 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd33e5bda 0x559fd3457d00 0x559fd3452ced 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd34526f3 0x559fd351c4c2 0x559fd351c83d 0x559fd351c6e6 0x559fd34f4163
+tcmalloc: large alloc 1548664832 bytes == 0x559fe1e9e000 @  0x7fbeb7c811e7 0x7fbeb580146e 0x7fbeb5851c7b 0x7fbeb585235f 0x7fbeb58f4103 0x559fd33e4544 0x559fd33e4240 0x559fd3458627 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd3452ced 0x559fd33e5bda 0x559fd3453915 0x559fd3452ced 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd34529ee 0x559fd33e5bda 0x559fd3454737 0x559fd33e5afa 0x559fd3457d00
+n_users: 80000, n_items: 1047166, behavior length: 3234367
+prepare data done!, time elapsed: 173.06
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!python run_pretrain_embeddings.py --lr 0.001 --n_epochs 4
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A list all args: 
+======================
+{&#39;batch_size&#39;: 2048,
+ &#39;data&#39;: &#39;tianchi.csv&#39;,
+ &#39;embed_size&#39;: 32,
+ &#39;loss&#39;: &#39;cosine&#39;,
+ &#39;lr&#39;: 0.001,
+ &#39;n_epochs&#39;: 4,
+ &#39;neg_item&#39;: 1,
+ &#39;seed&#39;: 0}
+
+n_users: 80000, n_items: 912114, train_shape: (2587518, 10), eval_shape: (646849, 10)
+100% 2527/2527 [02:22&lt;00:00, 17.73it/s]
+100% 632/632 [00:11&lt;00:00, 56.31it/s]
+epoch 1, train_loss: 0.3253, eval loss: 0.3537, eval roc: 0.7370
+100% 2527/2527 [02:21&lt;00:00, 17.85it/s]
+100% 632/632 [00:11&lt;00:00, 55.87it/s]
+epoch 2, train_loss: 0.2568, eval loss: 0.3351, eval roc: 0.7697
+100% 2527/2527 [02:21&lt;00:00, 17.84it/s]
+100% 632/632 [00:11&lt;00:00, 56.34it/s]
+epoch 3, train_loss: 0.2260, eval loss: 0.3309, eval roc: 0.7772
+100% 2527/2527 [02:20&lt;00:00, 17.96it/s]
+100% 632/632 [00:11&lt;00:00, 57.03it/s]
+epoch 4, train_loss: 0.2036, eval loss: 0.3296, eval roc: 0.7829
+user_embeds shape: (80000, 32), item_embeds shape: (912115, 32)
+pretrain embeddings done!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!python run_reinforce.py --n_epochs 1 --lr 1e-5
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A list all args: 
+======================
+{&#39;batch_size&#39;: 128,
+ &#39;data&#39;: &#39;tianchi.csv&#39;,
+ &#39;gamma&#39;: 0.99,
+ &#39;hidden_size&#39;: 64,
+ &#39;hist_num&#39;: 10,
+ &#39;item_embeds&#39;: &#39;tianchi_item_embeddings.npy&#39;,
+ &#39;lr&#39;: 1e-05,
+ &#39;n_epochs&#39;: 1,
+ &#39;n_rec&#39;: 10,
+ &#39;seed&#39;: 0,
+ &#39;sess_mode&#39;: &#39;interval&#39;,
+ &#39;user_embeds&#39;: &#39;tianchi_user_embeddings.npy&#39;,
+ &#39;weight_decay&#39;: 0.0}
+
+Number of parameters: policy: 118628454,  beta: 59310067
+Caution: Will compute loss every 10 step(s)
+
+Epoch 1 start-time: 2021-10-21 10:46:33
+
+train: 100% 19590/19590 [2:24:05&lt;00:00,  2.27it/s]
+last_eval: 100% 625/625 [00:47&lt;00:00, 13.12it/s]
+
+policy_loss: 665.2355, beta_loss: 13.6349, importance_weight: 0.8856, lambda_k: 9.9993, 
+reward: 455, ndcg_next_item: 0.000999, ndcg_all_item: 0.039790, ndcg: 0.027800
+
+******************** EVAL ********************
+eval: 100% 10516/10516 [20:26&lt;00:00,  8.58it/s]
+last_eval: 100% 625/625 [00:47&lt;00:00, 13.12it/s]
+
+policy_loss: 1333.3558, beta_loss: 13.5444, importance_weight: 0.9655, lambda_k: 9.9992, 
+reward: 290, ndcg_next_item: 0.001165, ndcg_all_item: 0.008780, ndcg: 0.007617
+================================================================================
+train and save done!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!apt-get -qq install tree
+!tree --du -h .
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Selecting previously unselected package tree.
+(Reading database ... 155047 files and directories currently installed.)
+Preparing to unpack .../tree_1.7.0-5_amd64.deb ...
+Unpacking tree (1.7.0-5) ...
+Setting up tree (1.7.0-5) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+.
+├── [ 56K]  data
+│   ├── [7.7K]  dataset.py
+│   ├── [ 126]  __init__.py
+│   ├── [8.4K]  process.py
+│   ├── [ 24K]  __pycache__
+│   │   ├── [5.5K]  dataset.cpython-37.pyc
+│   │   ├── [ 284]  __init__.cpython-37.pyc
+│   │   ├── [5.6K]  process.cpython-37.pyc
+│   │   ├── [6.3K]  session.cpython-37.pyc
+│   │   └── [2.2K]  split.cpython-37.pyc
+│   ├── [9.6K]  session.py
+│   └── [2.5K]  split.py
+├── [ 17K]  evaluate
+│   ├── [4.1K]  evaluate.py
+│   ├── [  45]  __init__.py
+│   ├── [1.6K]  metrics.py
+│   └── [7.3K]  __pycache__
+│       ├── [1.9K]  evaluate.cpython-37.pyc
+│       ├── [ 178]  __init__.cpython-37.pyc
+│       └── [1.2K]  metrics.cpython-37.pyc
+├── [   0]  __init__.py
+├── [ 44K]  models
+│   ├── [7.6K]  bcq.py
+│   ├── [4.2K]  ddpg.py
+│   ├── [3.3K]  dssm.py
+│   ├── [ 103]  __init__.py
+│   ├── [ 19K]  __pycache__
+│   │   ├── [5.1K]  bcq.cpython-37.pyc
+│   │   ├── [3.3K]  ddpg.cpython-37.pyc
+│   │   ├── [2.4K]  dssm.cpython-37.pyc
+│   │   ├── [ 256]  __init__.cpython-37.pyc
+│   │   └── [3.9K]  youtube_topk.cpython-37.pyc
+│   └── [5.7K]  youtube_topk.py
+├── [ 24K]  network
+│   ├── [  20]  __init__.py
+│   ├── [9.1K]  net.py
+│   └── [ 11K]  __pycache__
+│       ├── [ 134]  __init__.cpython-37.pyc
+│       └── [7.2K]  net.cpython-37.pyc
+├── [4.1K]  __pycache__
+│   └── [ 106]  __init__.cpython-37.pyc
+├── [3.0G]  resources
+│   ├── [   0]  aa
+│   ├── [114M]  item.csv
+│   ├── [ 15M]  item_map.json
+│   ├── [574M]  model_reinforce.pt
+│   ├── [160M]  tianchi.csv
+│   ├── [111M]  tianchi_item_embeddings.npy
+│   ├── [9.8M]  tianchi_user_embeddings.npy
+│   ├── [2.0G]  user_behavior.csv
+│   ├── [ 19M]  user.csv
+│   └── [1.2M]  user_map.json
+├── [5.9K]  run_bcq.py
+├── [5.1K]  run_ddpg.py
+├── [2.5K]  run_prepare_data.py
+├── [4.4K]  run_pretrain_embeddings.py
+├── [5.1K]  run_reinforce.py
+├── [9.9K]  serialization
+│   ├── [  43]  __init__.py
+│   ├── [5.0K]  __pycache__
+│   │   ├── [ 182]  __init__.cpython-37.pyc
+│   │   └── [ 845]  serialize.cpython-37.pyc
+│   └── [ 889]  serialize.py
+├── [ 18K]  trainer
+│   ├── [  68]  __init__.py
+│   ├── [1.9K]  pretrain.py
+│   ├── [8.2K]  __pycache__
+│   │   ├── [ 202]  __init__.cpython-37.pyc
+│   │   ├── [1.5K]  pretrain.cpython-37.pyc
+│   │   └── [2.5K]  train.cpython-37.pyc
+│   └── [3.9K]  train.py
+└── [ 21K]  utils
+    ├── [1.7K]  info.py
+    ├── [ 156]  __init__.py
+    ├── [2.2K]  misc.py
+    ├── [1.7K]  params.py
+    ├── [ 10K]  __pycache__
+    │   ├── [1.5K]  info.cpython-37.pyc
+    │   ├── [ 325]  __init__.cpython-37.pyc
+    │   ├── [2.0K]  misc.cpython-37.pyc
+    │   ├── [1.5K]  params.cpython-37.pyc
+    │   └── [ 920]  sampling.cpython-37.pyc
+    └── [ 908]  sampling.py
+
+ 3.0G used in 16 directories, 67 files
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="code-analysis">
+<h2>Code analysis<a class="headerlink" href="#code-analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-preparation">
+<h3>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="k">def</span> <span class="nf">parse_args</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;run_prepare_data&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--seed&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+
+<span class="k">def</span> <span class="nf">bucket_age</span><span class="p">(</span><span class="n">age</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">3</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">4</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+
+    <span class="c1"># 1. loading the data into memory</span>
+
+    <span class="n">user_feat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;resources/user.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;pur_power&quot;</span><span class="p">])</span>
+    <span class="n">item_feat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;resources/item.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;item&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;shop&quot;</span><span class="p">,</span> <span class="s2">&quot;brand&quot;</span><span class="p">])</span>
+    <span class="n">behavior</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;resources/user_behavior.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;item&quot;</span><span class="p">,</span> <span class="s2">&quot;behavior&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">])</span>
+    
+    <span class="c1"># 2. sorting values chronologically and dropping duplicate records</span>
+
+    <span class="n">behavior</span> <span class="o">=</span> <span class="n">behavior</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">behavior</span> <span class="o">=</span> <span class="n">behavior</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;item&quot;</span><span class="p">,</span> <span class="s2">&quot;behavior&quot;</span><span class="p">])</span>
+
+    <span class="c1"># 3. Choosing 60K random users with short journey and 20K with long journey</span>
+    <span class="n">user_counts</span> <span class="o">=</span> <span class="n">behavior</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)[[</span><span class="s2">&quot;user&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;count_user&quot;</span><span class="p">}</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;count_user&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">short_users</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="n">user_counts</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">user_counts</span><span class="o">.</span><span class="n">count_user</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">user_counts</span><span class="o">.</span><span class="n">count_user</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">)</span>
+    <span class="n">long_users</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="n">user_counts</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">user_counts</span><span class="o">.</span><span class="n">count_user</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">user_counts</span><span class="o">.</span><span class="n">count_user</span> <span class="o">&lt;=</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">)</span>
+    <span class="n">short_chosen_users</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">short_users</span><span class="p">,</span> <span class="mi">60000</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">long_chosen_users</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">long_users</span><span class="p">,</span> <span class="mi">20000</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">chosen_users</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">short_chosen_users</span><span class="p">,</span> <span class="n">long_chosen_users</span><span class="p">])</span>
+
+    <span class="n">behavior</span> <span class="o">=</span> <span class="n">behavior</span><span class="p">[</span><span class="n">behavior</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">chosen_users</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n_users: </span><span class="si">{</span><span class="n">behavior</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">, &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;n_items: </span><span class="si">{</span><span class="n">behavior</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2">, &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;behavior length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">behavior</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 4. merge with all features, bucketizing the age and saving the processed data</span>
+    <span class="n">behavior</span> <span class="o">=</span> <span class="n">behavior</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">user_feat</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+    <span class="n">behavior</span> <span class="o">=</span> <span class="n">behavior</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">item_feat</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;item&quot;</span><span class="p">)</span>
+    <span class="n">behavior</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">behavior</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">bucket_age</span><span class="p">)</span>
+    <span class="n">behavior</span> <span class="o">=</span> <span class="n">behavior</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">behavior</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;resources/tianchi.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;prepare data done!, &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;time elapsed: </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="embeddings">
+<h3>Embeddings<a class="headerlink" href="#embeddings" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">dbrl.data</span> <span class="kn">import</span> <span class="n">process_feat_data</span><span class="p">,</span> <span class="n">FeatDataset</span>
+<span class="kn">from</span> <span class="nn">dbrl.models</span> <span class="kn">import</span> <span class="n">DSSM</span>
+<span class="kn">from</span> <span class="nn">dbrl.utils</span> <span class="kn">import</span> <span class="n">sample_items_random</span><span class="p">,</span> <span class="n">init_param_dssm</span><span class="p">,</span> <span class="n">generate_embeddings</span>
+<span class="kn">from</span> <span class="nn">dbrl.trainer</span> <span class="kn">import</span> <span class="n">pretrain_model</span>
+<span class="kn">from</span> <span class="nn">dbrl.serialization</span> <span class="kn">import</span> <span class="n">save_npy</span><span class="p">,</span> <span class="n">save_json</span>
+
+
+<span class="k">def</span> <span class="nf">parse_args</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;run_pretrain_embeddings&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--data&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;tianchi.csv&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--n_epochs&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--batch_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2048</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--lr&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--embed_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--loss&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;cosine&quot;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;cosine or bce loss&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--neg_item&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--seed&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A list all args: </span><span class="se">\n</span><span class="s2">======================&quot;</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+    <span class="c1"># 1. Setting arguments/params</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">EMBEDDING_PATH</span> <span class="o">=</span> <span class="s2">&quot;resources/&quot;</span>
+    <span class="n">static_feat</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;pur_power&quot;</span><span class="p">]</span>
+    <span class="n">dynamic_feat</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;shop&quot;</span><span class="p">,</span> <span class="s2">&quot;brand&quot;</span><span class="p">]</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="n">n_epochs</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">n_epochs</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">batch_size</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">lr</span>
+    <span class="n">item_embed_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">embed_size</span>
+    <span class="n">feat_embed_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">embed_size</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+    <span class="n">criterion</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">CosineEmbeddingLoss</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">loss</span> <span class="o">==</span> <span class="s2">&quot;cosine&quot;</span>
+        <span class="k">else</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCEWithLogitsLoss</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">criterion_type</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;cosine&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;cosine&quot;</span> <span class="ow">in</span> <span class="n">criterion</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">else</span> <span class="s2">&quot;bce&quot;</span>
+    <span class="p">)</span>
+    <span class="n">neg_label</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="k">if</span> <span class="n">criterion_type</span> <span class="o">==</span> <span class="s2">&quot;cosine&quot;</span> <span class="k">else</span> <span class="mf">0.</span>
+    <span class="n">neg_item</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">neg_item</span>
+
+    <span class="c1"># 2. Preprocessing</span>
+
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;item&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;pur_power&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;shop&quot;</span><span class="p">,</span> <span class="s2">&quot;brand&quot;</span><span class="p">]</span>
+
+    <span class="p">(</span>
+        <span class="n">n_users</span><span class="p">,</span>
+        <span class="n">n_items</span><span class="p">,</span>
+        <span class="n">train_user_consumed</span><span class="p">,</span>
+        <span class="n">eval_user_consumed</span><span class="p">,</span>
+        <span class="n">train_data</span><span class="p">,</span>
+        <span class="n">eval_data</span><span class="p">,</span>
+        <span class="n">user_map</span><span class="p">,</span>
+        <span class="n">item_map</span><span class="p">,</span>
+        <span class="n">feat_map</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">process_feat_data</span><span class="p">(</span>
+        <span class="n">PATH</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">time_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span>
+        <span class="n">static_feat</span><span class="o">=</span><span class="n">static_feat</span><span class="p">,</span> <span class="n">dynamic_feat</span><span class="o">=</span><span class="n">dynamic_feat</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;n_users: </span><span class="si">{</span><span class="n">n_users</span><span class="si">}</span><span class="s2">, n_items: </span><span class="si">{</span><span class="n">n_items</span><span class="si">}</span><span class="s2">, &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;train_shape: </span><span class="si">{</span><span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, eval_shape: </span><span class="si">{</span><span class="n">eval_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># 3. Random negative sampling</span>
+
+    <span class="n">train_user</span><span class="p">,</span> <span class="n">train_item</span><span class="p">,</span> <span class="n">train_label</span> <span class="o">=</span> <span class="n">sample_items_random</span><span class="p">(</span>
+        <span class="n">train_data</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">train_user_consumed</span><span class="p">,</span> <span class="n">neg_label</span><span class="p">,</span> <span class="n">neg_item</span>
+    <span class="p">)</span>
+    <span class="n">eval_user</span><span class="p">,</span> <span class="n">eval_item</span><span class="p">,</span> <span class="n">eval_label</span> <span class="o">=</span> <span class="n">sample_items_random</span><span class="p">(</span>
+        <span class="n">eval_data</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">eval_user_consumed</span><span class="p">,</span> <span class="n">neg_label</span><span class="p">,</span> <span class="n">neg_item</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 4. Putting data into torch dataset format and dataloader</span>
+
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">FeatDataset</span><span class="p">(</span>
+        <span class="n">train_user</span><span class="p">,</span>
+        <span class="n">train_item</span><span class="p">,</span>
+        <span class="n">train_label</span><span class="p">,</span>
+        <span class="n">feat_map</span><span class="p">,</span>
+        <span class="n">static_feat</span><span class="p">,</span>
+        <span class="n">dynamic_feat</span>
+    <span class="p">)</span>
+    <span class="n">eval_dataset</span> <span class="o">=</span> <span class="n">FeatDataset</span><span class="p">(</span>
+        <span class="n">eval_user</span><span class="p">,</span>
+        <span class="n">eval_item</span><span class="p">,</span>
+        <span class="n">eval_label</span><span class="p">,</span>
+        <span class="n">feat_map</span><span class="p">,</span>
+        <span class="n">static_feat</span><span class="p">,</span>
+        <span class="n">dynamic_feat</span>
+    <span class="p">)</span>
+    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+                              <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">eval_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">eval_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span>
+                             <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># 5. DSSM embedding model training</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">DSSM</span><span class="p">(</span>
+        <span class="n">item_embed_size</span><span class="p">,</span>
+        <span class="n">feat_embed_size</span><span class="p">,</span>
+        <span class="n">n_users</span><span class="p">,</span>
+        <span class="n">n_items</span><span class="p">,</span>
+        <span class="n">hidden_size</span><span class="p">,</span>
+        <span class="n">feat_map</span><span class="p">,</span>
+        <span class="n">static_feat</span><span class="p">,</span>
+        <span class="n">dynamic_feat</span><span class="p">,</span>
+        <span class="n">use_bn</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">init_param_dssm</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>  <span class="c1"># weight_decay</span>
+
+    <span class="n">pretrain_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">eval_loader</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span>
+                   <span class="n">criterion_type</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+    
+    <span class="c1"># 6. Generate and save embeddings</span>
+    
+    <span class="n">user_embeddings</span><span class="p">,</span> <span class="n">item_embeddings</span> <span class="o">=</span> <span class="n">generate_embeddings</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">n_users</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">feat_map</span><span class="p">,</span> <span class="n">static_feat</span><span class="p">,</span> <span class="n">dynamic_feat</span><span class="p">,</span> <span class="n">device</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;user_embeds shape: </span><span class="si">{</span><span class="n">user_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">,&quot;</span>
+          <span class="sa">f</span><span class="s2">&quot; item_embeds shape: </span><span class="si">{</span><span class="n">item_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">save_npy</span><span class="p">(</span><span class="n">user_embeddings</span><span class="p">,</span> <span class="n">item_embeddings</span><span class="p">,</span> <span class="n">EMBEDDING_PATH</span><span class="p">)</span>
+    <span class="n">save_json</span><span class="p">(</span>
+        <span class="n">user_map</span><span class="p">,</span> <span class="n">item_map</span><span class="p">,</span> <span class="n">user_embeddings</span><span class="p">,</span> <span class="n">item_embeddings</span><span class="p">,</span> <span class="n">EMBEDDING_PATH</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pretrain embeddings done!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reinforce-model">
+<h2>REINFORCE model<a class="headerlink" href="#reinforce-model" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">torch.distributions</span> <span class="kn">import</span> <span class="n">Categorical</span>
+
+
+<span class="k">class</span> <span class="nc">Reinforce</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">policy</span><span class="p">,</span>
+            <span class="n">policy_optim</span><span class="p">,</span>
+            <span class="n">beta</span><span class="p">,</span>
+            <span class="n">beta_optim</span><span class="p">,</span>
+            <span class="n">hidden_size</span><span class="p">,</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>
+            <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">weight_clip</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+            <span class="n">offpolicy_correction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">topk</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">adaptive_softmax</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">cutoffs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">),</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Reinforce</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">policy</span> <span class="o">=</span> <span class="n">policy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">policy_optim</span> <span class="o">=</span> <span class="n">policy_optim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_optim</span> <span class="o">=</span> <span class="n">beta_optim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_clip</span> <span class="o">=</span> <span class="n">weight_clip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offpolicy_correction</span> <span class="o">=</span> <span class="n">offpolicy_correction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topk</span> <span class="o">=</span> <span class="n">topk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_softmax</span> <span class="o">=</span> <span class="n">adaptive_softmax</span>
+        <span class="k">if</span> <span class="n">adaptive_softmax</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">cutoffs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+                <span class="s2">&quot;must provide cutoffs when using adaptive_softmax&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">softmax_loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveLogSoftmaxWithLoss</span><span class="p">(</span>
+                <span class="n">in_features</span><span class="o">=</span><span class="n">hidden_size</span><span class="p">,</span>
+                <span class="n">n_classes</span><span class="o">=</span><span class="n">policy</span><span class="o">.</span><span class="n">item_embeds</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                <span class="n">cutoffs</span><span class="o">=</span><span class="n">cutoffs</span><span class="p">,</span>
+                <span class="n">div_value</span><span class="o">=</span><span class="mf">4.</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="p">(</span>
+            <span class="n">policy_loss</span><span class="p">,</span>
+            <span class="n">beta_loss</span><span class="p">,</span>
+            <span class="n">action</span><span class="p">,</span>
+            <span class="n">importance_weight</span><span class="p">,</span>
+            <span class="n">lambda_k</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_loss</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">policy_optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">policy_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">policy_optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">beta_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;policy_loss&#39;</span><span class="p">:</span> <span class="n">policy_loss</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;beta_loss&#39;</span><span class="p">:</span> <span class="n">beta_loss</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;importance_weight&#39;</span><span class="p">:</span> <span class="n">importance_weight</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;lambda_k&#39;</span><span class="p">:</span> <span class="n">lambda_k</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="n">action</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">info</span>
+
+    <span class="k">def</span> <span class="nf">_compute_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy_logp</span><span class="p">,</span> <span class="n">beta_logp</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">offpolicy_correction</span><span class="p">:</span>
+            <span class="n">importance_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">policy_logp</span> <span class="o">-</span> <span class="n">beta_logp</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+            <span class="n">wc</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_clip</span><span class="p">])</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">importance_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">importance_weight</span><span class="p">,</span> <span class="n">wc</span><span class="p">)</span>
+        <span class="c1">#    importance_weight = torch.clamp(</span>
+        <span class="c1">#        importance_weight, self.weight_clip[0], self.weight_clip[1]</span>
+        <span class="c1">#    )</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">importance_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">])</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">importance_weight</span>
+
+    <span class="k">def</span> <span class="nf">_compute_lambda_k</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">policy_logp</span><span class="p">):</span>
+        <span class="n">lam</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">*</span> <span class="p">((</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">policy_logp</span><span class="o">.</span><span class="n">exp</span><span class="p">())</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">topk</span>
+            <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">])</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">lam</span>
+
+    <span class="k">def</span> <span class="nf">_compute_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_softmax</span><span class="p">:</span>
+            <span class="n">state</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">policy_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax_loss</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">])</span>
+            <span class="n">policy_logp</span> <span class="o">=</span> <span class="n">policy_out</span><span class="o">.</span><span class="n">output</span>
+
+            <span class="n">beta_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+            <span class="n">beta_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax_loss</span><span class="p">(</span><span class="n">beta_action</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">])</span>
+            <span class="n">beta_logp</span> <span class="o">=</span> <span class="n">beta_out</span><span class="o">.</span><span class="n">output</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">state</span><span class="p">,</span> <span class="n">all_logp</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">get_log_probs</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">policy_logp</span> <span class="o">=</span> <span class="n">all_logp</span><span class="p">[:,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]]</span>
+
+            <span class="n">b_logp</span><span class="p">,</span> <span class="n">beta_logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">get_log_probs</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+            <span class="n">beta_logp</span> <span class="o">=</span> <span class="p">(</span><span class="n">b_logp</span><span class="p">[:,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+
+        <span class="n">importance_weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_weight</span><span class="p">(</span><span class="n">policy_logp</span><span class="p">,</span> <span class="n">beta_logp</span><span class="p">)</span>
+        <span class="n">lambda_k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_lambda_k</span><span class="p">(</span><span class="n">policy_logp</span><span class="p">)</span>
+
+        <span class="n">policy_loss</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span>
+                <span class="n">importance_weight</span> <span class="o">*</span> <span class="n">lambda_k</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;return&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">policy_logp</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_softmax</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;beta_label&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">b_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">get_beta_state</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">b_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="n">b_state</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+                <span class="n">b_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax_loss</span><span class="p">(</span><span class="n">b_action</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;beta_label&quot;</span><span class="p">])</span>
+                <span class="n">beta_loss</span> <span class="o">=</span> <span class="n">b_out</span><span class="o">.</span><span class="n">loss</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">beta_loss</span> <span class="o">=</span> <span class="n">beta_out</span><span class="o">.</span><span class="n">loss</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;beta_label&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">b_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">get_beta_state</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">b_logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">get_log_probs</span><span class="p">(</span><span class="n">b_state</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+                <span class="n">beta_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_criterion</span><span class="p">(</span><span class="n">b_logits</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;beta_label&quot;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">beta_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_criterion</span><span class="p">(</span><span class="n">beta_logits</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;action&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">policy_loss</span><span class="p">,</span> <span class="n">beta_loss</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">importance_weight</span><span class="p">,</span> <span class="n">lambda_k</span>
+
+    <span class="k">def</span> <span class="nf">compute_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="p">(</span>
+            <span class="n">policy_loss</span><span class="p">,</span>
+            <span class="n">beta_loss</span><span class="p">,</span>
+            <span class="n">action</span><span class="p">,</span>
+            <span class="n">importance_weight</span><span class="p">,</span>
+            <span class="n">lambda_k</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_loss</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;policy_loss&#39;</span><span class="p">:</span> <span class="n">policy_loss</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;beta_loss&#39;</span><span class="p">:</span> <span class="n">beta_loss</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;importance_weight&#39;</span><span class="p">:</span> <span class="n">importance_weight</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;lambda_k&#39;</span><span class="p">:</span> <span class="n">lambda_k</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+                <span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="n">action</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">info</span>
+
+    <span class="k">def</span> <span class="nf">get_log_probs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_softmax</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">log_probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">softmax_loss</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#    _, log_probs = self.policy.get_log_probs(data)</span>
+                <span class="k">if</span> <span class="n">action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">log_probs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">softmax_fc</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">log_probs</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="n">policy_logits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policy</span><span class="o">.</span><span class="n">get_action</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">policy_dist</span> <span class="o">=</span> <span class="n">Categorical</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">policy_logits</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">rec_idxs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">policy_dist</span><span class="o">.</span><span class="n">probs</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rec_idxs</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="trainer">
+<h2>Trainer<a class="headerlink" href="#trainer" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">dbrl.data</span> <span class="kn">import</span> <span class="n">process_data</span><span class="p">,</span> <span class="n">build_dataloader</span>
+<span class="kn">from</span> <span class="nn">dbrl.models</span> <span class="kn">import</span> <span class="n">Reinforce</span>
+<span class="kn">from</span> <span class="nn">dbrl.network</span> <span class="kn">import</span> <span class="n">PolicyPi</span><span class="p">,</span> <span class="n">Beta</span>
+<span class="kn">from</span> <span class="nn">dbrl.trainer</span> <span class="kn">import</span> <span class="n">train_model</span>
+<span class="kn">from</span> <span class="nn">dbrl.utils</span> <span class="kn">import</span> <span class="n">count_vars</span><span class="p">,</span> <span class="n">init_param</span>
+
+
+<span class="k">def</span> <span class="nf">parse_args</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;run_reinforce&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--data&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;tianchi.csv&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--user_embeds&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;tianchi_user_embeddings.npy&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--item_embeds&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;tianchi_item_embeddings.npy&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--n_epochs&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--hist_num&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;num of history items to consider&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--n_rec&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;num of items to recommend&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--batch_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--hidden_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--lr&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--weight_decay&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--gamma&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--sess_mode&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;interval&quot;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specify when to end a session&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--seed&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parse_args</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A list all args: </span><span class="se">\n</span><span class="s2">======================&quot;</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+    <span class="c1"># 1. Loading user and item embeddings</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">user_embeds</span><span class="p">),</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">user_embeddings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;resources&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">item_embeds</span><span class="p">),</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">item_embeddings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">item_embeddings</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>   <span class="c1"># last item is used for padding</span>
+
+    <span class="c1"># 2. Setting model arguments/params</span>
+
+    <span class="n">n_epochs</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">n_epochs</span>
+    <span class="n">hist_num</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">hist_num</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">eval_batch_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">batch_size</span>
+    <span class="n">embed_size</span> <span class="o">=</span> <span class="n">item_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">hidden_size</span>
+    <span class="n">input_dim</span> <span class="o">=</span> <span class="n">embed_size</span> <span class="o">*</span> <span class="p">(</span><span class="n">hist_num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">action_dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_embeddings</span><span class="p">)</span>
+    <span class="n">policy_lr</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">lr</span>
+    <span class="n">beta_lr</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">lr</span>
+    <span class="n">weight_decay</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">weight_decay</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">gamma</span>
+    <span class="n">n_rec</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">n_rec</span>
+    <span class="n">pad_val</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">item_embeddings</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">sess_mode</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">sess_mode</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">one_hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="n">reward_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;pv&quot;</span><span class="p">:</span> <span class="mf">1.</span><span class="p">,</span> <span class="s2">&quot;cart&quot;</span><span class="p">:</span> <span class="mf">2.</span><span class="p">,</span> <span class="s2">&quot;fav&quot;</span><span class="p">:</span> <span class="mf">2.</span><span class="p">,</span> <span class="s2">&quot;buy&quot;</span><span class="p">:</span> <span class="mf">3.</span><span class="p">}</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;item&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">,</span> <span class="s2">&quot;pur_power&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;shop&quot;</span><span class="p">,</span> <span class="s2">&quot;brand&quot;</span><span class="p">]</span>
+
+    <span class="n">cutoffs</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">item_embeddings</span><span class="p">)</span> <span class="o">//</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">item_embeddings</span><span class="p">)</span> <span class="o">//</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nb">len</span><span class="p">(</span><span class="n">item_embeddings</span><span class="p">)</span> <span class="o">//</span> <span class="mi">3</span>
+    <span class="p">]</span>
+
+    <span class="c1"># 3. Building the data loader</span>
+
+    <span class="p">(</span>
+        <span class="n">n_users</span><span class="p">,</span>
+        <span class="n">n_items</span><span class="p">,</span>
+        <span class="n">train_user_consumed</span><span class="p">,</span>
+        <span class="n">test_user_consumed</span><span class="p">,</span>
+        <span class="n">train_sess_end</span><span class="p">,</span>
+        <span class="n">test_sess_end</span><span class="p">,</span>
+        <span class="n">train_rewards</span><span class="p">,</span>
+        <span class="n">test_rewards</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">process_data</span><span class="p">(</span><span class="n">PATH</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">time_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">sess_mode</span><span class="o">=</span><span class="n">sess_mode</span><span class="p">,</span>
+                     <span class="n">interval</span><span class="o">=</span><span class="n">one_hour</span><span class="p">,</span> <span class="n">reward_shape</span><span class="o">=</span><span class="n">reward_map</span><span class="p">)</span>
+
+    <span class="n">train_loader</span><span class="p">,</span> <span class="n">eval_loader</span> <span class="o">=</span> <span class="n">build_dataloader</span><span class="p">(</span>
+        <span class="n">n_users</span><span class="p">,</span>
+        <span class="n">n_items</span><span class="p">,</span>
+        <span class="n">hist_num</span><span class="p">,</span>
+        <span class="n">train_user_consumed</span><span class="p">,</span>
+        <span class="n">test_user_consumed</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">sess_mode</span><span class="o">=</span><span class="n">sess_mode</span><span class="p">,</span>
+        <span class="n">train_sess_end</span><span class="o">=</span><span class="n">train_sess_end</span><span class="p">,</span>
+        <span class="n">test_sess_end</span><span class="o">=</span><span class="n">test_sess_end</span><span class="p">,</span>
+        <span class="n">n_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">compute_return</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">neg_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">train_rewards</span><span class="o">=</span><span class="n">train_rewards</span><span class="p">,</span>
+        <span class="n">test_rewards</span><span class="o">=</span><span class="n">test_rewards</span><span class="p">,</span>
+        <span class="n">reward_shape</span><span class="o">=</span><span class="n">reward_map</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 4. Building the model</span>
+
+    <span class="n">policy</span> <span class="o">=</span> <span class="n">PolicyPi</span><span class="p">(</span>
+        <span class="n">input_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">user_embeddings</span><span class="p">,</span>
+        <span class="n">item_embeddings</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pad_val</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">Beta</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">action_dim</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">init_param</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+    <span class="n">policy_optim</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">policy</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">policy_lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">)</span>
+    <span class="n">beta_optim</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">beta</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">beta_lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Reinforce</span><span class="p">(</span>
+        <span class="n">policy</span><span class="p">,</span>
+        <span class="n">policy_optim</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">,</span>
+        <span class="n">beta_optim</span><span class="p">,</span>
+        <span class="n">hidden_size</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="p">,</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">weight_clip</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+        <span class="n">offpolicy_correction</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">topk</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">adaptive_softmax</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">cutoffs</span><span class="o">=</span><span class="n">cutoffs</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">var_counts</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">count_vars</span><span class="p">(</span><span class="n">module</span><span class="p">)</span> <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="p">[</span><span class="n">policy</span><span class="p">,</span> <span class="n">beta</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of parameters: policy: </span><span class="si">{</span><span class="n">var_counts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, &#39;</span>
+          <span class="sa">f</span><span class="s1">&#39; beta: </span><span class="si">{</span><span class="n">var_counts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># 5. Training the model</span>
+
+    <span class="n">train_model</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">n_epochs</span><span class="p">,</span>
+        <span class="n">n_rec</span><span class="p">,</span>
+        <span class="n">n_users</span><span class="p">,</span>
+        <span class="n">train_user_consumed</span><span class="p">,</span>
+        <span class="n">test_user_consumed</span><span class="p">,</span>
+        <span class="n">hist_num</span><span class="p">,</span>
+        <span class="n">train_loader</span><span class="p">,</span>
+        <span class="n">eval_loader</span><span class="p">,</span>
+        <span class="n">item_embeddings</span><span class="p">,</span>
+        <span class="n">eval_batch_size</span><span class="p">,</span>
+        <span class="n">pad_val</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">,</span>
+        <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span>
+        <span class="n">eval_interval</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">)</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">policy</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;resources/model_reinforce.pt&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train and save done!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T119194_Contextual_RL_Product_Recommender.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Contextual Recommender with Vowpal Wabbit</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T239645_Neural_Interactive_Collaborative_Filtering.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Neural Interactive Collaborative Filtering</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
