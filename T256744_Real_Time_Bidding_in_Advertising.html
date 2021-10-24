@@ -1,0 +1,839 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Bidding in Advertising &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="GAN User Model for RL-based Recommendation System" href="T729495_GAN_User_Model_for_RL_based_Recommendation_System.html" />
+    <link rel="prev" title="Predicting rewards with the state-value and action-value function" href="T532530_Predicting_rewards_with_the_state_value_and_action_value_function.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T373316_Top_K_Off_Policy_Correction_for_a_REINFORCE_Recommender_System.html">
+   Top-K Off-Policy Correction for a REINFORCE Recommender System
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T239645_Neural_Interactive_Collaborative_Filtering.html">
+   Neural Interactive Collaborative Filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T985223_Batch_Constrained_Deep_Q_Learning.html">
+   Batch-Constrained Deep Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T616640_Pydeep_Recsys.html">
+   Pydeep Recsys
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T219174_Recsim_Catalyst.html">
+   Recsim Catalyst
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079222_Solving_Multi_armed_Bandit_Problems.html">
+   Solving Multi-armed Bandit Problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T734685_Deep_Reinforcement_Learning_in_Large_Discrete_Action_Spaces.html">
+   Deep Reinforcement Learning in Large Discrete Action Spaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T257798_Off_Policy_Learning_in_Two_stage_Recommender_Systems.html">
+   Off-Policy Learning in Two-stage Recommender Systems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T798984_Comparing_Simple_Exploration_Techniques%3A_%CE%B5_Greedy%2C_Annealing%2C_and_UCB.html">
+   Comparing Simple Exploration Techniques: ε-Greedy, Annealing, and UCB
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T532530_Predicting_rewards_with_the_state_value_and_action_value_function.html">
+   Predicting rewards with the state-value and action-value function
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Real-Time Bidding in Advertising
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T729495_GAN_User_Model_for_RL_based_Recommendation_System.html">
+   GAN User Model for RL-based Recommendation System
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T256744_Real_Time_Bidding_in_Advertising.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T256744_Real_Time_Bidding_in_Advertising.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T256744_Real_Time_Bidding_in_Advertising.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#params">
+   Params
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#utils">
+   Utils
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#agent">
+   Agent
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-the-experiment">
+   Running the Experiment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results">
+   Results
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="real-time-bidding-in-advertising">
+<h1>Real-Time Bidding in Advertising<a class="headerlink" href="#real-time-bidding-in-advertising" title="Permalink to this headline">¶</a></h1>
+<p>Contrary to sponsored advertising, where advertisers set fixed bids, in real-time bid‐ ding (RTB) you can set a bid for every individual impression. When a user visits a website that supports ads, this triggers an auction where advertisers bid for an impres‐ sion. Advertisers must submit bids within a period of time, where 100 ms is a com‐ mon limit.</p>
+<p>The advertising platform provides contextual and behavioral information to the advertiser for evaluation. The advertiser uses an automated algorithm to decide how much to bid based upon the context. In the long-term, the platform’s products must deliver a satisfying experience, to maintain the advertising revenue stream. But adver‐ tisers want to maximize some key performance indicator (KPI), for example, the number of impressions or click through rate (CTR), for the least cost.</p>
+<p>RTB presents a clear action (the bid), state (the information provided by the plat‐ form) and agent (the bidding algorithm). Both platforms and advertisers can use RL to optimize for their definition of reward.</p>
+<p>To quickly demonstrate this idea, below I present some code to simulate a bidding environment. First let me install the dependencies.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install pygame==1.9.6 pandas==1.0.5 matplotlib==3.2.1 gym==0.17.3 gym-display-advertising==0.0.1
+!pip install --upgrade git+git://github.com/david-abel/simple_rl.git@77c0d6b910efbe8bdd5f4f87337c5bc4aed0d79c
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">simple_rl.agents</span> <span class="kn">import</span> <span class="n">RandomAgent</span><span class="p">,</span> <span class="n">DelayedQAgent</span><span class="p">,</span> <span class="n">DoubleQAgent</span><span class="p">,</span> <span class="n">QLearningAgent</span>
+
+<span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">import</span> <span class="nn">gym_display_advertising</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="params">
+<h2>Params<a class="headerlink" href="#params" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eps</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">gam</span> <span class="o">=</span> <span class="mf">0.99</span>
+<span class="n">alph</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="n">n_episodes</span> <span class="o">=</span> <span class="mi">200</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h2>
+<p>This section contains quite a lot of code. These are the helper functions to perform various aspects of the problem. For example, I need to discretize the state space so that it works with the tabular value-based algorithms.</p>
+<p>Then there is some helper code to perform the training iteration. Loops in loops.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">state_mapping</span><span class="p">(</span><span class="n">obs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Since this is tabular, we can&#39;t use real numbers. There would be an infinite</span>
+<span class="sd">    number of states. Instead I round and convert to an integer. This is a</span>
+<span class="sd">    simple form of _tile coding_.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">obs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="k">def</span> <span class="nf">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">learning</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">episode_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">episode_over</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">action_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">episode_over</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="s2">&quot;q_func&quot;</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span>
+                <span class="n">state_mapping</span><span class="p">(</span><span class="n">observation</span><span class="p">),</span>
+                <span class="n">reward</span><span class="p">,</span>
+                <span class="n">learning</span><span class="o">=</span><span class="n">learning</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">act</span><span class="p">(</span>
+                <span class="n">state_mapping</span><span class="p">(</span><span class="n">observation</span><span class="p">),</span>
+                <span class="n">reward</span><span class="p">)</span>
+        <span class="n">action_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">observation</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">episode_over</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">episode_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+    <span class="n">agent</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">episode_reward</span><span class="p">,</span> <span class="n">action_buffer</span>
+
+<span class="k">def</span> <span class="nf">train_agent</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent_func</span><span class="p">,</span> <span class="n">n_repeats</span><span class="p">):</span>
+    <span class="n">train_rewards_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">n_repeats</span><span class="p">))</span>
+    <span class="n">train_bid_buffer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">n_repeats</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">batch_size</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_repeats</span><span class="p">):</span>
+        <span class="n">agent</span> <span class="o">=</span> <span class="n">agent_func</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episodes</span><span class="p">):</span>
+            <span class="n">episode_reward</span><span class="p">,</span> <span class="n">action_buffer</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">)</span>
+            <span class="n">train_rewards_buffer</span><span class="p">[</span><span class="n">episode</span><span class="p">,</span> <span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">episode_reward</span>
+            <span class="n">train_bid_buffer</span><span class="p">[</span><span class="n">episode</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+                <span class="n">action_buffer</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">env</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">action_buffer</span><span class="p">)),</span>
+                <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span> <span class="s2">&quot;q_func&quot;</span><span class="p">):</span>
+        <span class="n">print_arbitrary_policy</span><span class="p">(</span><span class="n">agent</span><span class="o">.</span><span class="n">q_func</span><span class="p">)</span>
+
+    <span class="c1"># Test</span>
+    <span class="n">agent</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">episode_reward</span><span class="p">,</span> <span class="n">test_bid_buffer</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">learning</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="s2">&quot;TEST&quot;</span><span class="p">,</span>
+            <span class="n">episode_reward</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">train_rewards_buffer</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">test_bid_buffer</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">train_rewards_buffer</span><span class="p">,</span> <span class="n">train_bid_buffer</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">average</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">print_arbitrary_policy</span><span class="p">(</span><span class="n">Q</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="p">)):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">state</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">values</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="agent">
+<h2>Agent<a class="headerlink" href="#agent" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">q_agent</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">QLearningAgent</span><span class="p">(</span>
+        <span class="n">actions</span><span class="p">,</span>
+        <span class="n">gamma</span><span class="o">=</span><span class="n">gam</span><span class="p">,</span>
+        <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alph</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">random_agent</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">RandomAgent</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">sarsa_agent</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">SARSAAgent</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gam</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alph</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-experiment">
+<h2>Running the Experiment<a class="headerlink" href="#running-the-experiment" title="Permalink to this headline">¶</a></h2>
+<p>Finally I’m going to run the experiments. I also print a lot of debugging so you can see the raw Q-values. I encourage you to inspect these, and investigate how this changes through learning.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bidding_rl_delta_q_learning&quot;</span>
+<span class="n">env_name</span> <span class="o">=</span> <span class="s2">&quot;StaticDisplayAdvertising-v0&quot;</span>
+<span class="n">num_repeats</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">q_agent</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">env_name</span><span class="p">)</span>
+<span class="n">rewards_buffer</span><span class="p">,</span> <span class="n">bid_buffer</span> <span class="o">=</span> <span class="n">train_agent</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">num_repeats</span><span class="p">)</span>
+<span class="n">save</span><span class="p">(</span><span class="n">average</span><span class="p">(</span><span class="n">rewards_buffer</span><span class="p">),</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+<span class="n">save</span><span class="p">(</span><span class="n">average</span><span class="p">(</span><span class="n">bid_buffer</span><span class="p">),</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_bid.json&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stopping </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting bidding_rl_delta_q_learning
+(0.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 0.0)]
+(1.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 0.0)]
+(2.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 0.0)]
+(3.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 0.0)]
+(4.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 0.0)]
+(5.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 1.5986184241244227e-16)]
+(6.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 2.9767579532479464e-17)]
+(7.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 2.1017160764932272e-12)]
+(8.0,): [(0, 0.0), (1, 2.937298888795957e-16), (2, 0.0), (3, 0.0), (4, 0.0), (5, 0.0), (6, 0.0)]
+(9.0,): [(0, 0.0), (1, 0), (2, 0.0), (3, 0.0), (4, 0.0), (5, 7.863725940834891e-13), (6, 0)]
+(10.0,): [(0, 0.0), (1, 0.0), (2, 7.683171571207736e-20), (3, 3.385530538584227e-13), (4, 0.0), (5, 3.4611686752791275e-09), (6, 0.0)]
+(11.0,): [(0, 0.0), (1, 9.558765177717925e-16), (2, 0.0), (3, 3.925213342567121e-13), (4, 1.1864155088453227e-12), (5, 1.1487337936278007e-07), (6, 2.1334634731235385e-10)]
+(12.0,): [(0, 0.0), (1, 0), (2, 0.0), (3, 2.169797603618152e-09), (4, 5.238053608921087e-10), (5, 0.0), (6, 2.861207259076816e-05)]
+(13.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0.0), (5, 0), (6, 0.00019348380980921889)]
+(14.0,): [(0, 0), (1, 0.0), (2, 7.124021415011489e-10), (3, 0.0), (4, 1.2848041263229343e-10), (5, 1.5201707084878288e-10), (6, 0.0024657147527178034)]
+(15.0,): [(0, 0.0), (1, 0.0), (2, 0), (3, 0), (4, 5.389611359550401e-06), (5, 0), (6, 0)]
+(16.0,): [(0, 0.0), (1, 1.8921861445448376e-07), (2, 0), (3, 0), (4, 0), (5, 0.0), (6, 0.004610079904908892)]
+(17.0,): [(0, 0.0), (1, 0.0), (2, 0.0), (3, 0.0), (4, 0), (5, 2.8823350348146305e-05), (6, 0.0006066167548883614)]
+(18.0,): [(0, 1.4946323954474337e-17), (1, 6.047239739208024e-07), (2, 2.1096681193744704e-09), (3, 6.92846221865187e-08), (4, 2.58122203640065e-06), (5, 0.0060658262392547305), (6, 0)]
+(19.0,): [(0, 4.440622564443755e-17), (1, 5.470419049657874e-07), (2, 1.4194100076143626e-06), (3, 3.9121732075389835e-06), (4, 0.0001001784086509009), (5, 0.025790050471078803), (6, 0.00020053623088479917)]
+(20.0,): [(0, 2.5190132994218816e-12), (1, 2.3229604384118518e-05), (2, 3.899819647396959e-05), (3, 0.0009503177107922988), (4, 0.28819599250118233), (5, 0.00182065979608774), (6, 0.0022094835647729788)]
+(21.0,): [(0, 4.07978856602482e-11), (1, 5.058889331997783e-05), (2, 0.15173186379013745), (3, 0.0029137067742536224), (4, 0.0031171609808562516), (5, 0.001902799298912826), (6, 0.00249768214882832)]
+(22.0,): [(0, 0.0), (1, 0), (2, 0.015426124387019796), (3, 0.00010078070953049689), (4, 0.0001008141400611908), (5, 0.0002007620791866908), (6, 0)]
+(23.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0.004216286889076344), (6, 0)]
+(24.0,): [(0, 4.896174202132625e-10), (1, 0), (2, 0.00010007925305323805), (3, 0), (4, 0.010099827827821083), (5, 0.00010014893771066539), (6, 0.00010031667860332133)]
+(25.0,): [(0, 0), (1, 0.00010009960891082659), (2, 0), (3, 0), (4, 0.0001005846869236042), (5, 0.014043641898698918), (6, 0.00020215776493054285)]
+(26.0,): [(0, 0), (1, 0), (2, 0.008613994852213456), (3, 0), (4, 0.00010022929597136172), (5, 0), (6, 0.00010018904273016812)]
+(27.0,): [(0, 2.6031070835389265e-07), (1, 0.0005042827601518867), (2, 0.00010010890248265988), (3, 0), (4, 0), (5, 0.0002008228932544119), (6, 0.017855431591600142)]
+(28.0,): [(0, 2.2273832608930657e-06), (1, 0.0019140773652747219), (2, 0.001308096014059514), (3, 0.2182074069454753), (4, 0.0016007805238050967), (5, 0.001302907928894972), (6, 0.001010604942708029)]
+(29.0,): [(0, 0), (1, 0), (2, 0.003162974819583311), (3, 0), (4, 0.00010017825314349963), (5, 0.00010008913487355903), (6, 0)]
+(30.0,): [(0, 9.572112043379467e-10), (1, 0.011644321561148821), (2, 0), (3, 0.0002014589850891427), (4, 0.00020009893226886373), (5, 0.00010000003041687818), (6, 0)]
+(31.0,): [(0, 2.3891165651271934e-06), (1, 0.00023600617369892116), (2, 0), (3, 0.00010017825314349963), (4, 0), (5, 0.002200472489744916), (6, 0)]
+(32.0,): [(0, 0.0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0.00010000007590782745), (6, 0.0013007429751292585)]
+(33.0,): [(0, 1.0906650653822107e-06), (1, 0), (2, 0), (3, 0), (4, 1.4241132538663945e-10), (5, 3.661444710925897e-07), (6, 0)]
+(34.0,): [(0, 0), (1, 0.0026112081102226854), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(35.0,): [(0, 1.4983320073365203e-06), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(36.0,): [(0, 0), (1, 0.00010004950774456996), (2, 0), (3, 0.00010049466752330035), (4, 0), (5, 0), (6, 0.003997930612608225)]
+(37.0,): [(0, 3.436782022501716e-06), (1, 0.00019995025428245792), (2, 0.0005997907153505415), (3, 0.058072233225188126), (4, 0.0005042449342761901), (5, 0.0009804148385238257), (6, 0.00020047619226734722)]
+(38.0,): [(0, 1.3478838240934523e-06), (1, 0), (2, 0.006216906936272676), (3, 0.0001005532816692978), (4, 0.00010919964392670323), (5, 0), (6, 0.0001)]
+(39.0,): [(0, 7.4393102662255105e-06), (1, 0.0001000000749269613), (2, 0.0002124685669219098), (3, 0.00020204261217701285), (4, 0.03330403969292585), (5, 0.00020006613017916548), (6, 0.00010022860280310472)]
+(40.0,): [(0, 0.0019668257458606625), (1, 0.0006018072054467757), (2, 0.0012072469128189829), (3, 0.16185356405028956), (4, 0.0021994102911465866), (5, 0.0016998053928706566), (6, 0.001502311877657156)]
+(41.0,): [(0, 0.0004516973448730999), (1, 0.0004115377752703198), (2, 0.035998466629186), (3, 0), (4, 0.00010002144203520524), (5, 0.00020002960781116428), (6, 0.00030030686132668475)]
+(42.0,): [(0, 0.00010159003534500829), (1, 0.002409133998153044), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0.0001)]
+(43.0,): [(0, 0.0006678661955772906), (1, 0.00010177238252570789), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(44.0,): [(0, 0.001511199210282052), (1, 0), (2, 0), (3, 1.980293805414213e-08), (4, 0), (5, 0), (6, 0)]
+(45.0,): [(0, 0), (1, 7.172763282268792e-06), (2, 0), (3, 0), (4, 0), (5, 0.001100627986577247), (6, 0)]
+(46.0,): [(0, 0), (1, 0.00010007922986307778), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(47.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0.0030010394268519184), (5, 0.0001), (6, 0)]
+(48.0,): [(0, 0), (1, 9.973790352670024e-09), (2, 0), (3, 0), (4, 0.0025015773579352227), (5, 0), (6, 0)]
+(49.0,): [(0, 0), (1, 0), (2, 0.00020013852521863395), (3, 0.00010013877337162042), (4, 0), (5, 0.0018033917624542984), (6, 0)]
+(50.0,): [(0, 0), (1, 0), (2, 0.00439645674010904), (3, 0.0001003561657243894), (4, 0), (5, 0), (6, 0)]
+(51.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0.000499959406)]
+(52.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0.0002003562630508606), (5, 0), (6, 0)]
+(53.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 9.902941461308811e-09), (5, 0), (6, 0)]
+(54.0,): [(0, 0), (1, 0), (2, 0.0001999999039214536), (3, 0), (4, 0.000199989902960102), (5, 0.004299683736341352), (6, 0)]
+(55.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0.0027080430194056375), (6, 0)]
+(56.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0.00010002971173039202), (5, 0), (6, 0)]
+(57.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0.00030005909100506474), (6, 0.0)]
+(58.0,): [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0.0003999796127781386), (6, 0)]
+(59.0,): [(0, 0.0024120030072631933), (1, 0.0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(60.0,): [(0, 0.00592102694493925), (1, 3.860615955335337e-07), (2, 0.00020000980390991215), (3, 5.062314493971578e-07), (4, 3.9594066132711665e-08), (5, 0), (6, 0)]
+(61.0,): [(0, 0.00010002971080472114), (1, 0.001401505222238687), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(63.0,): [(0, 0.0005001769810456419), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(64.0,): [(0, 0), (1, 0), (2, 0.0003001383903819786), (3, 0), (4, 0), (5, 0), (6, 0)]
+(65.0,): [(0, 0), (1, 0.00040016818652469446), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(72.0,): [(0, 0), (1, 0.0003999994196520371), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(76.0,): [(0, 0), (1, 0), (2, 0.00039999940000078814), (3, 0), (4, 0), (5, 0), (6, 0)]
+(77.0,): [(0, 0), (1, 0), (2, 0), (3, 0.0012999103030588307), (4, 0.0), (5, 0), (6, 0)]
+(80.0,): [(0, 1.2472586490627816e-06), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+(85.0,): [(0, 0), (1, 0.0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0)]
+TEST: 71
+[[ 0. 42. 64. ... 44. 62. 54.]
+ [36. 65. 27. ... 81. 75. 85.]
+ [ 0. 39. 74. ... 45. 45. 42.]
+ ...
+ [ 3. 17. 40. ... 71. 67. 58.]
+ [ 0.  0.  0. ... 61. 61. 40.]
+ [ 1.  0.  1. ... 77. 49.  0.]]
+[0.2300021626161211, 0.25300237887773325, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655, 0.27830261676550655]
+Stopping bidding_rl_delta_q_learning
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next I run the same code again but this time with the random agent.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;bidding_rl_delta_random&quot;</span>
+<span class="n">env_name</span> <span class="o">=</span> <span class="s2">&quot;StaticDisplayAdvertising-v0&quot;</span>
+<span class="n">num_repeats</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">random_agent</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">env_name</span><span class="p">)</span>
+<span class="n">rewards_buffer</span><span class="p">,</span> <span class="n">bid_buffer</span> <span class="o">=</span> <span class="n">train_agent</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">num_repeats</span><span class="p">)</span>
+<span class="n">save</span><span class="p">(</span><span class="n">average</span><span class="p">(</span><span class="n">rewards_buffer</span><span class="p">),</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+<span class="n">save</span><span class="p">(</span><span class="n">average</span><span class="p">(</span><span class="n">bid_buffer</span><span class="p">),</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_bid.json&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stopping </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting bidding_rl_delta_random
+TEST: 1
+[[ 0. 10.  4. ... 19. 51. 48.]
+ [ 0.  0. 13. ... 19.  0.  2.]
+ [ 0.  0.  0. ... 10. 12. 12.]
+ ...
+ [ 6.  1.  1. ... 35. 14.  3.]
+ [ 6. 18. 12. ...  5. 25.  1.]
+ [ 0.  0.  0. ... 16.  0.  1.]]
+[0.28246021011155464, 0.26833719960597696, 0.13416859980298848, 0.1408770297931379, 0.1267893268138241, 0.13946825949520653, 0.1534150854447272, 0.0767075427223636, 0.0383537713611818, 0.0383537713611818, 0.04027145992924089, 0.04027145992924089, 0.04027145992924089, 0.020135729964620444, 0.02114251646285147, 0.010571258231425735, 0.005285629115712867, 0.0026428145578564336, 0.003964221836784651, 0.004360644020463115, 0.003924579618416804, 0.005886869427625206, 0.005592525956243945, 0.005592525956243945, 0.005872152254056143, 0.006459367479461757, 0.006782335853434846, 0.003391167926717423, 0.003221609530381552, 0.003221609530381552, 0.002899448577343397, 0.0014497242886716984, 0.0014497242886716984, 0.002174586433007548, 0.001957127789706793, 0.0009785638948533965, 0.0008807075053680569, 0.00044035375268402843, 0.0004843891279524313, 0.0004843891279524313, 0.0004359502151571882, 0.0004359502151571882, 0.0003923551936414694, 0.0003923551936414694, 0.0001961775968207347, 0.00029426639523110203, 0.00027955307546954694, 0.00027955307546954694, 0.00029353072924302433, 0.00029353072924302433, 0.00014676536462151216, 0.00022014804693226825, 0.00011007402346613412, 9.906662111952071e-05, 4.953331055976036e-05, 7.429996583964055e-05, 8.172996242360461e-05, 7.355696618124415e-05, 6.620126956311975e-05, 9.930190434467963e-05, 4.9650952172339815e-05, 4.9650952172339815e-05, 7.447642825850972e-05, 8.19240710843607e-05, 7.373166397592463e-05, 7.741824717472087e-05, 7.354733481598483e-05, 6.986996807518558e-05, 6.637646967142629e-05, 5.973882270428367e-05, 5.973882270428367e-05, 6.272576383949784e-05, 6.586205203147275e-05, 5.927584682832547e-05, 5.3348262145492926e-05, 2.6674131072746463e-05, 2.4006717965471818e-05, 2.2806382067198227e-05, 2.394670117055814e-05, 2.1552031053502322e-05, 3.232804658025348e-05, 4.849206987038022e-05, 4.606746637686121e-05, 4.837083969570427e-05, 4.353375572613385e-05, 4.7887131298747235e-05, 7.183069694812086e-05, 7.183069694812086e-05, 7.901376664293296e-05, 3.950688332146648e-05, 4.345757165361313e-05, 6.518635748041969e-05, 9.777953622062954e-05, 8.80015825985666e-05, 4.40007912992833e-05, 4.40007912992833e-05, 2.200039564964165e-05, 1.9800356084677485e-05, 2.1780391693145236e-05, 1.0890195846572618e-05]
+Stopping bidding_rl_delta_random
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<p>In the next two plots I present the sum of the rewards in an episode, over 200 episode, averaged over 10 runs. You’d need to perform more averaging to the the plots smoother.</p>
+<p>You can see that the RL based agent quickly learns where to position the bid amount in order to maximize the reward.</p>
+<p>The second image shows the bid amount changes over time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_files</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Random&quot;</span><span class="p">,</span> <span class="s2">&quot;bidding_rl_delta_random.json&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Q-Learning&quot;</span><span class="p">,</span> <span class="s2">&quot;bidding_rl_delta_q_learning.json&quot;</span><span class="p">)]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_files</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Episode&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Averaged Sum of Rewards&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T256744_Real_Time_Bidding_in_Advertising_19_0.png" src="_images/T256744_Real_Time_Bidding_in_Advertising_19_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_files</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Random&quot;</span><span class="p">,</span> <span class="s2">&quot;bidding_rl_delta_random_bid.json&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Q-Learning&quot;</span><span class="p">,</span> <span class="s2">&quot;bidding_rl_delta_q_learning_bid.json&quot;</span><span class="p">)]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_files</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Episode&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Advertising bid&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T256744_Real_Time_Bidding_in_Advertising_20_0.png" src="_images/T256744_Real_Time_Bidding_in_Advertising_20_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T532530_Predicting_rewards_with_the_state_value_and_action_value_function.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Predicting rewards with the state-value and action-value function</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T729495_GAN_User_Model_for_RL_based_Recommendation_System.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">GAN User Model for RL-based Recommendation System</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

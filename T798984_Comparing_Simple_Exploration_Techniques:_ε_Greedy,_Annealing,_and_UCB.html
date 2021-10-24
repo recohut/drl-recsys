@@ -1,0 +1,698 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparing Simple Exploration Techniques: ε-Greedy, Annealing, and UCB &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Predicting rewards with the state-value and action-value function" href="T532530_Predicting_rewards_with_the_state_value_and_action_value_function.html" />
+    <link rel="prev" title="Off-Policy Learning in Two-stage Recommender Systems" href="T257798_Off_Policy_Learning_in_Two_stage_Recommender_Systems.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T373316_Top_K_Off_Policy_Correction_for_a_REINFORCE_Recommender_System.html">
+   Top-K Off-Policy Correction for a REINFORCE Recommender System
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T239645_Neural_Interactive_Collaborative_Filtering.html">
+   Neural Interactive Collaborative Filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T985223_Batch_Constrained_Deep_Q_Learning.html">
+   Batch-Constrained Deep Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T616640_Pydeep_Recsys.html">
+   Pydeep Recsys
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T219174_Recsim_Catalyst.html">
+   Recsim Catalyst
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079222_Solving_Multi_armed_Bandit_Problems.html">
+   Solving Multi-armed Bandit Problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T734685_Deep_Reinforcement_Learning_in_Large_Discrete_Action_Spaces.html">
+   Deep Reinforcement Learning in Large Discrete Action Spaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T257798_Off_Policy_Learning_in_Two_stage_Recommender_Systems.html">
+   Off-Policy Learning in Two-stage Recommender Systems
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Comparing Simple Exploration Techniques: ε-Greedy, Annealing, and UCB
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T532530_Predicting_rewards_with_the_state_value_and_action_value_function.html">
+   Predicting rewards with the state-value and action-value function
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T256744_Real_Time_Bidding_in_Advertising.html">
+   Real-Time Bidding in Advertising
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T729495_GAN_User_Model_for_RL_based_Recommendation_System.html">
+   GAN User Model for RL-based Recommendation System
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scenario">
+   Scenario
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rl-environment">
+   RL environment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-the-experiment-with-a-random-algorithm">
+   Running the Experiment With a Random Algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-the-experiment-with-several-algorithms">
+   Running the Experiment with Several Algorithms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#improving-the-greedy-algorithm">
+   Improving the ε-greedy Algorithm
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="comparing-simple-exploration-techniques-greedy-annealing-and-ucb">
+<h1>Comparing Simple Exploration Techniques: ε-Greedy, Annealing, and UCB<a class="headerlink" href="#comparing-simple-exploration-techniques-greedy-annealing-and-ucb" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>A quick workshop comparing different exploration techniques.</em></p>
+</div></blockquote>
+<p>Bandit algorithms provide a way to optimize single competing actions in the shortest amount of time. Imagine you are attempting to find out which advert provides the best click through rate of which button provides the most sales. You could show two ads and count the number of clicks on each, over a one week period. But this means that many people would see a sub-optimal ad. Instead, you can learn over time and progressively shift the shown advert towards the one that is performing better.</p>
+<p><center><img src='_images/T798984_1.png'></center></p><div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install -q banditsbook==0.1.1 pandas==1.1.2 matplotlib==3.3.2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">arms.bernoulli</span> <span class="kn">import</span> <span class="n">BernoulliArm</span>
+<span class="kn">from</span> <span class="nn">algorithms.epsilon_greedy.standard</span> <span class="kn">import</span> <span class="n">EpsilonGreedy</span>
+<span class="kn">from</span> <span class="nn">algorithms.softmax.annealing</span> <span class="kn">import</span> <span class="n">AnnealingSoftmax</span>
+<span class="kn">from</span> <span class="nn">algorithms.ucb.ucb1</span> <span class="kn">import</span> <span class="n">UCB1</span>
+<span class="kn">from</span> <span class="nn">testing_framework.tests</span> <span class="kn">import</span> <span class="n">test_algorithm</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scenario">
+<h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
+<p>Imagine you work for an online ecommerce company. Given your role in engineering, you will be expected to develop new features and maintain existing ones. For example, you might be asked to improve the checkout process or migrate to a new library.</p>
+<p>But how can you be certain that your changes have the desired effect? Monitoring key performance indicators (KPIs) is one possible solution. For new features you want to positively impact the KPIs. For maintenance tasks you want no impact.</p>
+<p>As an example, take the classic scenario of establishing the best color for a button. Which is better, red or green? How do you quantify the difference? To approach this using RL you must define the three core elements of the problem: the reward, the actions, and the environment.</p>
+<p>To quantify performance, the result of an action must be measurable. In RL, this is the purpose of the reward. It provides evidence of an outcome, which can be good or bad. Practitioners typically encode good outcomes as positive values (but this is not strictly necessary).</p>
+<p>What reward signal should you choose for the website button example? You could say that clicks are a positive outcome. And a sale is a strongly positive outcome. Often you will have limited access to metrics and have to compromise. For example, rather than use the sale as the KPI, you could calculate the average sale for everyone who clicks the button and assign that single value to every click. That way you would not need to integrate with another system.</p>
+<p>The action is to choose whether to show the red button or the green button to a visitor, which in mathematical form would be <span class="math notranslate nohighlight">\(\mathcal{A} = \{a_{red},a_{green}\}\)</span>. Whenever a user visits your website your agent will decide which action to choose, as defined by the current strategy. The user then clicks the button or doesn’t and a reward is sent back to your agent. It’s easiest to imagine the reward being one for a click and zero for no click, for example. But it could easily be the profit made from that customer or any other business metric.</p>
+</div>
+<div class="section" id="rl-environment">
+<h2>RL environment<a class="headerlink" href="#rl-environment" title="Permalink to this headline">¶</a></h2>
+<p>When you work on an industrial project, the best environment is real life. However, your environment may be too expensive, dangerous, or complicated to develop against. Instead, you can build a simulation, which could be a simplified version of a domain (like a three-dimensional gaming engine), or modeled from collected data.</p>
+<p>Pretend that the notional website visitors do not click the button every time, only some proportion of the time. Also, they prefer the red button over the green button. In this example, I assume that a whopping 40% of users click the red button, but only 5% of users click the green. But these numbers could come from prior experimentation or a published model.</p>
+<p>Define two adverts, with a probability of clicking from the users. This is a simulation. Imagine that these are real ads.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arm0</span> <span class="o">=</span> <span class="n">BernoulliArm</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">arm1</span> <span class="o">=</span> <span class="n">BernoulliArm</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">arms</span> <span class="o">=</span> <span class="p">[</span><span class="n">arm0</span><span class="p">,</span> <span class="n">arm1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is an important definition, which glosses over a few important aspects. Primarily, these simulations are responsible for providing a reward whenever the simulated person performs an action. Sometimes the reward is a 0, when they don’t click, other times it’s a 1 when they do. Look:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">arm1</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.0, 1.0, 1.0, 0.0, 0.0]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-experiment-with-a-random-algorithm">
+<h2>Running the Experiment With a Random Algorithm<a class="headerlink" href="#running-the-experiment-with-a-random-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Now we have the “environment” simulated, we can run various algorithms to see how often the optimal action is presented to the user.</p>
+<p>A great baseline is a random agent, so let’s try that first.</p>
+<p>But I need a bit of supporting code, because I’m not interested in raw decisions. I want to see how often button 2 was chosen. To do this, I will repeat the experiment 1000 times, and measure the proportion of time ad 2 was chosen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">epsilon</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Choose a random action every time</span>
+<span class="n">num_sims</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># Number of repetitions</span>
+<span class="n">horizon</span> <span class="o">=</span> <span class="mi">250</span> <span class="c1"># Length of experiment</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span> <span class="c1"># Buffer</span>
+<span class="n">algo1</span> <span class="o">=</span> <span class="n">EpsilonGreedy</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span> <span class="c1"># Algorithm</span>
+<span class="n">sim_nums</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">chosen_arms</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">cumulative_rewards</span> <span class="o">=</span> <span class="n">test_algorithm</span><span class="p">(</span>
+        <span class="n">algo1</span><span class="p">,</span> <span class="n">arms</span><span class="p">,</span> <span class="n">num_sims</span><span class="p">,</span> <span class="n">horizon</span><span class="p">)</span> <span class="c1"># Running the environment/algorithm via the library</span>
+<span class="n">arrays</span> <span class="o">=</span> <span class="p">[[</span><span class="n">epsilon</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_sims</span> <span class="o">*</span> <span class="n">horizon</span><span class="p">,</span> <span class="n">sim_nums</span><span class="p">,</span> <span class="n">times</span><span class="p">]</span> <span class="c1"># Constructing the output array for aggregation</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
+        <span class="n">arrays</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;epsilon&#39;</span><span class="p">,</span> <span class="s1">&#39;simulation&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">))</span>
+<span class="n">df_chosen_arm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chosen_arms</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+<span class="n">df_chosen_arm</span> <span class="o">=</span> <span class="n">df_chosen_arm</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">num_sims</span> <span class="c1"># Aggregating to result in the proportion of time</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_chosen_arm</span><span class="p">)</span> <span class="c1"># Append to buffer.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Probability of Optimal Action&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Steps&quot;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB_17_0.png" src="_images/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB_17_0.png" />
+</div>
+</div>
+<p>As you can see, the optimal action is being selected half of the time, on average. This is the expected result for a random agent with two actions.</p>
+</div>
+<div class="section" id="running-the-experiment-with-several-algorithms">
+<h2>Running the Experiment with Several Algorithms<a class="headerlink" href="#running-the-experiment-with-several-algorithms" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s try and repeat with several different values of epsilon, the value that chooses the amount of time the algorithm chooses a random action. An epsilon of 0 would never choose a random action.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">epsilon</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+    <span class="n">algo1</span> <span class="o">=</span> <span class="n">EpsilonGreedy</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span>
+    <span class="n">sim_nums</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">chosen_arms</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">cumulative_rewards</span> <span class="o">=</span> <span class="n">test_algorithm</span><span class="p">(</span>
+        <span class="n">algo1</span><span class="p">,</span> <span class="n">arms</span><span class="p">,</span> <span class="n">num_sims</span><span class="p">,</span> <span class="n">horizon</span><span class="p">)</span>
+
+    <span class="n">arrays</span> <span class="o">=</span> <span class="p">[[</span><span class="n">epsilon</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_sims</span> <span class="o">*</span> <span class="n">horizon</span><span class="p">,</span> <span class="n">sim_nums</span><span class="p">,</span> <span class="n">times</span><span class="p">]</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
+        <span class="n">arrays</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;epsilon&#39;</span><span class="p">,</span> <span class="s1">&#39;simulation&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">))</span>
+    <span class="n">df_chosen_arm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chosen_arms</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">df_chosen_arm</span> <span class="o">=</span> <span class="n">df_chosen_arm</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">num_sims</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_chosen_arm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Probability of Optimal Action&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Steps&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB_21_0.png" src="_images/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB_21_0.png" />
+</div>
+</div>
+<p>Now there are several plots with different values of epsilon. You can see that when epsilon (the probability of exploration) is zero, then the agent never picks the optimal action. This is a bit of an implementation bug. The first time the agent picks an agent, it should be random. Eventualy, one of those actions is rewarding and it will subsequently pick the same action over an over again, without exploring other options.</p>
+<p>Another thing you will notice is the speed of convergence. The less exploration there is, the longer it will take to reach an optimal value.</p>
+</div>
+<div class="section" id="improving-the-greedy-algorithm">
+<h2>Improving the ε-greedy Algorithm<a class="headerlink" href="#improving-the-greedy-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>All algorithms are fundamentally limited by how effectively they explore and how quickly they exploit. The best algorithms are able to do both at the same time, but defining how to explore is largely problem dependent. For example, a maze and an optimal healthcare schedule would require different exploration strategies.</p>
+<p>The previous section showed that the hyperparameter ε controls this trade-off. Too high and the agent does too much searching, which results in choosing bad actions. Too low and the agent does too little searching and takes a long time to find new optimal actions.</p>
+<p>The simulation also factors into this discussion. If the difference between the rewards of two actions is small, the agent has to sample these two outcomes a lot. According to the law of large numbers, the agent’s confidence bound on the reward becomes smaller with more observations.</p>
+<p>It is often better to choose the action based upon the current estimates of the distribution of rewards. In other words, rather than returning a single action, the agent returns the probabilities of each action, weighted by expected rewards of each state. This is called a softmax function. This provides a natural exploration function defined by the current reward estimates.</p>
+<p>If the eventual aim is to extract as much reward as possible, then there is no point continuing to explore. You could remove the ε-greedy action. But it is more common to reduce the value of  over time. This is called annealing. The word annealing comes from metallurgy. It means to heat and cool metals slowly, to strengthen and remove stresses.</p>
+<p>A third popular improvement revolves around the idea that it doesn’t make sense to explore randomly, especially in simple simulations. The agent will learn more by exploring states that it hasn’t seen before. These algorithms add a bonus to each action for inadequately sampled states and are called upper-confidence-bound (UCB) methods. UCB algorithms are useful because they have no hyperparameters like ε (or the rate at which ε decreases, for annealing).</p>
+<p>In essence, bandits generally use three forms of exploration. Standard ε-Greedy, which randomly chooses an action some proportion of the time, and annealing version, which reduces the exploration over time, and finally UCB, which chooses an action depending on how often the action has been sampled.</p>
+<p>Define two adverts, with a probability of clicking from the users. This is a simulation. Imagine that these are real ads.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arm0</span> <span class="o">=</span> <span class="n">BernoulliArm</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">arm1</span> <span class="o">=</span> <span class="n">BernoulliArm</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">arms</span> <span class="o">=</span> <span class="p">[</span><span class="n">arm0</span><span class="p">,</span> <span class="n">arm1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">num_sims</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># Repetitions</span>
+<span class="n">horizon</span> <span class="o">=</span> <span class="mi">250</span> <span class="c1"># Number of steps in experiment</span>
+<span class="n">n_arms</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arms</span><span class="p">)</span>
+
+<span class="n">algo1</span> <span class="o">=</span> <span class="n">AnnealingSoftmax</span><span class="p">([],</span> <span class="p">[])</span> <span class="c1"># Annealing ε-Greedy</span>
+<span class="n">algo1</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">n_arms</span><span class="p">)</span>
+<span class="n">algo2</span> <span class="o">=</span> <span class="n">EpsilonGreedy</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span> <span class="c1"># Standard ε-Greedy, exploring 5% of the time</span>
+<span class="n">algo3</span> <span class="o">=</span> <span class="n">UCB1</span><span class="p">([],</span> <span class="p">[])</span> <span class="c1"># UCB</span>
+<span class="n">algo3</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">n_arms</span><span class="p">)</span>
+<span class="n">algos</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;e_greedy&quot;</span><span class="p">,</span> <span class="n">algo2</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;annealing_softmax&quot;</span><span class="p">,</span> <span class="n">algo1</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;ucb&quot;</span><span class="p">,</span> <span class="n">algo3</span><span class="p">)]</span>
+
+<span class="c1"># A bit of code to loop over each algorithm and average the results</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">algo</span> <span class="ow">in</span> <span class="n">algos</span><span class="p">:</span>
+    <span class="n">sim_nums</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">chosen_arms</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">cumulative_rewards</span> <span class="o">=</span> <span class="n">test_algorithm</span><span class="p">(</span>
+        <span class="n">algo</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">arms</span><span class="p">,</span> <span class="n">num_sims</span><span class="p">,</span> <span class="n">horizon</span><span class="p">)</span>
+    <span class="n">arrays</span> <span class="o">=</span> <span class="p">[</span><span class="n">sim_nums</span><span class="p">,</span> <span class="n">times</span><span class="p">]</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
+        <span class="n">arrays</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;simulation&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">))</span>
+    <span class="n">df_chosen_arm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chosen_arms</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">algo</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="n">df_probability_selected</span> <span class="o">=</span> <span class="n">df_chosen_arm</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">num_sims</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">df_probability_selected</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Probability of Optimal Action&quot;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Steps&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB_28_0.png" src="_images/T798984_Comparing_Simple_Exploration_Techniques:_ε_Greedy,_Annealing,_and_UCB_28_0.png" />
+</div>
+</div>
+<p>You can see that the ε-Greedy algorithm is taking a long time to converge to a similar level of performance. The reason being that it is still spending a large proportion of the time chossing random actions.</p>
+<p>The annealing version rapidly reduces the amount of random exploration to speed this learning up. This is better, but you need to tune the hyper-parameters (initial exploration rate, final exploration rate and how fast to anneal) for your specific problem.</p>
+<p>UCB attempts to quantify the number of times that action/state has been explored. If it has been explored a lot, and it is not the best action, then there’s little point in exploring more. This is good because there are no hyper-parameters but you’ll need to store a representation UCB attempts to quantify the number of times that action/state has been explored. If it has been explored a lot, and it is not the best action, then there’s little point in exploring more. This is good because there are no hyper-parameters but you’ll need to store visitation counts; something that might not be possible for certain problems.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T257798_Off_Policy_Learning_in_Two_stage_Recommender_Systems.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Off-Policy Learning in Two-stage Recommender Systems</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T532530_Predicting_rewards_with_the_state_value_and_action_value_function.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Predicting rewards with the state-value and action-value function</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

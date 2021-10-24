@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Predicting rewards with the state-value and action-value function &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Real-Time Bidding in Advertising" href="T256744_Real_Time_Bidding_in_Advertising.html" />
+    <link rel="prev" title="Comparing Simple Exploration Techniques: ε-Greedy, Annealing, and UCB" href="T798984_Comparing_Simple_Exploration_Techniques%3A_%CE%B5_Greedy%2C_Annealing%2C_and_UCB.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T373316_Top_K_Off_Policy_Correction_for_a_REINFORCE_Recommender_System.html">
+   Top-K Off-Policy Correction for a REINFORCE Recommender System
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T239645_Neural_Interactive_Collaborative_Filtering.html">
+   Neural Interactive Collaborative Filtering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T985223_Batch_Constrained_Deep_Q_Learning.html">
+   Batch-Constrained Deep Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T616640_Pydeep_Recsys.html">
+   Pydeep Recsys
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T219174_Recsim_Catalyst.html">
+   Recsim Catalyst
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079222_Solving_Multi_armed_Bandit_Problems.html">
+   Solving Multi-armed Bandit Problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T734685_Deep_Reinforcement_Learning_in_Large_Discrete_Action_Spaces.html">
+   Deep Reinforcement Learning in Large Discrete Action Spaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T257798_Off_Policy_Learning_in_Two_stage_Recommender_Systems.html">
+   Off-Policy Learning in Two-stage Recommender Systems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T798984_Comparing_Simple_Exploration_Techniques%3A_%CE%B5_Greedy%2C_Annealing%2C_and_UCB.html">
+   Comparing Simple Exploration Techniques: ε-Greedy, Annealing, and UCB
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Predicting rewards with the state-value and action-value function
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T256744_Real_Time_Bidding_in_Advertising.html">
+   Real-Time Bidding in Advertising
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T729495_GAN_User_Model_for_RL_based_Recommendation_System.html">
+   GAN User Model for RL-based Recommendation System
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T532530_Predicting_rewards_with_the_state_value_and_action_value_function.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T532530_Predicting_rewards_with_the_state_value_and_action_value_function.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T532530_Predicting_rewards_with_the_state_value_and_action_value_function.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-environment-a-simple-grid-world">
+   The environment - a simple grid world
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-agent">
+   The Agent
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#state-value-function">
+   State-value function
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#experiment">
+     Experiment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discussion">
+     Discussion
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#action-value-function">
+   Action-value function
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Experiment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Discussion
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="predicting-rewards-with-the-state-value-and-action-value-function">
+<h1>Predicting rewards with the state-value and action-value function<a class="headerlink" href="#predicting-rewards-with-the-state-value-and-action-value-function" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install -q numpy==1.19.2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-environment-a-simple-grid-world">
+<h2>The environment - a simple grid world<a class="headerlink" href="#the-environment-a-simple-grid-world" title="Permalink to this headline">¶</a></h2>
+<p>To demonstrate, let me use a rediculously simple grid-based environment. This consists of 5 squares, with a cliff on the left-hand side and a goal position on the right. Both are terminating states.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">starting_position</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># The starting position</span>
+<span class="n">cliff_position</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># The cliff position</span>
+<span class="n">end_position</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># The terminating state position</span>
+<span class="n">reward_goal_state</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1"># Reward for reaching goal</span>
+<span class="n">reward_cliff</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Reward for falling off cliff</span>
+
+<span class="k">def</span> <span class="nf">reward</span><span class="p">(</span><span class="n">current_position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">current_position</span> <span class="o">&lt;=</span> <span class="n">cliff_position</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">reward_cliff</span>
+    <span class="k">if</span> <span class="n">current_position</span> <span class="o">&gt;=</span> <span class="n">end_position</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">reward_goal_state</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">is_terminating</span><span class="p">(</span><span class="n">current_position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">current_position</span> <span class="o">&lt;=</span> <span class="n">cliff_position</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">current_position</span> <span class="o">&gt;=</span> <span class="n">end_position</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-agent">
+<h2>The Agent<a class="headerlink" href="#the-agent" title="Permalink to this headline">¶</a></h2>
+<p>In this simple environment, let us define an agent with a simple random strategy. On every step, the agent randomly decides to go left or right.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">strategy</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="c1"># Right</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># Left</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="state-value-function">
+<h2>State-value function<a class="headerlink" href="#state-value-function" title="Permalink to this headline">¶</a></h2>
+<p>The state-value function is a view of the expected return with respect to each state.</p>
+<p><span class="math notranslate nohighlight">\(V_{\pi}(s) \doteq \mathbb{E}_{\pi}[ G \vert s] = \mathbb{E}_{\pi}\bigg[ \sum^{T}_{k=0} \gamma^k r_{k} \vert s \bigg]\)</span></p>
+<p>You could estimate the expectation in a few ways, but the simplest is to simply average over all of the observed rewards. To investigate how this equation works, you can perform the calculation on a simple environment that is easy to validate.</p>
+<div class="section" id="experiment">
+<h3>Experiment<a class="headerlink" href="#experiment" title="Permalink to this headline">¶</a></h3>
+<p>Let’s iterate thousands of times and record what happens.</p>
+<p>The key to understanding this algorithm is to truly understand that we want to know the return, from a state, on average. Say that out loud. The return, from a state, on average.</p>
+<p>You’re not rewarding on every step. You’re only rewarding when the agent reaches a terminal state. But when you are in the middle of this environment, for example, there is a 50/50 chance of ending up at the goal. You might also end up off the cliff. So in this instance, the expected value of that state is half way between the maximum reward, 5, and the minimum reward, 0.</p>
+<p>Note that in this implementation 0 and 5 are terminating states, only 1-4 are valid states, so given four states the mid-point is actually in-between states. This will become clear when you inspect the values later.</p>
+<p>If you were to implement this, you need to keep track of which states have been visited and the eventual, final reward. So the implementation below has a simple buffer to keep track of positions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Global buffers to perform averaging later</span>
+<span class="n">value_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">end_position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">n_hits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">end_position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+    <span class="n">position_history</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># A log of positions in this episode</span>
+    <span class="n">current_position</span> <span class="o">=</span> <span class="n">starting_position</span> <span class="c1"># Reset</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Append position to log</span>
+        <span class="n">position_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_position</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_terminating</span><span class="p">(</span><span class="n">current_position</span><span class="p">):</span>
+            <span class="k">break</span>
+        
+        <span class="c1"># Update current position according to strategy</span>
+        <span class="n">current_position</span> <span class="o">+=</span> <span class="n">strategy</span><span class="p">()</span>
+
+    <span class="c1"># Now the episode has finished, what was the reward?</span>
+    <span class="n">current_reward</span> <span class="o">=</span> <span class="n">reward</span><span class="p">(</span><span class="n">current_position</span><span class="p">)</span>
+    
+    <span class="c1"># Now add the reward to the buffers that allow you to calculate the average</span>
+    <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">position_history</span><span class="p">:</span>
+        <span class="n">value_sum</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">+=</span> <span class="n">current_reward</span>
+        <span class="n">n_hits</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+    <span class="c1"># Now calculate the average for this episode and print</span>
+    <span class="n">expected_return</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">q</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">value_sum</span> <span class="o">/</span> <span class="n">n_hits</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">] Average reward: [</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">expected_return</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0] Average reward: [0.00, 0.00, nan, nan, nan, nan]
+[1] Average reward: [0.00, 3.33, 5.00, 5.00, 5.00, 5.00]
+[2] Average reward: [0.00, 2.50, 5.00, 5.00, 5.00, 5.00]
+[3] Average reward: [0.00, 2.00, 5.00, 5.00, 5.00, 5.00]
+[4] Average reward: [0.00, 1.67, 5.00, 5.00, 5.00, 5.00]
+[5] Average reward: [0.00, 1.43, 5.00, 5.00, 5.00, 5.00]
+[6] Average reward: [0.00, 1.11, 3.75, 5.00, 5.00, 5.00]
+[7] Average reward: [0.00, 0.91, 3.00, 5.00, 5.00, 5.00]
+[8] Average reward: [0.00, 0.83, 3.00, 5.00, 5.00, 5.00]
+[9] Average reward: [0.00, 0.77, 3.00, 5.00, 5.00, 5.00]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:30: RuntimeWarning: invalid value encountered in true_divide
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’ve capped the number of episodes to 10 so you can see the evolution of the value estimates. But I encourage you to run this yourself and change this to 10,000.</p>
+<p>Note that I have chosen a random seed that stubles right on the second episode. In general you would expect it to reach the goal every 1-in-5. Try changing the seed to see what happens?</p>
+<p>You can see that with each episode the value estimate gets closer and closer to the true value (which should be integer 0 to 5). For example, when you are in the state next to the goal (the box next to the end) the you would expect that the agent should stumble towards the goal more often than not. Indeed, 4 out of 5 times it does, which means that the average return is 5 (the goal) multipled by 4/5.</p>
+</div>
+<div class="section" id="discussion">
+<h3>Discussion<a class="headerlink" href="#discussion" title="Permalink to this headline">¶</a></h3>
+<p>It’s worth going through this code line by line. It truly is fundamental. This algorithm allows you to estimate the value of being in each state, purely by experiencing those states.</p>
+<p>The key is to remember that the goal is to predict the value FROM each state. The goal is always to reach a point where you are maximizing rewards, so your agent needs to know how far away from optimal it is. This distinction can be tricky to get your head around, but once you have it’s hard to think any other way.</p>
+<p>You can even use this in your life. Imagine you wanted to achieve some goal. All you have to do is predict the expected return from being in each new state. For example, say you wanted to get into reinforcement learning. You could go back to university, read the books, or go and watch TV. Each of these have value, but with different costs and lengths of time. The expected return of watching TV is probably very low. The expected return of reading the book is high, but doesn’t guarantee a job. Going back to university still doesn’t guarantee a job, but it might make it easier to get past HR, but it takes years to achieve. Making decisions in this way is known as using the expected value framework and is useful throughout business and life.</p>
+</div>
+</div>
+<div class="section" id="action-value-function">
+<h2>Action-value function<a class="headerlink" href="#action-value-function" title="Permalink to this headline">¶</a></h2>
+<p>The action-value function is a view of the expected return with respect to a given state and action choice. The action represents an extra dimension over and above the state-value function. The premise is the same, but this time you need to iterate over all actions as well as all states. The equation is also similar, with the extra addition of an action, a:</p>
+<p><span class="math notranslate nohighlight">\( Q_{\pi}(s, a) \doteq \mathbb{E}_{\pi}[ G \vert s, a ] = \mathbb{E}_{\pi}\bigg[ \sum^{T}_{k=0} \gamma^k r_{k} \vert s, a \bigg] \)</span></p>
+<div class="section" id="id1">
+<h3>Experiment<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>First off, there’s far more exploration to do, because we’re not only iterating over states, but also actions. You’ll need to run this for longer before it converges.</p>
+<p>Also, we’re going to have to store both the states and the actions in the buffer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Global buffers to perform averaging later</span>
+<span class="c1"># Second dimension is the actions</span>
+<span class="n">value_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">end_position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">n_hits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">end_position</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># A helper function to map the actions to valid buffer indices</span>
+<span class="k">def</span> <span class="nf">action_value_mapping</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
+
+
+<span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter</span><span class="p">):</span>
+    <span class="n">position_history</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># A log of positions in this episode</span>
+    <span class="n">current_position</span> <span class="o">=</span> <span class="n">starting_position</span> <span class="c1"># Reset</span>
+    <span class="n">current_action</span> <span class="o">=</span> <span class="n">strategy</span><span class="p">()</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Append position to log</span>
+        <span class="n">position_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">current_position</span><span class="p">,</span> <span class="n">current_action</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">is_terminating</span><span class="p">(</span><span class="n">current_position</span><span class="p">):</span>
+            <span class="k">break</span>
+        
+        <span class="c1"># Update current position according to strategy</span>
+        <span class="n">current_position</span> <span class="o">+=</span> <span class="n">strategy</span><span class="p">()</span>
+
+    <span class="c1"># Now the episode has finished, what was the reward?</span>
+    <span class="n">current_reward</span> <span class="o">=</span> <span class="n">reward</span><span class="p">(</span><span class="n">current_position</span><span class="p">)</span>
+    
+    <span class="c1"># Now add the reward to the buffers that allow you to calculate the average</span>
+    <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">act</span> <span class="ow">in</span> <span class="n">position_history</span><span class="p">:</span>
+        <span class="n">value_sum</span><span class="p">[</span><span class="n">pos</span><span class="p">,</span> <span class="n">action_value_mapping</span><span class="p">(</span><span class="n">act</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">current_reward</span>
+        <span class="n">n_hits</span><span class="p">[</span><span class="n">pos</span><span class="p">,</span> <span class="n">action_value_mapping</span><span class="p">(</span><span class="n">act</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+    <span class="c1"># Now calculate the average for this episode and print</span>
+    <span class="n">expect_return_0</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">q</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">value_sum</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">n_hits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">expect_return_1</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">q</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">value_sum</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">n_hits</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">] Average reward: [</span><span class="si">{}</span><span class="s2"> ; </span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">i</span><span class="p">,</span> <span class="n">expect_return_0</span><span class="p">,</span> <span class="n">expect_return_1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0] Average reward: [nan, 5.00, 5.00, 5.00, 5.00, 5.00 ; nan, nan, nan, nan, nan, nan]
+[1] Average reward: [0.00, 3.33, 5.00, 5.00, 5.00, 5.00 ; nan, nan, nan, nan, nan, nan]
+[2] Average reward: [0.00, 2.50, 5.00, 5.00, 5.00, 5.00 ; nan, nan, nan, nan, nan, nan]
+[3] Average reward: [0.00, 2.50, 5.00, 5.00, 5.00, 5.00 ; 0.00, 0.00, nan, nan, nan, nan]
+[4] Average reward: [0.00, 1.67, 3.75, 5.00, 5.00, 5.00 ; 0.00, 0.00, nan, nan, nan, nan]
+[5] Average reward: [0.00, 1.43, 3.75, 5.00, 5.00, 5.00 ; 0.00, 0.00, nan, nan, nan, nan]
+[6] Average reward: [0.00, 1.43, 3.75, 5.00, 5.00, 5.00 ; 0.00, 0.00, nan, nan, nan, nan]
+[7] Average reward: [0.00, 1.43, 3.75, 5.00, 5.00, 5.00 ; 0.00, 0.00, 0.00, nan, nan, nan]
+[8] Average reward: [0.00, 1.43, 3.75, 5.00, 5.00, 5.00 ; 0.00, 0.00, 0.00, 0.00, nan, nan]
+[9] Average reward: [0.00, 1.25, 3.75, 5.00, 5.00, 5.00 ; 0.00, 0.00, 0.00, 0.00, nan, nan]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:37: RuntimeWarning: invalid value encountered in true_divide
+/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:39: RuntimeWarning: invalid value encountered in true_divide
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Discussion<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>I’ve capped the number of episodes to 10 again. I encourage you to run this yourself and change this to 10,000.</p>
+<p>You can see that the results are similar, except for the fact that one of the actions (the action heading towards the cliff) is always zero, as you might expect.</p>
+<p>So what’s the point of this if the result is basically the same? The key is that enumerating the action simplifies latter algorithms. With the state-value function your agent has to figure out how to get to better states in order to maximise the expected return. However, if you have the actions at hand, you can simply pick the next best action!</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T798984_Comparing_Simple_Exploration_Techniques%3A_%CE%B5_Greedy%2C_Annealing%2C_and_UCB.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Comparing Simple Exploration Techniques: ε-Greedy, Annealing, and UCB</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T256744_Real_Time_Bidding_in_Advertising.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Real-Time Bidding in Advertising</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
