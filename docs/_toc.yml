@@ -18,6 +18,7 @@ parts:
   - file: T441700_REINFORCE
   - file: T079716_Importance_sampling
   - file: T759314_Kullback_Leibler_Divergence
+  - file: T035236_MDP_with_Dynamic_Programming_in_PyTorch
 - caption: RecSys Tutorials
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
