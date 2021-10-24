@@ -8,6 +8,9 @@ parts:
 - caption: RL Tutorials
   chapters:
   - file: T726861_Introduction_to_Gym_toolkit
+  - file: T705437_CartPole_using_Cross_Entropy
+  - file: T163940_FrozenLake_using_Cross_Entropy
+  - file: T471382_FrozenLake_using_Value_Iteration
 - caption: RecSys Tutorials
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
