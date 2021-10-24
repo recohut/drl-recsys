@@ -32,3 +32,4 @@ parts:
   - file: T239645_Neural_Interactive_Collaborative_Filtering
   - file: T985223_Batch_Constrained_Deep_Q_Learning
   - file: T616640_Pydeep_Recsys
+  - file: T219174_Recsim_Catalyst
