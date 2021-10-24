@@ -28,3 +28,7 @@ parts:
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
   - file: T119194_Contextual_RL_Product_Recommender
+  - file: T373316_Top_K_Off_Policy_Correction_for_a_REINFORCE_Recommender_System
+  - file: T239645_Neural_Interactive_Collaborative_Filtering
+  - file: T985223_Batch_Constrained_Deep_Q_Learning
+  - file: T616640_Pydeep_Recsys
