@@ -20,6 +20,7 @@ parts:
   - file: T759314_Kullback_Leibler_Divergence
   - file: T035236_MDP_with_Dynamic_Programming_in_PyTorch
   - file: T365137_REINFORCE_in_PyTorch
+  - file: T159137_MDP_Basics_with_Inventory_Control
 - caption: RecSys Tutorials
   chapters:
   - file: T000348_Multi_armed_Bandit_for_Banner_Ad
