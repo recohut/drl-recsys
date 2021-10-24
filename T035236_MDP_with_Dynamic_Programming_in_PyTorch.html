@@ -1,0 +1,1649 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MDP with Dynamic Programming in PyTorch &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="REINFORCE in PyTorch" href="T365137_REINFORCE_in_PyTorch.html" />
+    <link rel="prev" title="Kullback-Leibler Divergence" href="T759314_Kullback_Leibler_Divergence.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T035236_MDP_with_Dynamic_Programming_in_PyTorch.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T035236_MDP_with_Dynamic_Programming_in_PyTorch.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T035236_MDP_with_Dynamic_Programming_in_PyTorch.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simple-mdp">
+   Simple MDP
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performing-policy-evaluation">
+   Performing policy evaluation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulating-the-frozenlake-environment">
+   Simulating the FrozenLake environment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-an-mdp-with-a-value-iteration-algorithm">
+   Solving an MDP with a value iteration algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-an-mdp-with-a-policy-iteration-algorithm">
+   Solving an MDP with a policy iteration algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-coin-flipping-gamble-problem">
+   Solving the coin-flipping gamble problem
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="mdp-with-dynamic-programming-in-pytorch">
+<h1>MDP with Dynamic Programming in PyTorch<a class="headerlink" href="#mdp-with-dynamic-programming-in-pytorch" title="Permalink to this headline">¶</a></h1>
+<p>We will evaluate and solve MDPs using dynamic programming (DP). It is worth to note that the Model-based methods such as DP have some drawbacks. They require the environment to be fully known, including the transition matrix and reward matrix. They also have limited scalability, especially for environments with plenty of states.</p>
+<div class="section" id="simple-mdp">
+<h2>Simple MDP<a class="headerlink" href="#simple-mdp" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Our MDP has 3 state (sleep, study and play games), and 2 actions (word, slack). The 3 * 2 * 3 transition matrix T(s, a, s’) is as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]],</span>
+                  <span class="p">[[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]],</span>
+                  <span class="p">[[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]]]</span>
+                 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This means, for example, that when taking the a1 slack action from state s0 study, there is a 60% chance that it will become s1 sleep (maybe getting tired ) and a 30% chance that it will become s2 play games (maybe wanting to relax ), and that there is a 10% chance of keeping on studying (maybe a true workaholic ).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">])</span>
+
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">action</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We define the reward function as [+1, 0, -1] for three states, to compensate for the hard work. Obviously, the optimal policy, in this case, is choosing a0 work for each step (keep on studying – no pain no gain, right?). Also, we choose 0.5 as the discount factor, to begin with.</p>
+<p>In this oversimplified study-sleep-game process, the optimal policy, that is, the policy that achieves the highest total reward, is choosing action a0 in all steps. However, it won’t be that straightforward in most cases. Also, the actions taken in individual steps won’t necessarily be the same. They are usually dependent on states. So, we will have to solve an MDP by finding the optimal policy in real-world cases.</p>
+<p>The value function of a policy measures how good it is for an agent to be in each state, given the policy being followed. The greater the value, the better the state.</p>
+<p>We calculate the value, V, of the optimal policy using the matrix inversion method in the following function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cal_value_matrix_inversion</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">trans_matrix</span><span class="p">,</span> <span class="n">rewards</span><span class="p">):</span>
+    <span class="n">inv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">inverse</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">trans_matrix</span><span class="p">)</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">inv</span><span class="p">,</span> <span class="n">rewards</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Above, we calculated the value, V, of the optimal policy using matrix inversion. According to the Bellman Equation, the relationship between the value at step t+1 and that at step t can be expressed as follows:</p>
+<div class="math notranslate nohighlight">
+\[V_{t+1} = R + \gamma*T*V_t\]</div>
+<p>When the value converges, which means <span class="math notranslate nohighlight">\(V_{t+1} = V_t\)</span>, we can derive the value, <span class="math notranslate nohighlight">\(V\)</span>, as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}V = R + \gamma*T*V \\ V = (I-\gamma*T)^{-1}*R\end{split}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix with 1s on the main diagonal.</p>
+<p>One advantage of solving an MDP with matrix inversion is that you always get an exact answer. But the downside is its scalability. As we need to compute the inversion of an m * m matrix (where m is the number of possible states), the computation will become costly if there is a large number of states.</p>
+<p>We feed all variables we have to the function, including the transition probabilities associated with action a0:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trans_matrix</span> <span class="o">=</span> <span class="n">T</span><span class="p">[:,</span> <span class="n">action</span><span class="p">]</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">cal_value_matrix_inversion</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">trans_matrix</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The value function under the optimal policy is:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value function under the optimal policy is:
+tensor([[ 1.6787],
+        [ 0.6260],
+        [-0.4820]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We decide to experiment with different values for the discount factor. Let’s start with 0, which means we only care about the immediate reward:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">cal_value_matrix_inversion</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">trans_matrix</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The value function under the optimal policy is:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value function under the optimal policy is:
+tensor([[ 1.],
+        [ 0.],
+        [-1.]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is consistent with the reward function as we only look at the reward received in the next move.</p>
+<p>As the discount factor increases toward 1, future rewards are considered. Let’s take a look at <span class="math notranslate nohighlight">\(\gamma\)</span>=0.99:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.99</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">cal_value_matrix_inversion</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">trans_matrix</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The value function under the optimal policy is:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value function under the optimal policy is:
+tensor([[65.8293],
+        [64.7194],
+        [63.4876]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="performing-policy-evaluation">
+<h2>Performing policy evaluation<a class="headerlink" href="#performing-policy-evaluation" title="Permalink to this headline">¶</a></h2>
+<p>Policy evaluation is an iterative algorithm. It starts with arbitrary policy values and then iteratively updates the values based on the Bellman expectation equation until they converge. In each iteration, the value of a policy, π, for a state, s, is updated as follows:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{V}_{\pi}(s) = \sum_{a \in \mathcal{A}} \pi(a | s) (\mathcal{R}_s^a + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a {V}_{\pi}(s'))\]</div>
+<p>There are two ways to terminate an iterative updating process. One is by setting a fixed number of iterations, such as 1,000 and 10,000, which might be difficult to control sometimes. Another one involves specifying a threshold (usually 0.0001, 0.00001, or something similar) and terminating the process only if the values of all states change to an extent that is lower than the threshold specified.</p>
+<p>Next, we will perform policy evaluation on the study-sleep-game process under the optimal policy and a random policy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]],</span>
+                  <span class="p">[[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]],</span>
+                  <span class="p">[[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]]]</span>
+                 <span class="p">)</span>
+
+<span class="n">R</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">])</span>
+
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">.5</span>
+
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.0001</span>
+
+<span class="n">policy_optimal</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Develop a policy evaluation function that takes in a policy, transition matrix, rewards, discount factor, and a threshold and computes the value function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_evaluation</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">trans_matrix</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform policy evaluation</span>
+<span class="sd">    @param policy: policy matrix containing actions and their probability in each state</span>
+<span class="sd">    @param trans_matrix: transformation matrix</span>
+<span class="sd">    @param rewards: rewards for each state</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @param threshold: the evaluation will stop once values for all states are less than the threshold</span>
+<span class="sd">    @return: values of the given policy for all possible states</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V_temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">actions</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">policy</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">action_prob</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>
+                <span class="n">V_temp</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+=</span> <span class="n">action_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">trans_matrix</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">],</span> <span class="n">V</span><span class="p">))</span>
+        <span class="n">max_delta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">V_temp</span><span class="p">))</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V_temp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">max_delta</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The policy evaluation function does the following tasks:</p>
+<ul class="simple">
+<li><p>Initializes the policy values as all zeros.</p></li>
+<li><p>Updates the values based on the Bellman expectation equation.</p></li>
+<li><p>Computes the maximal change of the values across all states.</p></li>
+<li><p>If the maximal change is greater than the threshold, it keeps updating the values. Otherwise, it terminates the evaluation process and returns the latest values.</p></li>
+</ul>
+<p>Now let’s plug in the optimal policy and all other variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">policy_evaluation</span><span class="p">(</span><span class="n">policy_optimal</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The value function under the optimal policy is:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value function under the optimal policy is:
+tensor([ 1.6786,  0.6260, -0.4821])
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is almost the same as what we got using matrix inversion.</p>
+<p>We now experiment with another policy, a random policy where actions are picked with the same probabilities:</p>
+<p>Plug in the random policy and all other variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">policy_random</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                              <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                              <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
+
+<span class="n">V</span> <span class="o">=</span> <span class="n">policy_evaluation</span><span class="p">(</span><span class="n">policy_random</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The value function under the random policy is:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The value function under the random policy is:
+tensor([ 1.2348,  0.2691, -0.9013])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have just seen how effective it is to compute the value of a policy using policy evaluation. It is a simple convergent iterative approach, in the dynamic programming family, or to be more specific, approximate dynamic programming. It starts with random guesses as to the values and then iteratively updates them according to the Bellman expectation equation until they converge.</p>
+<p>Since policy evaluation uses iterative approximation, its result might not be exactly the same as the result of the matrix inversion method, which uses exact computation. In fact, we don’t really need the value function to be that precise. Also, it can solve the curses of dimensionality problem, which can result in scaling up the computation to thousands of millions of states. Therefore, we usually prefer policy evaluation over the other.</p>
+<p>One more thing to remember is that policy evaluation is used to predict how great a we will get from a given policy; it is not used for control problems.</p>
+<p>To take a closer look, we also plot the policy values over the whole evaluation process.</p>
+<p>We first need to record the value for each iteration in the policy_evaluation function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_evaluation_history</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">trans_matrix</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="n">V_his</span> <span class="o">=</span> <span class="p">[</span><span class="n">V</span><span class="p">]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V_temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">state</span><span class="p">,</span> <span class="n">actions</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">policy</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">action</span><span class="p">,</span> <span class="n">action_prob</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">actions</span><span class="p">):</span>
+                <span class="n">V_temp</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+=</span> <span class="n">action_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">trans_matrix</span><span class="p">[</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">],</span> <span class="n">V</span><span class="p">))</span>
+        <span class="n">max_delta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">V_temp</span><span class="p">))</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V_temp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">V_his</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">max_delta</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">V_his</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we feed the policy_evaluation_history function with the optimal policy, a discount factor of 0.5, and other variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V</span><span class="p">,</span> <span class="n">V_history</span> <span class="o">=</span> <span class="n">policy_evaluation_history</span><span class="p">(</span><span class="n">policy_optimal</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We then plot the resulting history of values using the following lines of code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">s0</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">s1</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">s2</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Optimal policy with gamma = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gamma</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Policy values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">s0</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;State s0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;State s1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;State s2&quot;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_36_0.png" src="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_36_0.png" />
+</div>
+</div>
+<p>Next, we run the same code but with two different discount factors, 0.2 and 0.99.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">V</span><span class="p">,</span> <span class="n">V_history</span> <span class="o">=</span> <span class="n">policy_evaluation_history</span><span class="p">(</span><span class="n">policy_optimal</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+<span class="n">s0</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">s1</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">s2</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Optimal policy with gamma = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gamma</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Policy values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">s0</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;State s0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;State s1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;State s2&quot;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_38_0.png" src="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_38_0.png" />
+</div>
+</div>
+<p>Comparing the plot with a discount factor of 0.5 with this one, we can see that the smaller the factor, the faster the policy values converge.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.99</span>
+<span class="n">V</span><span class="p">,</span> <span class="n">V_history</span> <span class="o">=</span> <span class="n">policy_evaluation_history</span><span class="p">(</span><span class="n">policy_optimal</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+<span class="n">s0</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">s1</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">s2</span><span class="p">,</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">V_history</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Optimal policy with gamma = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gamma</span><span class="p">)))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Policy values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">s0</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;State s0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;State s1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;State s2&quot;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_40_0.png" src="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_40_0.png" />
+</div>
+</div>
+<p>By comparing the plot with a discount factor of 0.5 to the plot with a discount factor of 0.99, we can see that the larger the factor, the longer it takes for policy values to converge. The discount factor is a tradeoff between rewards now and rewards in the future.</p>
+</div>
+<div class="section" id="simulating-the-frozenlake-environment">
+<h2>Simulating the FrozenLake environment<a class="headerlink" href="#simulating-the-frozenlake-environment" title="Permalink to this headline">¶</a></h2>
+<p>The optimal policies for the MDPs we have dealt with so far are pretty intuitive. However, it won’t be that straightforward in most cases, such as the FrozenLake environment.</p>
+<p>FrozenLake is a typical Gym environment with a discrete state space. It is about moving an agent from the starting location to the goal location in a grid world, and at the same time avoiding traps. The grid is either four by four (<a class="reference external" href="https://gym.openai.com/envs/FrozenLake-v0/">https://gym.openai.com/envs/FrozenLake-v0/</a>) or eight by eight.</p>
+<p>The grid is made up of the following four types of tiles:</p>
+<ul class="simple">
+<li><p>S: The starting location</p></li>
+<li><p>G: The goal location, which terminates an episode</p></li>
+<li><p>F: The frozen tile, which is a walkable location</p></li>
+<li><p>H: The hole location, which terminates an episode</p></li>
+</ul>
+<p>There are four actions, obviously: moving left (0), moving down (1), moving right (2), and moving up (3). The reward is +1 if the agent successfully reaches the goal location, and 0 otherwise. Also, the observation space is represented in a 16-dimensional integer array, and there are 4 possible actions (which makes sense).</p>
+<p>What is tricky in this environment is that, as the ice surface is slippery, the agent won’t always move in the direction it intends. For example, it may move to the left or to the right when it intends to move down.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s2">&quot;FrozenLake-v0&quot;</span><span class="p">)</span>
+
+<span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">n</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+<span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n_action</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16
+4
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+
+<span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">is_done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-BGRed">S</span>FFF
+FHFH
+FFFH
+HFFG
+  (Down)
+SFFF
+<span class=" -Color -Color-BGRed">F</span>HFH
+FFFH
+HFFG
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">new_state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">is_done</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+0.0
+False
+{&#39;prob&#39;: 0.3333333333333333}
+</pre></div>
+</div>
+</div>
+</div>
+<p>To demonstrate how difficult it is to walk on the frozen lake, implement a random policy and calculate the average total reward over 1,000 episodes. First, define a function that simulates a FrozenLake episode given a policy and returns the total reward (we know it is either 0 or 1):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">is_done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">is_done</span><span class="p">:</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">is_done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+        <span class="k">if</span> <span class="n">is_done</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">total_reward</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now run 1000 episodes, and a policy will be randomly generated and will be used in each episode:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_episode</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">random_policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">high</span><span class="o">=</span><span class="n">n_action</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_state</span><span class="p">,))</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">random_policy</span><span class="p">)</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward under random policy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average total reward under random policy: 0.014
+</pre></div>
+</div>
+</div>
+</div>
+<p>This basically means there is only a 1.4% chance on average that the agent can reach the goal if we randomize the actions.</p>
+<p>Next, we experiment with a random search policy. In the training phase, we randomly generate a bunch of policies and record the first one that reaches the goal:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">random_policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">high</span><span class="o">=</span><span class="n">n_action</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_state</span><span class="p">,))</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">random_policy</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total_reward</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">best_policy</span> <span class="o">=</span> <span class="n">random_policy</span>
+        <span class="k">break</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">best_policy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([3, 3, 0, 3, 2, 0, 1, 3, 1, 2, 0, 1, 1, 1, 1, 0])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now run 1,000 episodes with the policy we just cherry-picked:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">best_policy</span><span class="p">)</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward under random search policy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average total reward under random search policy: 0.111
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using the random search algorithm, the goal will be reached 11.1% of the time on average.</p>
+<p>We can look into the details of the FrozenLake environment, including the transformation matrix and rewards for each state and action, by using the P attribute. For example, for state 6, we can do the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: [(0.3333333333333333, 2, 0.0, False), (0.3333333333333333, 5, 0.0, True), (0.3333333333333333, 10, 0.0, False)], 1: [(0.3333333333333333, 5, 0.0, True), (0.3333333333333333, 10, 0.0, False), (0.3333333333333333, 7, 0.0, True)], 2: [(0.3333333333333333, 10, 0.0, False), (0.3333333333333333, 7, 0.0, True), (0.3333333333333333, 2, 0.0, False)], 3: [(0.3333333333333333, 7, 0.0, True), (0.3333333333333333, 2, 0.0, False), (0.3333333333333333, 5, 0.0, True)]}
+</pre></div>
+</div>
+</div>
+</div>
+<p>This returns a dictionary with keys 0, 1, 2, and 3, representing four possible actions. The value is a list of movements after taking an action. The movement list is in the following format: (transformation probability, new state, reward received, is done). For instance, if the agent resides in state 6 and intends to take action 1 (down), there is a 33.33% chance that it will land in state 5, receiving a reward of 0 and terminating the episode; there is a 33.33% chance that it will land in state 10 and receive a reward of 0; and there is a 33.33% chance that it will land in state 7, receiving a reward of 0 and terminating the episode.</p>
+<p>For state 11, we can do the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{0: [(1.0, 11, 0, True)], 1: [(1.0, 11, 0, True)], 2: [(1.0, 11, 0, True)], 3: [(1.0, 11, 0, True)]}
+</pre></div>
+</div>
+</div>
+</div>
+<p>As stepping on a hole will terminate an episode, it won’t make any movement afterward.</p>
+<p>Feel free to check out the other states.</p>
+</div>
+<div class="section" id="solving-an-mdp-with-a-value-iteration-algorithm">
+<h2>Solving an MDP with a value iteration algorithm<a class="headerlink" href="#solving-an-mdp-with-a-value-iteration-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>An MDP is considered solved if its optimal policy is found. In this recipe, we will figure out the optimal policy for the FrozenLake environment using a value iteration algorithm.</p>
+<p>The idea behind value iteration is quite similar to that of policy evaluation. It is also an iterative algorithm. It starts with arbitrary policy values and then iteratively updates the values based on the Bellman optimality equation until they converge. So in each iteration, instead of taking the expectation (average) of values across all actions, it picks the action that achieves the maximal policy values:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{V}_*(s) = \max_{a \in \mathcal{A}} (\mathcal{R}_s^a + \gamma \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a {V}_{*}(s')))\]</div>
+<p>Once the optimal values are computed, we can easily obtain the optimal policy accordingly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gym</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;FrozenLake-v0&#39;</span><span class="p">)</span>
+
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.99</span>
+
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.0001</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now define the function that computes optimal values based on the value iteration algorithm:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">value_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve a given environment with value iteration algorithm</span>
+<span class="sd">    @param env: OpenAI Gym environment</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @param threshold: the evaluation will stop once values for all states are less than the threshold</span>
+<span class="sd">    @return: values of the optimal policy for the given environment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V_temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_state</span><span class="p">):</span>
+            <span class="n">v_actions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_action</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_action</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">trans_prob</span><span class="p">,</span> <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">action</span><span class="p">]:</span>
+                    <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">trans_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">new_state</span><span class="p">])</span>
+            <span class="n">V_temp</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">v_actions</span><span class="p">)</span>
+        <span class="n">max_delta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">V_temp</span><span class="p">))</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V_temp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">max_delta</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plug in the environment, discount factor, and convergence threshold, then print the optimal values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_optimal</span> <span class="o">=</span> <span class="n">value_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal values:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V_optimal</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal values:
+tensor([0.5404, 0.4966, 0.4681, 0.4541, 0.5569, 0.0000, 0.3572, 0.0000, 0.5905,
+        0.6421, 0.6144, 0.0000, 0.0000, 0.7410, 0.8625, 0.0000])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have the optimal values, we develop the function that extracts the optimal policy out of them:</p>
+<p>We developed our value_iteration function according to the Bellamn Optimality Equation. We perform the following tasks:</p>
+<ul class="simple">
+<li><p>Initialize the policy values as all zeros.</p></li>
+<li><p>Update the values based on the Bellman optimality equation.</p></li>
+<li><p>Compute the maximal change of the values across all states.</p></li>
+<li><p>If the maximal change is greater than the threshold, we keep updating the values. Otherwise, we terminate the evaluation process and return the latest values as the optimal values.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_optimal_policy</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V_optimal</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Obtain the optimal policy based on the optimal values</span>
+<span class="sd">    @param env: OpenAI Gym environment</span>
+<span class="sd">    @param V_optimal: optimal values</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @return: optimal policy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">optimal_policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_state</span><span class="p">):</span>
+        <span class="n">v_actions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_action</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_action</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">trans_prob</span><span class="p">,</span> <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">action</span><span class="p">]:</span>
+                <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">trans_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V_optimal</span><span class="p">[</span><span class="n">new_state</span><span class="p">])</span>
+        <span class="n">optimal_policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">v_actions</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">optimal_policy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plug in the environment, discount factor, and optimal values, then print the optimal policy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">optimal_policy</span> <span class="o">=</span> <span class="n">extract_optimal_policy</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V_optimal</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal policy:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">optimal_policy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal policy:
+tensor([0., 3., 3., 3., 0., 0., 0., 0., 3., 1., 0., 0., 0., 2., 1., 0.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We want to gauge how good the optimal policy is. So, let’s run 1,000 episodes with the optimal policy and check the average reward. Here, we will reuse the run_episode function we defined in the previous recipe:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">is_done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">is_done</span><span class="p">:</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">is_done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+        <span class="k">if</span> <span class="n">is_done</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">total_reward</span>
+
+
+<span class="n">n_episode</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">optimal_policy</span><span class="p">)</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward under the optimal policy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average total reward under the optimal policy: 0.737
+</pre></div>
+</div>
+</div>
+</div>
+<p>Under the optimal policy, the agent will reach the goal 74% of the time, on average. This is the best we are able to get since the ice is slippery.</p>
+<p>We obtained a success rate of 74% with a discount factor of 0.99. How does the discount factor affect the performance? Let’s do some experiments with different factors, including 0, 0.2, 0.4, 0.6, 0.8, 0.99, and 1.:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gammas</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">.99</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]</span>
+<span class="n">n_episode</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">avg_reward_gamma</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">gammas</span><span class="p">:</span>
+    <span class="n">V_optimal</span> <span class="o">=</span> <span class="n">value_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">optimal_policy</span> <span class="o">=</span> <span class="n">extract_optimal_policy</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V_optimal</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+    <span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+        <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">optimal_policy</span><span class="p">)</span>
+        <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+    <span class="n">avg_reward_gamma</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gammas</span><span class="p">,</span> <span class="n">avg_reward_gamma</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Success rate vs discount factor&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Discount factor&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Average success rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_76_0.png" src="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_76_0.png" />
+</div>
+</div>
+<p>The result shows that the performance improves when there is an increase in the discount factor. This verifies the fact that a small discount factor values the reward now and a large discount factor values a better reward in the future.</p>
+</div>
+<div class="section" id="solving-an-mdp-with-a-policy-iteration-algorithm">
+<h2>Solving an MDP with a policy iteration algorithm<a class="headerlink" href="#solving-an-mdp-with-a-policy-iteration-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Another approach to solving an MDP is by using a policy iteration algorithm, which we will discuss in this section.</p>
+<p>A policy iteration algorithm can be subdivided into two components: policy evaluation and policy improvement. It starts with an arbitrary policy. And in each iteration, it first computes the policy values given the latest policy, based on the Bellman expectation equation; it then extracts an improved policy out of the resulting policy values, based on the Bellman optimality equation. It iteratively evaluates the policy and generates an improved version until the policy doesn’t change any more.</p>
+<p>Let’s develop a policy iteration algorithm and use it to solve the FrozenLake environment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gym</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;FrozenLake-v0&#39;</span><span class="p">)</span>
+
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.99</span>
+
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.0001</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we define the policy_evaluation function that computes the values given a policy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_evaluation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform policy evaluation</span>
+<span class="sd">    @param env: OpenAI Gym environment</span>
+<span class="sd">    @param policy: policy matrix containing actions and their probability in each state</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @param threshold: the evaluation will stop once values for all states are less than the threshold</span>
+<span class="sd">    @return: values of the given policy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">policy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V_temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_state</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">trans_prob</span><span class="p">,</span> <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">action</span><span class="p">]:</span>
+                <span class="n">V_temp</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+=</span> <span class="n">trans_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">new_state</span><span class="p">])</span>
+        <span class="n">max_delta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">V_temp</span><span class="p">))</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V_temp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">max_delta</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we develop the second main component of the policy iteration algorithm, the policy improvement part:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_improvement</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Obtain an improved policy based on the values</span>
+<span class="sd">    @param env: OpenAI Gym environment</span>
+<span class="sd">    @param V: policy values</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @return: the policy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_state</span><span class="p">):</span>
+        <span class="n">v_actions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_action</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_action</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">trans_prob</span><span class="p">,</span> <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">action</span><span class="p">]:</span>
+                <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">trans_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">new_state</span><span class="p">])</span>
+        <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">v_actions</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">policy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This extracts an improved policy from the given policy values, based on the Bellman optimality equation.</p>
+<p>Now that we have both components ready, we develop the policy iteration algorithm as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve a given environment with policy iteration algorithm</span>
+<span class="sd">    @param env: OpenAI Gym environment</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @param threshold: the evaluation will stop once values for all states are less than the threshold</span>
+<span class="sd">    @return: optimal values and the optimal policy for the given environment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+    <span class="n">policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">high</span><span class="o">=</span><span class="n">n_action</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_state</span><span class="p">,))</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">policy_evaluation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+        <span class="n">policy_improved</span> <span class="o">=</span> <span class="n">policy_improvement</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">policy_improved</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">policy_improved</span>
+        <span class="n">policy</span> <span class="o">=</span> <span class="n">policy_improved</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The policy_iteration function does the following tasks:</p>
+<ul class="simple">
+<li><p>Initializes a random policy.</p></li>
+<li><p>Computes the values of the policy with the policy evaluation algorithm.</p></li>
+<li><p>Obtains an improved policy based on the policy values.</p></li>
+<li><p>If the new policy is different from the old one, it updates the policy and runs another iteration. Otherwise, it terminates the iteration process and returns the policy values and the policy.</p></li>
+</ul>
+<p>Plug in the environment, discount factor, and convergence threshold:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V_optimal</span><span class="p">,</span> <span class="n">optimal_policy</span> <span class="o">=</span> <span class="n">policy_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal values:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V_optimal</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal policy:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">optimal_policy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal values:
+tensor([0.5404, 0.4966, 0.4681, 0.4541, 0.5569, 0.0000, 0.3572, 0.0000, 0.5905,
+        0.6421, 0.6144, 0.0000, 0.0000, 0.7410, 0.8625, 0.0000])
+Optimal policy:
+tensor([0., 3., 3., 3., 0., 0., 0., 0., 3., 1., 0., 0., 0., 2., 1., 0.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>They are exactly the same as what we got using the value iteration algorithm.</p>
+<p>We have just solved the FrozenLake environment with a policy iteration algorithm. So, you may wonder when it is better to use policy iteration over value iteration and vice versa. There are basically three scenarios where one has the edge over the other:</p>
+<ul class="simple">
+<li><p>If there is a large number of actions, use policy iteration, as it can converge faster.</p></li>
+<li><p>If there is a small number of actions, use value iteration.</p></li>
+<li><p>If there is already a viable policy (obtained either by intuition or domain knowledge), use policy iteration.</p></li>
+</ul>
+<p>Outside those scenarios, policy iteration and value iteration are generally comparable.</p>
+<p>In the next section, we will apply each algorithm to solve the coin-flipping-gamble problem. We will see which algorithm converges faster.</p>
+</div>
+<div class="section" id="solving-the-coin-flipping-gamble-problem">
+<h2>Solving the coin-flipping gamble problem<a class="headerlink" href="#solving-the-coin-flipping-gamble-problem" title="Permalink to this headline">¶</a></h2>
+<p>Gambling on coin flipping should sound familiar to everyone. In each round of the game, the gambler can make a bet on whether a coin flip will show heads. If it turns out heads, the gambler will win the same amount they bet; otherwise, they will lose this amount. The game continues until the gambler loses (ends up with nothing) or wins (wins more than 100 dollars, let’s say). Let’s say the coin is unfair and it lands on heads 40% of the time. In order to maximize the chance of winning, how much should the gambler bet based on their current capital in each round? This will definitely be an interesting problem to solve.</p>
+<p>If the coin lands on heads more than 50% of the time, there is nothing to discuss. The gambler can just keep betting one dollar each round and should win the game most of the time. If it is a fair coin, the gambler could bet one dollar each round and end up winning around 50% of the time. It gets tricky when the probability of heads is lower than 50%; the safe-bet strategy wouldn’t work anymore. Nor would a random strategy, either. We need to resort to the reinforcement learning techniques we’ve learned in this tutorial to make smart bets.</p>
+<p>Let’s get started by formulating the coin-flipping gamble problem as an MDP. It is basically an undiscounted, episodic, and finite MDP with the following properties:</p>
+<ul class="simple">
+<li><p>The state is the gambler’s capital in dollars. There are 101 states: 0, 1, 2, …, 98, 99, and 100+.</p></li>
+<li><p>The reward is 1 if the state 100+ is reached; otherwise, the reward is 0.</p></li>
+<li><p>The action is the possible amount the gambler bets in a round. Given state s, the possible actions include 1, 2, …, and min(s, 100 - s). For example, when the gambler has 60 dollars, they can bet any amount from 1 to 40. Any amount above 40 doesn’t make any sense as it increases the loss and doesn’t increase the chance of winning.</p></li>
+<li><p>The next state after taking an action depends on the probability of the coin coming up heads. Let’s say it is 40%. So, the next state of state s after taking action a will be s+a by 40%, s-a by 60%.</p></li>
+<li><p>The process terminates at state 0 and state 100+.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">capital_max</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_state</span> <span class="o">=</span> <span class="n">capital_max</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+<span class="n">rewards</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">rewards</span><span class="p">)</span>
+
+<span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">1e-10</span>
+
+<span class="n">head_prob</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;capital_max&#39;</span><span class="p">:</span> <span class="n">capital_max</span><span class="p">,</span>
+       <span class="s1">&#39;head_prob&#39;</span><span class="p">:</span> <span class="n">head_prob</span><span class="p">,</span>
+       <span class="s1">&#39;rewards&#39;</span><span class="p">:</span> <span class="n">rewards</span><span class="p">,</span>
+       <span class="s1">&#39;n_state&#39;</span><span class="p">:</span> <span class="n">n_state</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1.])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we develop a function that computes optimal values based on the value iteration algorithm:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">value_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve the coin flipping gamble problem with value iteration algorithm</span>
+<span class="sd">    @param env: the coin flipping gamble environment</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @param threshold: the evaluation will stop once values for all states are less than the threshold</span>
+<span class="sd">    @return: values of the optimal policy for the given environment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head_prob</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;head_prob&#39;</span><span class="p">]</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;n_state&#39;</span><span class="p">]</span>
+    <span class="n">capital_max</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;capital_max&#39;</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V_temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">capital_max</span><span class="p">):</span>
+            <span class="n">v_actions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">capital_max</span> <span class="o">-</span> <span class="n">state</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">capital_max</span> <span class="o">-</span> <span class="n">state</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">head_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">])</span>
+                <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">head_prob</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">])</span>
+            <span class="n">V_temp</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">v_actions</span><span class="p">)</span>
+        <span class="n">max_delta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">V_temp</span><span class="p">))</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V_temp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">max_delta</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We only need to compute the values for states 1 to 99, as the values for state 0 and state 100+ are 0. And given state s, the possible actions can be anything from 1 up to min(s, 100 - s). We should keep this in mind while computing the Bellman optimality equation.</p>
+<p>Next, we develop a function that extracts the optimal policy based on the optimal values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_optimal_policy</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V_optimal</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Obtain the optimal policy based on the optimal values</span>
+<span class="sd">    @param env: the coin flipping gamble environment</span>
+<span class="sd">    @param V_optimal: optimal values</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @return: optimal policy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head_prob</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;head_prob&#39;</span><span class="p">]</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;n_state&#39;</span><span class="p">]</span>
+    <span class="n">capital_max</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;capital_max&#39;</span><span class="p">]</span>
+    <span class="n">optimal_policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">capital_max</span><span class="p">)</span><span class="o">.</span><span class="n">int</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">capital_max</span><span class="p">):</span>
+        <span class="n">v_actions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">capital_max</span> <span class="o">-</span> <span class="n">state</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">head_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V_optimal</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">])</span>
+            <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">head_prob</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V_optimal</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">])</span>
+        <span class="n">optimal_policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">v_actions</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">optimal_policy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we can plug in the environment, discount factor, and convergence threshold to compute the optimal values and optimal policy after . Also, we time how long it takes to solve the gamble MDP with value iteration; we will compare this with the time it takes for policy iteration to complete:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">V_optimal</span> <span class="o">=</span> <span class="n">value_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+<span class="n">optimal_policy</span> <span class="o">=</span> <span class="n">extract_optimal_policy</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V_optimal</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It takes </span><span class="si">{:.3f}</span><span class="s2">s to solve with value iteration&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>It takes 3.126s to solve with value iteration
+</pre></div>
+</div>
+</div>
+</div>
+<p>We solved the gamble problem with value iteration in 3.126 seconds.</p>
+<p>Take a look at the optimal policy values and the optimal policy we got:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal values:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V_optimal</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal policy:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">optimal_policy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal values:
+tensor([0.0000, 0.0021, 0.0052, 0.0092, 0.0129, 0.0174, 0.0231, 0.0278, 0.0323,
+        0.0377, 0.0435, 0.0504, 0.0577, 0.0652, 0.0695, 0.0744, 0.0807, 0.0866,
+        0.0942, 0.1031, 0.1087, 0.1160, 0.1259, 0.1336, 0.1441, 0.1600, 0.1631,
+        0.1677, 0.1738, 0.1794, 0.1861, 0.1946, 0.2017, 0.2084, 0.2165, 0.2252,
+        0.2355, 0.2465, 0.2579, 0.2643, 0.2716, 0.2810, 0.2899, 0.3013, 0.3147,
+        0.3230, 0.3339, 0.3488, 0.3604, 0.3762, 0.4000, 0.4031, 0.4077, 0.4138,
+        0.4194, 0.4261, 0.4346, 0.4417, 0.4484, 0.4565, 0.4652, 0.4755, 0.4865,
+        0.4979, 0.5043, 0.5116, 0.5210, 0.5299, 0.5413, 0.5547, 0.5630, 0.5740,
+        0.5888, 0.6004, 0.6162, 0.6400, 0.6446, 0.6516, 0.6608, 0.6690, 0.6791,
+        0.6919, 0.7026, 0.7126, 0.7248, 0.7378, 0.7533, 0.7697, 0.7868, 0.7965,
+        0.8075, 0.8215, 0.8349, 0.8520, 0.8721, 0.8845, 0.9009, 0.9232, 0.9406,
+        0.9643, 0.0000])
+Optimal policy:
+tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,  9, 17,
+        18,  6,  5, 21,  3,  2,  1, 25,  1,  2,  3, 29,  5,  6,  7,  8,  9, 35,
+        36, 12, 12, 11, 10,  9,  8,  7, 44,  5,  4,  3,  2,  1, 50,  1,  2,  3,
+         4,  5,  6,  7,  8,  9, 10, 11, 12, 12, 11, 10,  9,  8,  7,  6,  5,  4,
+         3,  2,  1, 25,  1,  2,  3, 21,  5, 19,  7,  8, 16, 15, 14, 12, 12, 11,
+        10,  9,  8,  7,  6,  5,  4,  3,  2,  1], dtype=torch.int32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can plot the policy value versus state as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">V_optimal</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Optimal policy values&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Capital&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Policy value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_103_0.png" src="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_103_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">capital_max</span><span class="p">),</span> <span class="n">optimal_policy</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">capital_max</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Optimal policy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Capital&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Optimal action&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_104_0.png" src="_images/T035236_MDP_with_Dynamic_Programming_in_PyTorch_104_0.png" />
+</div>
+</div>
+<p>Now that we’ve solved the gamble problem with value iteration, how about policy iteration? Let’s see.</p>
+<p>We start by developing the policy_evaluation function that computes the values given a policy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_evaluation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform policy evaluation</span>
+<span class="sd">    @param env: the coin flipping gamble environment</span>
+<span class="sd">    @param policy: policy tensor containing actions taken for individual state</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @param threshold: the evaluation will stop once values for all states are less than the threshold</span>
+<span class="sd">    @return: values of the given policy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head_prob</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;head_prob&#39;</span><span class="p">]</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;n_state&#39;</span><span class="p">]</span>
+    <span class="n">capital_max</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;capital_max&#39;</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V_temp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">capital_max</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+            <span class="n">V_temp</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+=</span> <span class="n">head_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">])</span>
+            <span class="n">V_temp</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">head_prob</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">])</span>
+        <span class="n">max_delta</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">V</span> <span class="o">-</span> <span class="n">V_temp</span><span class="p">))</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">V_temp</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">max_delta</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we develop another main component of the policy iteration algorithm, the policy improvement part:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_improvement</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Obtain an improved policy based on the values</span>
+<span class="sd">    @param env: the coin flipping gamble environment</span>
+<span class="sd">    @param V: policy values</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @return: the policy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head_prob</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;head_prob&#39;</span><span class="p">]</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;n_state&#39;</span><span class="p">]</span>
+    <span class="n">capital_max</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;capital_max&#39;</span><span class="p">]</span>
+    <span class="n">policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span><span class="o">.</span><span class="n">int</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">capital_max</span><span class="p">):</span>
+        <span class="n">v_actions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">capital_max</span> <span class="o">-</span> <span class="n">state</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">capital_max</span> <span class="o">-</span> <span class="n">state</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="n">head_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">state</span> <span class="o">+</span> <span class="n">action</span><span class="p">])</span>
+            <span class="n">v_actions</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">head_prob</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rewards</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">state</span> <span class="o">-</span> <span class="n">action</span><span class="p">])</span>
+        <span class="n">policy</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">v_actions</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">policy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With both components ready, we can develop the main entry to the policy iteration algorithm as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">policy_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solve the coin flipping gamble problem with policy iteration algorithm</span>
+<span class="sd">    @param env: the coin flipping gamble environment</span>
+<span class="sd">    @param gamma: discount factor</span>
+<span class="sd">    @param threshold: the evaluation will stop once values for all states are less than the threshold</span>
+<span class="sd">    @return: optimal values and the optimal policy for the given environment</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;n_state&#39;</span><span class="p">]</span>
+    <span class="n">policy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_state</span><span class="p">)</span><span class="o">.</span><span class="n">int</span><span class="p">()</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">policy_evaluation</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">policy</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+        <span class="n">policy_improved</span> <span class="o">=</span> <span class="n">policy_improvement</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">policy_improved</span><span class="p">,</span> <span class="n">policy</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">policy_improved</span>
+        <span class="n">policy</span> <span class="o">=</span> <span class="n">policy_improved</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we plug in the environment, discount factor, and convergence threshold to compute the optimal values and the optimal policy. We record the time spent solving the MDP as well:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">V_optimal</span><span class="p">,</span> <span class="n">optimal_policy</span> <span class="o">=</span> <span class="n">policy_iteration</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;It takes </span><span class="si">{:.3f}</span><span class="s2">s to solve with policy iteration&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>It takes 2.951s to solve with policy iteration
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check out the optimal values and optimal policy we just obtained:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal values:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">V_optimal</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimal policy:</span><span class="se">\n</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">optimal_policy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimal values:
+tensor([0.0000, 0.0021, 0.0052, 0.0092, 0.0129, 0.0174, 0.0231, 0.0278, 0.0323,
+        0.0377, 0.0435, 0.0504, 0.0577, 0.0652, 0.0695, 0.0744, 0.0807, 0.0866,
+        0.0942, 0.1031, 0.1087, 0.1160, 0.1259, 0.1336, 0.1441, 0.1600, 0.1631,
+        0.1677, 0.1738, 0.1794, 0.1861, 0.1946, 0.2017, 0.2084, 0.2165, 0.2252,
+        0.2355, 0.2465, 0.2579, 0.2643, 0.2716, 0.2810, 0.2899, 0.3013, 0.3147,
+        0.3230, 0.3339, 0.3488, 0.3604, 0.3762, 0.4000, 0.4031, 0.4077, 0.4138,
+        0.4194, 0.4261, 0.4346, 0.4417, 0.4484, 0.4565, 0.4652, 0.4755, 0.4865,
+        0.4979, 0.5043, 0.5116, 0.5210, 0.5299, 0.5413, 0.5547, 0.5630, 0.5740,
+        0.5888, 0.6004, 0.6162, 0.6400, 0.6446, 0.6516, 0.6608, 0.6690, 0.6791,
+        0.6919, 0.7026, 0.7126, 0.7248, 0.7378, 0.7533, 0.7697, 0.7868, 0.7965,
+        0.8075, 0.8215, 0.8349, 0.8520, 0.8721, 0.8845, 0.9009, 0.9232, 0.9406,
+        0.9643, 0.0000])
+Optimal policy:
+tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,  9, 17,
+        18,  6,  5, 21,  3,  2,  1, 25,  1,  2,  3, 29,  5,  6,  7,  8,  9, 35,
+        36, 12, 12, 11, 10,  9,  8,  7, 44,  5,  4,  3,  2,  1, 50,  1,  2,  3,
+         4,  5,  6,  7,  8,  9, 10, 11, 12, 12, 11, 10,  9,  8,  7,  6,  5,  4,
+         3,  2,  1, 25,  1,  2,  3, 21,  5, 19,  7,  8, 16, 15, 14, 12, 12, 11,
+        10,  9,  8,  7,  6,  5,  4,  3,  2,  1,  0], dtype=torch.int32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The results from the two approaches, value iteration and policy iteration, are consistent.</p>
+<p>We have solved the gamble problem by using value iteration and policy iteration. To deal with a reinforcement learning problem, one of the trickiest tasks is to formulate the process into an MDP. In our case, the policy is transformed from the current capital (states) to the new capital (new states) by betting certain stakes (actions). The optimal policy maximizes the probability of winning the game (+1 reward), and evaluates the probability of winning under the optimal policy.</p>
+<p>Another interesting thing to note is how the transformation probabilities and new states are determined in the Bellman equation in our example. Taking action a in state s (having capital s and making a bet of 1 dollar) will have two possible outcomes:</p>
+<ul class="simple">
+<li><p>Moving to new state s+a, if the coin lands on heads. Hence, the transformation probability is equal to the probability of heads.</p></li>
+<li><p>Moving to new state s-a, if the coin lands on tails. Therefore, the transformation probability is equal to the probability of tails.
+This is quite similar to the FrozenLake environment, where the agent lands on the intended tile only by a certain probability.</p></li>
+</ul>
+<p>We also verified that policy iteration converges faster than value iteration in this case. This is because there are up to 50 possible actions, which is more than the 4 actions in FrozenLake. For MDPs with a large number of actions, solving with policy iteration is more efficient than doing so with value iteration.</p>
+<p>You may want to know whether the optimal policy really works. Let’s act like smart gamblers and play 10,000 episodes of the game. We are going to compare the optimal policy with two other strategies: conservative (betting one dollar each round) and random (betting a random amount):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_random_episode</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">capital</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">capital</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># print(capital)</span>
+        <span class="c1"># bet = torch.randint(1, capital + 1, (1,)).item()</span>
+        <span class="n">bet</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">head</span><span class="p">:</span>
+            <span class="n">capital</span> <span class="o">+=</span> <span class="n">bet</span>
+            <span class="k">if</span> <span class="n">capital</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">capital</span> <span class="o">-=</span> <span class="n">bet</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">run_optimal_episode</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">capital</span><span class="p">,</span> <span class="n">optimal_policy</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">capital</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">bet</span> <span class="o">=</span> <span class="n">optimal_policy</span><span class="p">[</span><span class="n">capital</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">head</span><span class="p">:</span>
+            <span class="n">capital</span> <span class="o">+=</span> <span class="n">bet</span>
+            <span class="k">if</span> <span class="n">capital</span> <span class="o">&gt;=</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">capital</span> <span class="o">-=</span> <span class="n">bet</span>
+    <span class="k">return</span> <span class="mi">0</span>
+
+
+<span class="n">capital</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">n_episode</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">total_rewards_random</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">total_rewards_opt</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">total_reward_random</span> <span class="o">=</span> <span class="n">run_random_episode</span><span class="p">(</span><span class="mf">0.48</span><span class="p">,</span> <span class="n">capital</span><span class="p">)</span>
+    <span class="n">total_reward_opt</span> <span class="o">=</span> <span class="n">run_optimal_episode</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">capital</span><span class="p">,</span> <span class="n">optimal_policy</span><span class="p">)</span>
+    <span class="n">total_rewards_random</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward_random</span><span class="p">)</span>
+    <span class="n">total_rewards_opt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward_opt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward under the random policy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards_random</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward under the optimal policy: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards_opt</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average total reward under the random policy: 0.0152
+Average total reward under the optimal policy: 0.4014
+</pre></div>
+</div>
+</div>
+</div>
+<p>Our optimal policy is clearly the winner!</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T759314_Kullback_Leibler_Divergence.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Kullback-Leibler Divergence</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T365137_REINFORCE_in_PyTorch.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">REINFORCE in PyTorch</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

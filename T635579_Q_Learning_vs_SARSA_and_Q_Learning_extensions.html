@@ -1,0 +1,960 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q-Learning vs SARSA and Q-Learning extensions &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Multi-armed Bandit for Banner Ad" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html" />
+    <link rel="prev" title="n-step algorithms and eligibility traces" href="T046728_n_step_algorithms_and_eligibility_traces.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sarsa-agent">
+   SARSA agent
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#experiment">
+   Experiment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results">
+   Results
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#delayed-q-learning-vs-double-q-learning-vs-q-learning">
+   Delayed Q-learning vs. Double Q-learning vs. Q-Learning
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="q-learning-vs-sarsa-and-q-learning-extensions">
+<h1>Q-Learning vs SARSA and Q-Learning extensions<a class="headerlink" href="#q-learning-vs-sarsa-and-q-learning-extensions" title="Permalink to this headline">¶</a></h1>
+<p>Temporal-difference (TD) learning is a combination of these two approaches. It learns directly from experience by sampling, but also bootstraps. This represents a breakthrough in capability that allows agents to learn optimal strategies in any environment. Prior to this point learning was so slow it made problems intractable or you needed a full model of the environment.</p>
+<p>In 1989, an implementation of TD learning called Q-learning made it easier for mathematicians to prove convergence. This algorithm is credited with kick-starting the excitement in RL.</p>
+<p>SARSA was developed shortly after Q-learning to provide a more general solution to TD learning. The main difference from Q-learning is the lack of argmax in the delta. Instead it calculates the expected return by averaging over all runs (in an online manner).</p>
+<p>Two fundamental RL algorithms, both remarkably useful, even today. One of the primary reasons for their popularity is that they are simple, because by default they only work with discrete state and action spaces. Of course it is possible to improve them to work with continuous state/action spaces, but consider discretizing to keep things rediculously simple.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install pygame==1.9.6 pandas==1.0.5 matplotlib==3.2.1
+!pip install --upgrade git+git://github.com/david-abel/simple_rl.git@77c0d6b910efbe8bdd5f4f87337c5bc4aed0d79c &gt; /dev/null
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="c1"># Other imports.</span>
+<span class="kn">from</span> <span class="nn">simple_rl.agents</span> <span class="kn">import</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">QLearningAgent</span><span class="p">,</span> <span class="n">RandomAgent</span>
+<span class="kn">from</span> <span class="nn">simple_rl.agents</span> <span class="kn">import</span> <span class="n">DoubleQAgent</span><span class="p">,</span> <span class="n">DelayedQAgent</span>
+<span class="kn">from</span> <span class="nn">simple_rl.tasks</span> <span class="kn">import</span> <span class="n">GridWorldMDP</span>
+<span class="kn">from</span> <span class="nn">simple_rl.run_experiments</span> <span class="kn">import</span> <span class="n">run_single_agent_on_mdp</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">ScalarFormatter</span><span class="p">,</span> <span class="n">AutoMinorLocator</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="sarsa-agent">
+<h2>SARSA agent<a class="headerlink" href="#sarsa-agent" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SARSAAgent</span><span class="p">(</span><span class="n">QLearningAgent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">goal_reward</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;SARSA&quot;</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">explore</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span> <span class="n">anneal</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goal_reward</span> <span class="o">=</span> <span class="n">goal_reward</span>
+        <span class="n">QLearningAgent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">actions</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">actions</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+            <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+            <span class="n">explore</span><span class="o">=</span><span class="n">explore</span><span class="p">,</span>
+            <span class="n">anneal</span><span class="o">=</span><span class="n">anneal</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">policy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_max_q_action</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">learning</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        This is mostly the same as the base QLearningAgent class. Except that</span>
+<span class="sd">        the update procedure now generates the action.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">learning</span><span class="p">:</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">prev_state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">explore</span> <span class="o">==</span> <span class="s2">&quot;softmax&quot;</span><span class="p">:</span>
+                <span class="c1"># Softmax exploration</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">soft_max_policy</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Uniform exploration</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon_greedy_q_policy</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_state</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_action</span> <span class="o">=</span> <span class="n">action</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_number</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Anneal params.</span>
+        <span class="k">if</span> <span class="n">learning</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">anneal</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_anneal</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">next_state</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            state (State)</span>
+<span class="sd">            action (str)</span>
+<span class="sd">            reward (float)</span>
+<span class="sd">            next_state (State)</span>
+<span class="sd">        Summary:</span>
+<span class="sd">            Updates the internal Q Function according to the Bellman Equation</span>
+<span class="sd">            using a SARSA update</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">explore</span> <span class="o">==</span> <span class="s2">&quot;softmax&quot;</span><span class="p">:</span>
+            <span class="c1"># Softmax exploration</span>
+            <span class="n">next_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">soft_max_policy</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Uniform exploration</span>
+            <span class="n">next_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon_greedy_q_policy</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+
+        <span class="c1"># Update the Q Function.</span>
+        <span class="n">prev_q_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_q_value</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="n">next_q_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_q_value</span><span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="n">next_action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_func</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_q_val</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> \
+            <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">next_q_val</span> <span class="o">-</span> <span class="n">prev_q_val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">next_action</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="experiment">
+<h2>Experiment<a class="headerlink" href="#experiment" title="Permalink to this headline">¶</a></h2>
+<p>Basically I’m training an agent for a maximum of 100 steps, for 500 episodes, averaging over 100 repeats.</p>
+<p>Feel free to tinker with the settimgs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">instances</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_episodes</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Setup MDP, Agents.</span>
+<span class="n">mdp</span> <span class="o">=</span> <span class="n">GridWorldMDP</span><span class="p">(</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">init_loc</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">goal_locs</span><span class="o">=</span><span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="n">lava_locs</span><span class="o">=</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)],</span> <span class="n">is_lava_terminal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">walls</span><span class="o">=</span><span class="p">[],</span> <span class="n">slip_prob</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">step_cost</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">lava_cost</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q-Learning&quot;</span><span class="p">)</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">instances</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+    <span class="n">ql_agent</span> <span class="o">=</span> <span class="n">QLearningAgent</span><span class="p">(</span>
+        <span class="n">mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span>
+        <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="c1"># mdp.visualize_learning(ql_agent, delay=0.0001)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Instance &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">terminal</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">run_single_agent_on_mdp</span><span class="p">(</span>
+        <span class="n">ql_agent</span><span class="p">,</span> <span class="n">mdp</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">rewards</span><span class="p">[:,</span> <span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;q_learning_cliff_rewards.json&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SARSA&quot;</span><span class="p">)</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">instances</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+    <span class="n">sarsa_agent</span> <span class="o">=</span> <span class="n">SARSAAgent</span><span class="p">(</span>
+        <span class="n">mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span>
+        <span class="n">goal_reward</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="c1"># mdp.visualize_learning(sarsa_agent, delay=0.0001)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Instance &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">terminal</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">run_single_agent_on_mdp</span><span class="p">(</span>
+        <span class="n">sarsa_agent</span><span class="p">,</span> <span class="n">mdp</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">rewards</span><span class="p">[:,</span> <span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;sarsa_cliff_rewards.json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Q-Learning
+  Instance 0 of 100.
+  Instance 1 of 100.
+  Instance 2 of 100.
+  Instance 3 of 100.
+  Instance 4 of 100.
+  Instance 5 of 100.
+  Instance 6 of 100.
+  Instance 7 of 100.
+  Instance 8 of 100.
+  Instance 9 of 100.
+  Instance 10 of 100.
+  Instance 11 of 100.
+  Instance 12 of 100.
+  Instance 13 of 100.
+  Instance 14 of 100.
+  Instance 15 of 100.
+  Instance 16 of 100.
+  Instance 17 of 100.
+  Instance 18 of 100.
+  Instance 19 of 100.
+  Instance 20 of 100.
+  Instance 21 of 100.
+  Instance 22 of 100.
+  Instance 23 of 100.
+  Instance 24 of 100.
+  Instance 25 of 100.
+  Instance 26 of 100.
+  Instance 27 of 100.
+  Instance 28 of 100.
+  Instance 29 of 100.
+  Instance 30 of 100.
+  Instance 31 of 100.
+  Instance 32 of 100.
+  Instance 33 of 100.
+  Instance 34 of 100.
+  Instance 35 of 100.
+  Instance 36 of 100.
+  Instance 37 of 100.
+  Instance 38 of 100.
+  Instance 39 of 100.
+  Instance 40 of 100.
+  Instance 41 of 100.
+  Instance 42 of 100.
+  Instance 43 of 100.
+  Instance 44 of 100.
+  Instance 45 of 100.
+  Instance 46 of 100.
+  Instance 47 of 100.
+  Instance 48 of 100.
+  Instance 49 of 100.
+  Instance 50 of 100.
+  Instance 51 of 100.
+  Instance 52 of 100.
+  Instance 53 of 100.
+  Instance 54 of 100.
+  Instance 55 of 100.
+  Instance 56 of 100.
+  Instance 57 of 100.
+  Instance 58 of 100.
+  Instance 59 of 100.
+  Instance 60 of 100.
+  Instance 61 of 100.
+  Instance 62 of 100.
+  Instance 63 of 100.
+  Instance 64 of 100.
+  Instance 65 of 100.
+  Instance 66 of 100.
+  Instance 67 of 100.
+  Instance 68 of 100.
+  Instance 69 of 100.
+  Instance 70 of 100.
+  Instance 71 of 100.
+  Instance 72 of 100.
+  Instance 73 of 100.
+  Instance 74 of 100.
+  Instance 75 of 100.
+  Instance 76 of 100.
+  Instance 77 of 100.
+  Instance 78 of 100.
+  Instance 79 of 100.
+  Instance 80 of 100.
+  Instance 81 of 100.
+  Instance 82 of 100.
+  Instance 83 of 100.
+  Instance 84 of 100.
+  Instance 85 of 100.
+  Instance 86 of 100.
+  Instance 87 of 100.
+  Instance 88 of 100.
+  Instance 89 of 100.
+  Instance 90 of 100.
+  Instance 91 of 100.
+  Instance 92 of 100.
+  Instance 93 of 100.
+  Instance 94 of 100.
+  Instance 95 of 100.
+  Instance 96 of 100.
+  Instance 97 of 100.
+  Instance 98 of 100.
+  Instance 99 of 100.
+SARSA
+  Instance 0 of 100.
+  Instance 1 of 100.
+  Instance 2 of 100.
+  Instance 3 of 100.
+  Instance 4 of 100.
+  Instance 5 of 100.
+  Instance 6 of 100.
+  Instance 7 of 100.
+  Instance 8 of 100.
+  Instance 9 of 100.
+  Instance 10 of 100.
+  Instance 11 of 100.
+  Instance 12 of 100.
+  Instance 13 of 100.
+  Instance 14 of 100.
+  Instance 15 of 100.
+  Instance 16 of 100.
+  Instance 17 of 100.
+  Instance 18 of 100.
+  Instance 19 of 100.
+  Instance 20 of 100.
+  Instance 21 of 100.
+  Instance 22 of 100.
+  Instance 23 of 100.
+  Instance 24 of 100.
+  Instance 25 of 100.
+  Instance 26 of 100.
+  Instance 27 of 100.
+  Instance 28 of 100.
+  Instance 29 of 100.
+  Instance 30 of 100.
+  Instance 31 of 100.
+  Instance 32 of 100.
+  Instance 33 of 100.
+  Instance 34 of 100.
+  Instance 35 of 100.
+  Instance 36 of 100.
+  Instance 37 of 100.
+  Instance 38 of 100.
+  Instance 39 of 100.
+  Instance 40 of 100.
+  Instance 41 of 100.
+  Instance 42 of 100.
+  Instance 43 of 100.
+  Instance 44 of 100.
+  Instance 45 of 100.
+  Instance 46 of 100.
+  Instance 47 of 100.
+  Instance 48 of 100.
+  Instance 49 of 100.
+  Instance 50 of 100.
+  Instance 51 of 100.
+  Instance 52 of 100.
+  Instance 53 of 100.
+  Instance 54 of 100.
+  Instance 55 of 100.
+  Instance 56 of 100.
+  Instance 57 of 100.
+  Instance 58 of 100.
+  Instance 59 of 100.
+  Instance 60 of 100.
+  Instance 61 of 100.
+  Instance 62 of 100.
+  Instance 63 of 100.
+  Instance 64 of 100.
+  Instance 65 of 100.
+  Instance 66 of 100.
+  Instance 67 of 100.
+  Instance 68 of 100.
+  Instance 69 of 100.
+  Instance 70 of 100.
+  Instance 71 of 100.
+  Instance 72 of 100.
+  Instance 73 of 100.
+  Instance 74 of 100.
+  Instance 75 of 100.
+  Instance 76 of 100.
+  Instance 77 of 100.
+  Instance 78 of 100.
+  Instance 79 of 100.
+  Instance 80 of 100.
+  Instance 81 of 100.
+  Instance 82 of 100.
+  Instance 83 of 100.
+  Instance 84 of 100.
+  Instance 85 of 100.
+  Instance 86 of 100.
+  Instance 87 of 100.
+  Instance 88 of 100.
+  Instance 89 of 100.
+  Instance 90 of 100.
+  Instance 91 of 100.
+  Instance 92 of 100.
+  Instance 93 of 100.
+  Instance 94 of 100.
+  Instance 95 of 100.
+  Instance 96 of 100.
+  Instance 97 of 100.
+  Instance 98 of 100.
+  Instance 99 of 100.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
+<p>Now you can plot the results for each of the agents.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_files</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Q-Learning&quot;</span><span class="p">,</span> <span class="s2">&quot;q_learning_cliff_rewards.json&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;SARSA&quot;</span><span class="p">,</span> <span class="s2">&quot;sarsa_cliff_rewards.json&quot;</span><span class="p">)]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_files</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Episode&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Averaged Sum of Rewards&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions_13_0.png" src="_images/T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions_13_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="delayed-q-learning-vs-double-q-learning-vs-q-learning">
+<h2>Delayed Q-learning vs. Double Q-learning vs. Q-Learning<a class="headerlink" href="#delayed-q-learning-vs-double-q-learning-vs-q-learning" title="Permalink to this headline">¶</a></h2>
+<p>Delayed Q-learning and double Q-learning are two extensions to Q-learning that are used throughout RL, so it’s worth considering them in a simple form. Delayed Q-learning simply delays any estimate until there is a statistically significant sample of observations. Slowing update with an exponentially weighted moving average is a similar strategy. Double Q-learning includes two Q-tables, in essence two value estimates, to reduce bias.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">instances</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">n_episodes</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Setup MDP, Agents.</span>
+<span class="n">mdp</span> <span class="o">=</span> <span class="n">GridWorldMDP</span><span class="p">(</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">init_loc</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">goal_locs</span><span class="o">=</span><span class="p">[(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="n">lava_locs</span><span class="o">=</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)],</span> <span class="n">is_lava_terminal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">walls</span><span class="o">=</span><span class="p">[],</span> <span class="n">slip_prob</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">step_cost</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">lava_cost</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Q-Learning&quot;</span><span class="p">)</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">instances</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+    <span class="n">ql_agent</span> <span class="o">=</span> <span class="n">QLearningAgent</span><span class="p">(</span>
+        <span class="n">mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span>
+        <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Instance &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">terminal</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">run_single_agent_on_mdp</span><span class="p">(</span>
+        <span class="n">ql_agent</span><span class="p">,</span> <span class="n">mdp</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">rewards</span><span class="p">[:,</span> <span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;q_learning_cliff_rewards.json&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Double-Q-Learning&quot;</span><span class="p">)</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">instances</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+    <span class="n">ql_agent</span> <span class="o">=</span> <span class="n">DoubleQAgent</span><span class="p">(</span>
+        <span class="n">mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span>
+        <span class="n">epsilon</span><span class="o">=</span><span class="n">epsilon</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="c1"># mdp.visualize_learning(ql_agent, delay=0.0001)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Instance &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">terminal</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">run_single_agent_on_mdp</span><span class="p">(</span>
+        <span class="n">ql_agent</span><span class="p">,</span> <span class="n">mdp</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">rewards</span><span class="p">[:,</span> <span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;double_q_learning_cliff_rewards.json&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Delayed-Q-Learning&quot;</span><span class="p">)</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">instances</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+    <span class="n">ql_agent</span> <span class="o">=</span> <span class="n">DelayedQAgent</span><span class="p">(</span>
+        <span class="n">mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span>
+        <span class="n">epsilon1</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="c1"># mdp.visualize_learning(ql_agent, delay=0.0001)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  Instance &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">terminal</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">run_single_agent_on_mdp</span><span class="p">(</span>
+        <span class="n">ql_agent</span><span class="p">,</span> <span class="n">mdp</span><span class="p">,</span> <span class="n">episodes</span><span class="o">=</span><span class="n">n_episodes</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">rewards</span><span class="p">[:,</span> <span class="n">instance</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s2">&quot;delayed_q_learning_cliff_rewards.json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Q-Learning
+  Instance 0 of 10.
+  Instance 1 of 10.
+  Instance 2 of 10.
+  Instance 3 of 10.
+  Instance 4 of 10.
+  Instance 5 of 10.
+  Instance 6 of 10.
+  Instance 7 of 10.
+  Instance 8 of 10.
+  Instance 9 of 10.
+Double-Q-Learning
+  Instance 0 of 10.
+  Instance 1 of 10.
+  Instance 2 of 10.
+  Instance 3 of 10.
+  Instance 4 of 10.
+  Instance 5 of 10.
+  Instance 6 of 10.
+  Instance 7 of 10.
+  Instance 8 of 10.
+  Instance 9 of 10.
+Delayed-Q-Learning
+  Instance 0 of 10.
+  Instance 1 of 10.
+  Instance 2 of 10.
+  Instance 3 of 10.
+  Instance 4 of 10.
+  Instance 5 of 10.
+  Instance 6 of 10.
+  Instance 7 of 10.
+  Instance 8 of 10.
+  Instance 9 of 10.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Below is the code to visualise the training of the three agents. As usual, there are a maximum of 100 steps, over 200 episodes, averaged over 10 repeats. Feel free to tinker with those settings.</p>
+<p>The results show the differences between the three algorithms. In general, double Q-learning tends to be more stable than Q-learning. And delayed Q-learning is more robust against outliers, but can be problematic in environments with larger state/action spaces. I.e. you might have to wait for a long time to get the required number of samples for a particular state-action pair, which will delay further exploration.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_files</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Q-Learning&quot;</span><span class="p">,</span> <span class="s2">&quot;q_learning_cliff_rewards.json&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Double Q-Learning&quot;</span><span class="p">,</span> <span class="s2">&quot;double_q_learning_cliff_rewards.json&quot;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s2">&quot;Delayed Q-Learning&quot;</span><span class="p">,</span> <span class="s2">&quot;delayed_q_learning_cliff_rewards.json&quot;</span><span class="p">)]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_files</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Episode&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Averaged Sum of Rewards&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions_17_0.png" src="_images/T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions_17_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T046728_n_step_algorithms_and_eligibility_traces.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">n-step algorithms and eligibility traces</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Multi-armed Bandit for Banner Ad</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

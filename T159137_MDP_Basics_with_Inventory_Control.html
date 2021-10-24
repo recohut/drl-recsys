@@ -1,0 +1,1349 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MDP Basics with Inventory Control &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="n-step algorithms and eligibility traces" href="T046728_n_step_algorithms_and_eligibility_traces.html" />
+    <link rel="prev" title="REINFORCE in PyTorch" href="T365137_REINFORCE_in_PyTorch.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T159137_MDP_Basics_with_Inventory_Control.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T159137_MDP_Basics_with_Inventory_Control.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T159137_MDP_Basics_with_Inventory_Control.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scenario">
+   Scenario
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#actions-and-potential-strategies">
+   Actions and Potential Strategies
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#transition-matrix">
+   Transition matrix
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reward-matrix">
+   Reward matrix
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-different-restocking-strategies">
+   Testing Different Restocking Strategies
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="mdp-basics-with-inventory-control">
+<h1>MDP Basics with Inventory Control<a class="headerlink" href="#mdp-basics-with-inventory-control" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p><em>An industrial example of using Markov decision processes for inventory control.</em></p>
+</div></blockquote>
+<p>This is a great example of using an MDP to define a problem. I intentionally keep it simple to make all the main parts of the MPD clear.</p>
+<p>Imagine you own a really simple shop. It sells one product and you have limited room for stock. The question is, when should you restock?</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># !pip install -q banditsbook==0.1.1
+!pip install -q pandas==1.1.2
+!pip install -q matplotlib==3.3.2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scenario">
+<h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">¶</a></h2>
+<p>Defining a problem in RL terms is a common issue for people who have a background in data science. Gaining more experience in the problem definition phase is worthwhile before you move on to other ways of solving MDPs.</p>
+<p>Inventory control is a good example to start with because it is both useful and easy to understand. This example has direct analogies with pricing, optimal stopping (selling an asset), maintenance, and more. I start with a very simple example and then expand it to a more complex version.</p>
+<p>Imagine you own a small shop. This shop is so small you only have a single product. Each day customers buy your product so you need to restock. If you run out of stock, then you can’t sell your product and make any money; you don’t want to run out of stock. You rent your shop and it costs you a certain amount of money per square meter. You don’t want to stock millions of items because you would need a larger premises. I could define many high-level problems, like the optimal size for the premises, or minimizing the delivery charges, but to start simply, I define the problem as deciding the best point to restock.</p>
+<p>Let s represent the number of items in stock on a particular day. This is the state of the environment. In an attempt to keep things as simple as possible, I assume three possible states: no stock, one item in stock, or two items in stock, <span class="math notranslate nohighlight">\(\mathcal{I}=\{0,1,2\}\)</span>.</p>
+<p><center><figure><img src='_images/T159137_1.png'><figcaption>A graph representing the transition probabilities of the simple inventory problem.</figcaption></figure></center></p></div>
+<div class="section" id="actions-and-potential-strategies">
+<h2>Actions and Potential Strategies<a class="headerlink" href="#actions-and-potential-strategies" title="Permalink to this headline">¶</a></h2>
+<p>Given the current state, the agent can perform an action. Keeping it simple, assume that the agent can take one of two actions. Either restock, which orders 1 new product, or do nothing: <span class="math notranslate nohighlight">\(\mathcal{A}=\{restock,none\}\)</span>. If the current state was 1 and the agent performs the action, the next state will be 2. Also assume that you cannot order any stock when you are at full capacity.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Action</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">NONE</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">RESTOCK</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">keep_buying_action</span><span class="p">(</span><span class="n">current_state</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Enum</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">current_state</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">NONE</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">RESTOCK</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">random_action</span><span class="p">(</span><span class="n">current_state</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Enum</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">current_state</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">NONE</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Action</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">NONE</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">RESTOCK</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">zero_action</span><span class="p">(</span><span class="n">current_state</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Enum</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">current_state</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">RESTOCK</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="n">NONE</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are </span><span class="si">{}</span><span class="s2"> actions.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Action</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 2 actions.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="transition-matrix">
+<h2>Transition matrix<a class="headerlink" href="#transition-matrix" title="Permalink to this headline">¶</a></h2>
+<p>What are the probabilities that the agent shifts from one state to another? Since you are simulating the environment, you have to choose those, but they could come from observations of your shop. Say that the probability of a single sale during a day, <span class="math notranslate nohighlight">\(p(sale)\)</span>, is 0.7. In the future you could predict the number of items sold. But for now, I use a Bernoulli distribution again. This means that in each state there is a 70% probability of a sale and a 30% probability of no sale. I’m going to develop an environment to simulate the shop. In this instance I’m going to declare all the transition probabilities myself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p_sale</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="c1"># Probability of a sale in one step</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Number of steps to run experiment for</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, since MDP is a model-based environment, that means we have the complete knowledge of our environment. To represent the environment, we use transition probabilities. There are 3 ways to do this:</p>
+<ol class="simple">
+<li><p>Using a table with all combinations of <span class="math notranslate nohighlight">\(\{s,a,s',p(s'|s,a),r\}\)</span> tuple.</p></li>
+<li><p>Transition graph.</p></li>
+<li><p>The final way to represent the transition probabilities is with a matrix for each action, known as the transition matrix.</p></li>
+</ol>
+<p>You already placed a constraint that you cannot restock if the stockroom is full. That is one hard rule. But after that, what is the best action to take? If you look purely at the rewards, which represent the goal, then there is only a positive reward on making sales. Crucially, there is no negative reward for placing orders. In other words, according to the reward matrix, it doesn’t cost anything to keep stock and it is free to order new stock. Given this reward structure, the best strategy is to keep ordering as much as you can.</p>
+<p>Even though the strategy is obvious in this case, you should always test your idea—the scientific method. It is always a good idea to compare your theory against other baselines.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The Transition Matrix represents the following states:</span>
+<span class="c1"># State 0</span>
+<span class="c1"># State 1</span>
+<span class="c1"># State 2</span>
+<span class="n">transition_matrix</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># No action</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="n">p_sale</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_sale</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">p_sale</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_sale</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="c1"># Restock</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="n">p_sale</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_sale</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">p_sale</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_sale</span><span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reward-matrix">
+<h2>Reward matrix<a class="headerlink" href="#reward-matrix" title="Permalink to this headline">¶</a></h2>
+<p>The final thing you need is a reward, <span class="math notranslate nohighlight">\(r\)</span>. Your shop needs to make money, so you can reward yourself every time you sell a product. But sales are possible only if the product is in stock at the time, or if you restocked just in time. This means the reward is conditional on the current state and on a sale; no sale means no reward.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}r = \begin{cases} 1\ if\ s&gt;0\ and\ a\ sale \\ 1\ if\ a=restock\ and\ a\ sale \\ 0\ otherwise\end{cases}\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">reward_matrix</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># No action</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="c1"># Restock</span>
+    <span class="p">[</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="testing-different-restocking-strategies">
+<h2>Testing Different Restocking Strategies<a class="headerlink" href="#testing-different-restocking-strategies" title="Permalink to this headline">¶</a></h2>
+<p>To demonstrate how this all fits together, let’s imagine a single iteration of the environment. You start with an initial state, feed that to the “agent” to decide an action, then the environment uses the transition matrix to mutate the state and finally it receives a reward.</p>
+<p>Let’s create a helper function to do all of that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">environment</span><span class="p">(</span><span class="n">current_state</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="c1"># Get the transition probabilities to each new state</span>
+    <span class="n">current_transition_probabilities</span> <span class="o">=</span> \
+        <span class="n">transition_matrix</span><span class="p">[</span><span class="n">action</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="n">current_state</span><span class="p">]</span>
+    
+    <span class="c1"># Use the transition probabilitis to transition to a new state</span>
+    <span class="n">next_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+        <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="n">p</span><span class="o">=</span><span class="n">current_transition_probabilities</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Get the reward for the new state (was there a sale?)</span>
+    <span class="n">reward</span> <span class="o">=</span> <span class="n">reward_matrix</span><span class="p">[</span><span class="n">action</span><span class="o">.</span><span class="n">value</span><span class="p">][</span><span class="n">current_state</span><span class="p">][</span><span class="n">next_state</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span>
+
+<span class="n">current_state</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Current state, one product in stock</span>
+<span class="n">action</span> <span class="o">=</span> <span class="n">Action</span><span class="o">.</span><span class="n">RESTOCK</span> <span class="c1"># Current action, as chosen by a strategy</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span> <span class="c1"># What happens if we run this multiple times?</span>
+    <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">environment</span><span class="p">(</span><span class="n">current_state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="c1"># Environment interface</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;trial </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: s=</span><span class="si">{</span><span class="n">current_state</span><span class="si">}</span><span class="s2">, a=</span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s2">, s&#39;=</span><span class="si">{</span><span class="n">next_state</span><span class="si">}</span><span class="s2">, r=</span><span class="si">{</span><span class="n">reward</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trial 0: s=1, a=Action.RESTOCK, s&#39;=1, r=1
+trial 1: s=1, a=Action.RESTOCK, s&#39;=2, r=0
+trial 2: s=1, a=Action.RESTOCK, s&#39;=2, r=0
+trial 3: s=1, a=Action.RESTOCK, s&#39;=1, r=1
+trial 4: s=1, a=Action.RESTOCK, s&#39;=1, r=1
+trial 5: s=1, a=Action.RESTOCK, s&#39;=1, r=1
+trial 6: s=1, a=Action.RESTOCK, s&#39;=1, r=1
+trial 7: s=1, a=Action.RESTOCK, s&#39;=2, r=0
+trial 8: s=1, a=Action.RESTOCK, s&#39;=1, r=1
+trial 9: s=1, a=Action.RESTOCK, s&#39;=2, r=0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Recall that the sale is a stochastic variable. Sometimes there is, sometimes there is not. When there is no sale, the stock (state) increases to 2, but there is no reward. When there is a sale, the stock (state) states at 1 because we sold one and restocked by one, and receive a reward of 1.</p>
+<p>Now let’s run this over a longer period of time, using different strategies. The three strategies I want to try are: always restock, restock when no stock left (just in time), and random restock.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The different strategies</span>
+<span class="n">strategies</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Keep Buying&quot;</span><span class="p">,</span> <span class="n">Action</span><span class="o">.</span><span class="n">keep_buying_action</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Upon Zero&quot;</span><span class="p">,</span> <span class="n">Action</span><span class="o">.</span><span class="n">zero_action</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Random&quot;</span><span class="p">,</span> <span class="n">Action</span><span class="o">.</span><span class="n">random_action</span><span class="p">)]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Results buffer</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">policy_name</span><span class="p">,</span> <span class="n">action_getter</span><span class="p">)</span> <span class="ow">in</span> <span class="n">strategies</span><span class="p">:</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="c1"># This is really important, otherwise different strategies will experience sales</span>
+    <span class="n">reward_history</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Reward buffer</span>
+    <span class="n">current_state</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># Initial state</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">):</span>
+        <span class="n">reward_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">action_getter</span><span class="p">(</span><span class="n">current_state</span><span class="p">)</span> <span class="c1"># Get new action for strategy</span>
+        <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">environment</span><span class="p">(</span><span class="n">current_state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="c1"># Environment interface</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Moving from state </span><span class="si">{}</span><span class="s2"> to state </span><span class="si">{}</span><span class="s2"> after action </span><span class="si">{}</span><span class="s2">. We received the reward </span><span class="si">{}</span><span class="s2">.&quot;</span>
+              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">reward</span><span class="p">))</span>
+        <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">next_state</span> <span class="c1"># Set next state to current state and repeat</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The total reward was </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_reward</span><span class="p">))</span>
+
+    <span class="c1"># Pandas/plotting stuff</span>
+    <span class="n">series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="n">reward_history</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">policy_name</span><span class="p">,</span> <span class="n">total_reward</span> <span class="o">/</span> <span class="n">n_steps</span><span class="p">))</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+The total reward was 70.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+The total reward was 70.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+The total reward was 56.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T159137_MDP_Basics_with_Inventory_Control_25_0.png" src="_images/T159137_MDP_Basics_with_Inventory_Control_25_0.png" />
+</div>
+</div>
+<p>The restock and just in time curves are overlapping, so let me add a little jitter so you can see them…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">df</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T159137_MDP_Basics_with_Inventory_Control_27_0.png" src="_images/T159137_MDP_Basics_with_Inventory_Control_27_0.png" />
+</div>
+</div>
+<p>So you can see that the always buy and just in time strategies are equivalent, given this reward function. Because holding stock isn’t penalised. Obviously this picture would change if we made the simulation more complex.</p>
+<p>I’d like to demonstrate what happens when you don’t fix the random seeds. Let’s run the exact same code again, but this time skip the random seed setting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The different strategies</span>
+<span class="n">strategies</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Keep Buying&quot;</span><span class="p">,</span> <span class="n">Action</span><span class="o">.</span><span class="n">keep_buying_action</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Upon Zero&quot;</span><span class="p">,</span> <span class="n">Action</span><span class="o">.</span><span class="n">zero_action</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Random&quot;</span><span class="p">,</span> <span class="n">Action</span><span class="o">.</span><span class="n">random_action</span><span class="p">)]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Results buffer</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">policy_name</span><span class="p">,</span> <span class="n">action_getter</span><span class="p">)</span> <span class="ow">in</span> <span class="n">strategies</span><span class="p">:</span>
+    <span class="c1"># np.random.seed(42) # Commenting this line out!!!</span>
+    <span class="n">reward_history</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Reward buffer</span>
+    <span class="n">current_state</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># Initial state</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">):</span>
+        <span class="n">reward_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">action_getter</span><span class="p">(</span><span class="n">current_state</span><span class="p">)</span> <span class="c1"># Get new action for strategy</span>
+        <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">environment</span><span class="p">(</span><span class="n">current_state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="c1"># Environment interface</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Moving from state </span><span class="si">{}</span><span class="s2"> to state </span><span class="si">{}</span><span class="s2"> after action </span><span class="si">{}</span><span class="s2">. We received the reward </span><span class="si">{}</span><span class="s2">.&quot;</span>
+              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_state</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">reward</span><span class="p">))</span>
+        <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">next_state</span> <span class="c1"># Set next state to current state and repeat</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The total reward was </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_reward</span><span class="p">))</span>
+
+    <span class="c1"># Pandas/plotting stuff</span>
+    <span class="n">series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="n">reward_history</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">n_steps</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">policy_name</span><span class="p">,</span> <span class="n">total_reward</span> <span class="o">/</span> <span class="n">n_steps</span><span class="p">))</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">series</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+The total reward was 72.
+Moving from state 2 to state 2 after action NONE. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+The total reward was 64.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action RESTOCK. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 1 after action RESTOCK. We received the reward 0.
+Moving from state 1 to state 1 after action RESTOCK. We received the reward 1.
+Moving from state 1 to state 1 after action NONE. We received the reward 0.
+Moving from state 1 to state 2 after action RESTOCK. We received the reward 0.
+Moving from state 2 to state 1 after action NONE. We received the reward 1.
+Moving from state 1 to state 0 after action NONE. We received the reward 1.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+Moving from state 0 to state 0 after action NONE. We received the reward 0.
+The total reward was 40.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T159137_MDP_Basics_with_Inventory_Control_31_0.png" src="_images/T159137_MDP_Basics_with_Inventory_Control_31_0.png" />
+</div>
+</div>
+<p>Now look! The strategies appear different. This is because of fluctuations in the probability of making a sale. Random chance might produce no sales for a long period of time and hamper an otherwise sensible strategy.</p>
+<p>This is a particularly challenging topic in RL. Most environments are stochastic and algorithms could be too. In general you need to repeat an experiment many times to average out the random effects.</p>
+<p>Changing the environment to include more stock, or allowing people to buy more than one item at a time, affects the best restocking strategy. Altering the reward function by introducing a penalty for ordering—a charge for delivery, for example—also alters the best strategy. In these cases it might be better to wait until you have zero stock then order a full 2 units worth of product. The reward function defines what problem you want solved, not how to achieve it.</p>
+<p>Standard MDPs require the state to be fully observable. If the agent cannot observe the true state of the system, then how can it pick an optimal action? There is an extension to the MDP model called partially observable MDPs (POMDPs). Here, you can introduce an extra mapping between the observations and the actual state. In other words, the agent would need to learn how to map actions to observations that are mapped to states that it cannot observe, a double mapping. As you can imagine, this is tricky to solve, because of more unknowns. In many applications, engineers trick the system back into a standard MDP by feeding more information from previous time steps into the current time step. Knowledge of the past can help the agent figure out how the actions altered the perceived states over a longer period of time.</p>
+<p>I also want to stress that the important thing here is the observation of the state, not the environment. Agents do not concern themselves about what is happening behind the MDP interface. You can alter the simulation as much as you want, so long as you do not change the interface. In the inventory example, if you altered the customer’s buying behavior, it only affects the optimal policy. It does not change how the agent learns.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T365137_REINFORCE_in_PyTorch.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">REINFORCE in PyTorch</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T046728_n_step_algorithms_and_eligibility_traces.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">n-step algorithms and eligibility traces</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

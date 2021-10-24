@@ -1,0 +1,1239 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartpole in PyTorch &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Q-Learning on Lunar Lander and Frozen Lake" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html" />
+    <link rel="prev" title="CartPole using REINFORCE in PyTorch" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T294930_Cartpole_in_PyTorch.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T294930_Cartpole_in_PyTorch.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T294930_Cartpole_in_PyTorch.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementing-and-evaluating-a-random-search-policy">
+   Implementing and evaluating a random search policy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#developing-the-hill-climbing-algorithm">
+   Developing the hill-climbing algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#developing-a-policy-gradient-algorithm">
+   Developing a policy gradient algorithm
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="cartpole-in-pytorch">
+<h1>Cartpole in PyTorch<a class="headerlink" href="#cartpole-in-pytorch" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="implementing-and-evaluating-a-random-search-policy">
+<h2>Implementing and evaluating a random search policy<a class="headerlink" href="#implementing-and-evaluating-a-random-search-policy" title="Permalink to this headline">¶</a></h2>
+<p>A simple, yet effective, approach is to map an observation to a vector of two numbers representing two actions. The action with the higher value will be picked. The linear mapping is depicted by a weight matrix whose size is 4 x 2 since the observations are 4-dimensional in this case. In each episode, the weight is randomly generated and is used to compute the action for every step in this episode. The total reward is then calculated. This process repeats for many episodes and, in the end, the weight that enables the highest total reward will become the learned policy. This approach is called random search because the weight is randomly picked in each trial with the hope that the best weight will be found with a large number of trials.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;CartPole-v0&#39;</span><span class="p">)</span>
+
+<span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+
+
+<span class="k">def</span> <span class="nf">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;simulates an episode given the input weight and returns</span>
+<span class="sd">    the total reward.</span>
+<span class="sd">    Here, we convert the state array to a tensor of the float type </span>
+<span class="sd">    because we need to compute the multiplication of the state and </span>
+<span class="sd">    weight tensor, torch.matmul(state, weight), for linear mapping. </span>
+<span class="sd">    The action with the higher value is selected using the torch.argmax() </span>
+<span class="sd">    operation. And don&#39;t forget to take the value of the resulting action </span>
+<span class="sd">    tensor using .item() because it is a one-element tensor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">is_done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">is_done</span><span class="p">:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">weight</span><span class="p">))</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">is_done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+    <span class="k">return</span> <span class="n">total_reward</span>
+
+
+<span class="n">n_episode</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">best_total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">best_weight</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Now, we can run n_episode. For each episode, we do the following:</span>
+<span class="sd">        - Randomly pick the weight</span>
+<span class="sd">        - Let the agent take actions according to the linear mapping</span>
+<span class="sd">        - An episode terminates and returns the total reward</span>
+<span class="sd">        - Update the best total reward and the best weight if necessary</span>
+<span class="sd">        - Also, keep a record of the total reward</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">total_reward</span> <span class="o">&gt;</span> <span class="n">best_total_reward</span><span class="p">:</span>
+        <span class="n">best_weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="n">best_total_reward</span> <span class="o">=</span> <span class="n">total_reward</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward over </span><span class="si">{}</span><span class="s1"> episode: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_episode</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Surprisingly, the average reward for the testing episodes is close to the maximum of 200 steps with the learned policy. Be aware that this value may vary a lot. It could be anywhere from 160 to 200.</p>
+<p>We can also plot the total reward for every episode in the training phase:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Episode&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Reward&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T294930_Cartpole_in_PyTorch_5_0.png" src="_images/T294930_Cartpole_in_PyTorch_5_0.png" />
+</div>
+</div>
+<p>Now, let’s see how the learned policy performs on 100 new episodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_episode_eval</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">total_rewards_eval</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode_eval</span><span class="p">):</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">best_weight</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="n">total_rewards_eval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward over </span><span class="si">{}</span><span class="s1"> episode: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_episode</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards_eval</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode_eval</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Episode 1: 200.0
+Episode 2: 200.0
+Episode 3: 200.0
+Episode 4: 200.0
+Episode 5: 200.0
+Episode 6: 200.0
+Episode 7: 200.0
+Episode 8: 200.0
+Episode 9: 51.0
+Episode 10: 200.0
+Episode 11: 200.0
+Episode 12: 200.0
+Episode 13: 66.0
+Episode 14: 200.0
+Episode 15: 200.0
+Episode 16: 73.0
+Episode 17: 200.0
+Episode 18: 51.0
+Episode 19: 66.0
+Episode 20: 77.0
+Episode 21: 61.0
+Episode 22: 73.0
+Episode 23: 200.0
+Episode 24: 200.0
+Episode 25: 200.0
+Episode 26: 74.0
+Episode 27: 200.0
+Episode 28: 107.0
+Episode 29: 200.0
+Episode 30: 200.0
+Episode 31: 200.0
+Episode 32: 200.0
+Episode 33: 200.0
+Episode 34: 200.0
+Episode 35: 200.0
+Episode 36: 64.0
+Episode 37: 200.0
+Episode 38: 62.0
+Episode 39: 200.0
+Episode 40: 200.0
+Episode 41: 200.0
+Episode 42: 61.0
+Episode 43: 49.0
+Episode 44: 200.0
+Episode 45: 99.0
+Episode 46: 86.0
+Episode 47: 200.0
+Episode 48: 61.0
+Episode 49: 200.0
+Episode 50: 98.0
+Episode 51: 75.0
+Episode 52: 200.0
+Episode 53: 54.0
+Episode 54: 89.0
+Episode 55: 63.0
+Episode 56: 200.0
+Episode 57: 200.0
+Episode 58: 85.0
+Episode 59: 200.0
+Episode 60: 51.0
+Episode 61: 73.0
+Episode 62: 114.0
+Episode 63: 114.0
+Episode 64: 87.0
+Episode 65: 82.0
+Episode 66: 200.0
+Episode 67: 200.0
+Episode 68: 200.0
+Episode 69: 131.0
+Episode 70: 62.0
+Episode 71: 57.0
+Episode 72: 65.0
+Episode 73: 200.0
+Episode 74: 200.0
+Episode 75: 200.0
+Episode 76: 200.0
+Episode 77: 91.0
+Episode 78: 71.0
+Episode 79: 200.0
+Episode 80: 200.0
+Episode 81: 95.0
+Episode 82: 200.0
+Episode 83: 68.0
+Episode 84: 200.0
+Episode 85: 63.0
+Episode 86: 200.0
+Episode 87: 200.0
+Episode 88: 200.0
+Episode 89: 53.0
+Episode 90: 200.0
+Episode 91: 200.0
+Episode 92: 200.0
+Episode 93: 200.0
+Episode 94: 75.0
+Episode 95: 200.0
+Episode 96: 67.0
+Episode 97: 53.0
+Episode 98: 49.0
+Episode 99: 57.0
+Episode 100: 200.0
+Average total reward over 1000 episode: 144.23
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the reward for each episode is pretty random, and that there is no trend of improvement as we go through the episodes. This is basically what we expected.</p>
+<p>In the plot of reward versus episodes, we can see that there are some episodes in which the reward reaches 200. We can end the training phase whenever this occurs since there is no room to improve. Incorporating this change, we now have the following for the training phase:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_episode</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">best_total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">best_weight</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">total_reward</span> <span class="o">&gt;</span> <span class="n">best_total_reward</span><span class="p">:</span>
+        <span class="n">best_weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="n">best_total_reward</span> <span class="o">=</span> <span class="n">total_reward</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">best_total_reward</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Episode 1: 33.0
+Episode 2: 49.0
+Episode 3: 8.0
+Episode 4: 8.0
+Episode 5: 55.0
+Episode 6: 195.0
+Episode 7: 10.0
+Episode 8: 25.0
+Episode 9: 10.0
+Episode 10: 10.0
+Episode 11: 10.0
+Episode 12: 60.0
+Episode 13: 8.0
+Episode 14: 14.0
+Episode 15: 13.0
+Episode 16: 10.0
+Episode 17: 9.0
+Episode 18: 41.0
+Episode 19: 10.0
+Episode 20: 83.0
+Episode 21: 9.0
+Episode 22: 42.0
+Episode 23: 36.0
+Episode 24: 49.0
+Episode 25: 10.0
+Episode 26: 31.0
+Episode 27: 9.0
+Episode 28: 200.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>The policy achieving the maximal reward is found in episode 17. Again, this may vary a lot because the weights are generated randomly for each episode. To compute the expectation of training episodes needed, we can repeat the preceding training process 1,000 times and take the average of the training episodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_training</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">n_episode_training</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_training</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+        <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">total_reward</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="n">n_episode_training</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">break</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Expectation of training episodes needed: &#39;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">n_episode_training</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_training</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Expectation of training episodes needed:  13.905
+</pre></div>
+</div>
+</div>
+</div>
+<p>The random search algorithm works so well mainly because of the simplicity of our CartPole environment. Its observation state is composed of only four variables. You will recall that the observation in the Atari Space Invaders game is more than 100,000 (which is 210 * 160 * 3) . The number of dimensions of the action state in CartPole is a third of that in Space Invaders. In general, simple algorithms work well for simple problems. In our case, we simply search for the best linear mapping from the observation to the action from a random pool.</p>
+<p>Another interesting thing we’ve noticed is that before we select and deploy the best policy (the best linear mapping), random search also outperforms random action. This is because random linear mapping does take the observations into consideration. With more information from the environment, the decisions made in the random search policy are more intelligent than completely random ones.</p>
+</div>
+<div class="section" id="developing-the-hill-climbing-algorithm">
+<h2>Developing the hill-climbing algorithm<a class="headerlink" href="#developing-the-hill-climbing-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>In the hill-climbing algorithm, we start with a randomly chosen weight, and for every episode, we add some noise to the weight. If the total reward improves, we update the weight with the new one; otherwise, we keep the old weight. In this approach, the weight is gradually improved as we progress through the episodes, instead of jumping around in each episode.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gym</span>
+
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;CartPole-v0&#39;</span><span class="p">)</span>
+
+<span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+
+<span class="k">def</span> <span class="nf">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">is_done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">is_done</span><span class="p">:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">weight</span><span class="p">))</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">is_done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+    <span class="k">return</span> <span class="n">total_reward</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_episode</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">best_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+<span class="n">best_total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">noise_scale</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;After we randomly pick an initial weight, for each episode, </span>
+<span class="sd">    we do the following:</span>
+<span class="sd">    - Add random noise to the weight</span>
+<span class="sd">    - Let the agent take actions according to the linear mapping</span>
+<span class="sd">    - An episode terminates and returns the total reward</span>
+<span class="sd">    - If the current reward is greater than the best one obtained so far, </span>
+<span class="sd">    update the best reward and the weight</span>
+<span class="sd">    - Otherwise, the best reward and the weight remain unchanged</span>
+<span class="sd">    - Also, keep a record of the total reward</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">best_weight</span> <span class="o">+</span> <span class="n">noise_scale</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="n">best_total_reward</span><span class="p">:</span>
+        <span class="n">best_total_reward</span> <span class="o">=</span> <span class="n">total_reward</span>
+        <span class="n">best_weight</span> <span class="o">=</span> <span class="n">weight</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward over </span><span class="si">{}</span><span class="s1"> episode: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_episode</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What could cause such variance? It turns out that if the initial weight is bad, adding noise at a small scale will have little effect on improving the performance. This will cause poor convergence. On the other hand, if the initial weight is good, adding noise at a big scale might move the weight away from the optimal weight and jeopardize the performance. How can we make the training of the hill-climbing model more stable and reliable? We can actually make the noise scale adaptive to the performance, just like the adaptive learning rate in gradient descent.</p>
+<p>To make the noise adaptive, we do the following:</p>
+<ul class="simple">
+<li><p>Specify a starting noise scale.</p></li>
+<li><p>If the performance in an episode improves, decrease the noise scale. - In our case, we take half of the scale, but set 0.0001 as the lower bound.
+If the performance in an episode drops, increase the noise scale. In our case, we double the scale, but set 2 as the upper bound.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">best_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+<span class="n">noise_scale</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="n">best_total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">best_weight</span> <span class="o">+</span> <span class="n">noise_scale</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="n">best_total_reward</span><span class="p">:</span>
+        <span class="n">best_total_reward</span> <span class="o">=</span> <span class="n">total_reward</span>
+        <span class="n">best_weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="n">noise_scale</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">noise_scale</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">noise_scale</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">noise_scale</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward over </span><span class="si">{}</span><span class="s1"> episode: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_episode</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The reward is increasing as the episodes progress. It reaches the maximum of 200 within the first 100 episodes and stays there. The average total reward also looks promising.</p>
+<p>We also plot the total reward for every episode as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Episode&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Reward&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T294930_Cartpole_in_PyTorch_19_0.png" src="_images/T294930_Cartpole_in_PyTorch_19_0.png" />
+</div>
+</div>
+<p>Now, let’s see how the learned policy performs on 100 new episodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_episode_eval</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">total_rewards_eval</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode_eval</span><span class="p">):</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">best_weight</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="n">total_rewards_eval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward over </span><span class="si">{}</span><span class="s1"> episode: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_episode</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards_eval</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode_eval</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The average reward for the testing episodes is close to the maximum of 200 that we obtained with the learned policy. You can re-run the evaluation multiple times. The results are pretty consistent.</p>
+<p>We are able to achieve much better performance with the hill-climbing algorithm than with random search by simply adding adaptive noise to each episode. We can think of it as a special kind of gradient descent without a target variable. The additional noise is the gradient, albeit in a random way. The noise scale is the learning rate, and it is adaptive to the reward from the previous episode. The target variable in hill climbing becomes achieving the highest reward. In summary, rather than isolating each episode, the agent in the hill-climbing algorithm makes use of the knowledge learned from each episode and performs a more reliable action in the next episode. As the name hill climbing implies, the reward moves upwards through the episodes as the weight gradually moves towards the optimum value.</p>
+<p>We can observe that the reward can reach the maximum value within the first 100 episodes. Can we just stop training when the reward reaches 200, as we did with the random search policy? That might not be a good idea. Remember that the agent is making continuous improvements in hill climbing. Even if it finds a weight that generates the maximum reward, it can still search around this weight for the optimal point. Here, we define the optimal policy as the one that can solve the CartPole problem. According to the following wiki page, <a class="reference external" href="https://github.com/openai/gym/wiki/CartPole-v0">https://github.com/openai/gym/wiki/CartPole-v0</a>, “solved” means the average reward over 100 consecutive episodes is no less than 195.</p>
+<p>We refine the stopping criterion accordingly:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">best_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+<span class="n">noise_scale</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="n">best_total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">best_weight</span> <span class="o">+</span> <span class="n">noise_scale</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">total_reward</span> <span class="o">&gt;=</span> <span class="n">best_total_reward</span><span class="p">:</span>
+        <span class="n">best_total_reward</span> <span class="o">=</span> <span class="n">total_reward</span>
+        <span class="n">best_weight</span> <span class="o">=</span> <span class="n">weight</span>
+        <span class="n">noise_scale</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">noise_scale</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">noise_scale</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">noise_scale</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">episode</span> <span class="o">&gt;=</span> <span class="mi">99</span> <span class="ow">and</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">:])</span> <span class="o">&gt;=</span> <span class="mi">19500</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Episode 1: 8.0
+Episode 2: 10.0
+Episode 3: 8.0
+Episode 4: 10.0
+Episode 5: 9.0
+Episode 6: 9.0
+Episode 7: 9.0
+Episode 8: 10.0
+Episode 9: 10.0
+Episode 10: 10.0
+Episode 11: 8.0
+Episode 12: 9.0
+Episode 13: 10.0
+Episode 14: 9.0
+Episode 15: 9.0
+Episode 16: 10.0
+Episode 17: 9.0
+Episode 18: 9.0
+Episode 19: 9.0
+Episode 20: 11.0
+Episode 21: 9.0
+Episode 22: 8.0
+Episode 23: 9.0
+Episode 24: 9.0
+Episode 25: 9.0
+Episode 26: 10.0
+Episode 27: 10.0
+Episode 28: 10.0
+Episode 29: 9.0
+Episode 30: 9.0
+Episode 31: 48.0
+Episode 32: 68.0
+Episode 33: 48.0
+Episode 34: 45.0
+Episode 35: 33.0
+Episode 36: 85.0
+Episode 37: 65.0
+Episode 38: 100.0
+Episode 39: 71.0
+Episode 40: 75.0
+Episode 41: 94.0
+Episode 42: 71.0
+Episode 43: 62.0
+Episode 44: 48.0
+Episode 45: 79.0
+Episode 46: 86.0
+Episode 47: 136.0
+Episode 48: 88.0
+Episode 49: 62.0
+Episode 50: 40.0
+Episode 51: 48.0
+Episode 52: 30.0
+Episode 53: 76.0
+Episode 54: 73.0
+Episode 55: 79.0
+Episode 56: 27.0
+Episode 57: 65.0
+Episode 58: 42.0
+Episode 59: 42.0
+Episode 60: 30.0
+Episode 61: 39.0
+Episode 62: 64.0
+Episode 63: 62.0
+Episode 64: 42.0
+Episode 65: 99.0
+Episode 66: 64.0
+Episode 67: 200.0
+Episode 68: 200.0
+Episode 69: 200.0
+Episode 70: 200.0
+Episode 71: 200.0
+Episode 72: 200.0
+Episode 73: 200.0
+Episode 74: 191.0
+Episode 75: 200.0
+Episode 76: 200.0
+Episode 77: 200.0
+Episode 78: 192.0
+Episode 79: 200.0
+Episode 80: 180.0
+Episode 81: 200.0
+Episode 82: 200.0
+Episode 83: 200.0
+Episode 84: 180.0
+Episode 85: 192.0
+Episode 86: 200.0
+Episode 87: 200.0
+Episode 88: 200.0
+Episode 89: 200.0
+Episode 90: 200.0
+Episode 91: 185.0
+Episode 92: 200.0
+Episode 93: 200.0
+Episode 94: 190.0
+Episode 95: 200.0
+Episode 96: 200.0
+Episode 97: 200.0
+Episode 98: 200.0
+Episode 99: 200.0
+Episode 100: 200.0
+Episode 101: 200.0
+Episode 102: 200.0
+Episode 103: 200.0
+Episode 104: 199.0
+Episode 105: 200.0
+Episode 106: 200.0
+Episode 107: 188.0
+Episode 108: 200.0
+Episode 109: 200.0
+Episode 110: 200.0
+Episode 111: 184.0
+Episode 112: 190.0
+Episode 113: 200.0
+Episode 114: 200.0
+Episode 115: 200.0
+Episode 116: 200.0
+Episode 117: 200.0
+Episode 118: 200.0
+Episode 119: 200.0
+Episode 120: 200.0
+Episode 121: 200.0
+Episode 122: 200.0
+Episode 123: 200.0
+Episode 124: 200.0
+Episode 125: 200.0
+Episode 126: 200.0
+Episode 127: 200.0
+Episode 128: 189.0
+Episode 129: 200.0
+Episode 130: 200.0
+Episode 131: 200.0
+Episode 132: 200.0
+Episode 133: 196.0
+Episode 134: 200.0
+Episode 135: 200.0
+Episode 136: 200.0
+Episode 137: 194.0
+Episode 138: 200.0
+Episode 139: 200.0
+Episode 140: 182.0
+Episode 141: 200.0
+Episode 142: 200.0
+Episode 143: 200.0
+Episode 144: 200.0
+Episode 145: 189.0
+Episode 146: 200.0
+Episode 147: 193.0
+Episode 148: 200.0
+Episode 149: 200.0
+Episode 150: 200.0
+Episode 151: 200.0
+Episode 152: 179.0
+Episode 153: 200.0
+Episode 154: 173.0
+Episode 155: 200.0
+Episode 156: 200.0
+Episode 157: 181.0
+Episode 158: 200.0
+Episode 159: 200.0
+Episode 160: 200.0
+Episode 161: 200.0
+Episode 162: 200.0
+Episode 163: 186.0
+Episode 164: 200.0
+Episode 165: 198.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>At episode 165, the problem is considered solved.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Hill_climbing">https://en.wikipedia.org/wiki/Hill_climbing</a></p></li>
+<li><p><a class="reference external" href="https://www.geeksforgeeks.org/introduction-hill-climbing-artificial-intelligence/">https://www.geeksforgeeks.org/introduction-hill-climbing-artificial-intelligence/</a></p></li>
+</ul>
+</div>
+<div class="section" id="developing-a-policy-gradient-algorithm">
+<h2>Developing a policy gradient algorithm<a class="headerlink" href="#developing-a-policy-gradient-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>This section is about solving the CartPole environment with a policy gradient algorithm. This may be more complicated than we need for this simple problem, in which the random search and hill-climbing algorithms suffice. However, it is a great algorithm to learn.</p>
+<p>In the policy gradient algorithm, the model weight moves in the direction of the gradient at the end of each episode. Also, in each step, it samples an action from the policy based on the probabilities computed using the state and weight. It no longer takes an action with certainty, in contrast with random search and hill climbing (by taking the action achieving the higher score). Hence, the policy switches from deterministic to stochastic.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">gym</span>
+
+
+<span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="s1">&#39;CartPole-v0&#39;</span><span class="p">)</span>
+
+<span class="n">n_state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">observation_space</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_action</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="o">.</span><span class="n">n</span>
+
+
+<span class="k">def</span> <span class="nf">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;We define the run_episode function, which simulates an episode given </span>
+<span class="sd">    the input weight and returns the total reward and the gradients computed. </span>
+<span class="sd">    More specifically, it does the following tasks in each step:</span>
+<span class="sd">    - Calculates the probabilities, probs, for both actions based on the </span>
+<span class="sd">    current state and input weight</span>
+<span class="sd">    - Samples an action, action, based on the resulting probabilities</span>
+<span class="sd">    - Computes the derivatives, d_softmax, of the softmax function with the </span>
+<span class="sd">    probabilities as input</span>
+<span class="sd">    - Divides the resulting derivatives, d_softmax, by the probabilities, probs, </span>
+<span class="sd">    to get the derivatives, d_log, of the log term with respect to the policy</span>
+<span class="sd">    - Applies the chain rule to compute the gradient, grad, of the weights</span>
+<span class="sd">    - Records the resulting gradient, grad</span>
+<span class="sd">    - Performs the action, accumulates the reward, and updates the state</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="n">grads</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">total_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">is_done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">is_done</span><span class="p">:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+        <span class="n">probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Softmax</span><span class="p">()(</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">probs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">d_softmax</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span> <span class="o">-</span> <span class="n">probs</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">probs</span>
+        <span class="n">d_log</span> <span class="o">=</span> <span class="n">d_softmax</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">/</span> <span class="n">probs</span><span class="p">[</span><span class="n">action</span><span class="p">]</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">d_log</span>
+        <span class="n">grads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">is_done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">total_reward</span> <span class="o">+=</span> <span class="n">reward</span>
+        <span class="k">if</span> <span class="n">is_done</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">total_reward</span><span class="p">,</span> <span class="n">grads</span>
+
+
+<span class="n">n_episode</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.001</span>
+
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_state</span><span class="p">,</span> <span class="n">n_action</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode</span><span class="p">):</span>
+    <span class="n">total_reward</span><span class="p">,</span> <span class="n">gradients</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gradient</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gradients</span><span class="p">):</span>
+        <span class="n">weight</span> <span class="o">+=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span> <span class="o">*</span> <span class="p">(</span><span class="n">total_reward</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">total_rewards</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward over </span><span class="si">{}</span><span class="s1"> episode: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_episode</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Episode&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Reward&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T294930_Cartpole_in_PyTorch_31_0.png" src="_images/T294930_Cartpole_in_PyTorch_31_0.png" />
+</div>
+</div>
+<p>In the resulting plot, we can see a clear upward trend before it stays at the maximum value. We can also see that the rewards oscillate even after it converges. This is because the policy gradient algorithm is a stochastic policy.</p>
+<p>Now, let’s see how the learned policy performs on 100 new episodes:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_episode_eval</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">total_rewards_eval</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_episode_eval</span><span class="p">):</span>
+    <span class="n">total_reward</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_episode</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Episode </span><span class="si">{}</span><span class="s1">: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">episode</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">total_reward</span><span class="p">))</span>
+    <span class="n">total_rewards_eval</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_reward</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average total reward over </span><span class="si">{}</span><span class="s1"> episode: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_episode</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">total_rewards_eval</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_episode_eval</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:19: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Episode 1: 200.0
+Episode 2: 200.0
+Episode 3: 200.0
+Episode 4: 200.0
+Episode 5: 200.0
+Episode 6: 200.0
+Episode 7: 200.0
+Episode 8: 200.0
+Episode 9: 200.0
+Episode 10: 200.0
+Episode 11: 200.0
+Episode 12: 200.0
+Episode 13: 200.0
+Episode 14: 200.0
+Episode 15: 200.0
+Episode 16: 200.0
+Episode 17: 200.0
+Episode 18: 200.0
+Episode 19: 200.0
+Episode 20: 200.0
+Episode 21: 200.0
+Episode 22: 200.0
+Episode 23: 200.0
+Episode 24: 200.0
+Episode 25: 200.0
+Episode 26: 200.0
+Episode 27: 200.0
+Episode 28: 200.0
+Episode 29: 200.0
+Episode 30: 200.0
+Episode 31: 200.0
+Episode 32: 200.0
+Episode 33: 200.0
+Episode 34: 200.0
+Episode 35: 200.0
+Episode 36: 200.0
+Episode 37: 200.0
+Episode 38: 200.0
+Episode 39: 200.0
+Episode 40: 200.0
+Episode 41: 200.0
+Episode 42: 200.0
+Episode 43: 200.0
+Episode 44: 200.0
+Episode 45: 200.0
+Episode 46: 200.0
+Episode 47: 200.0
+Episode 48: 200.0
+Episode 49: 200.0
+Episode 50: 200.0
+Episode 51: 200.0
+Episode 52: 200.0
+Episode 53: 200.0
+Episode 54: 200.0
+Episode 55: 200.0
+Episode 56: 200.0
+Episode 57: 200.0
+Episode 58: 200.0
+Episode 59: 200.0
+Episode 60: 200.0
+Episode 61: 200.0
+Episode 62: 200.0
+Episode 63: 200.0
+Episode 64: 200.0
+Episode 65: 200.0
+Episode 66: 200.0
+Episode 67: 200.0
+Episode 68: 200.0
+Episode 69: 200.0
+Episode 70: 200.0
+Episode 71: 200.0
+Episode 72: 200.0
+Episode 73: 200.0
+Episode 74: 200.0
+Episode 75: 200.0
+Episode 76: 200.0
+Episode 77: 200.0
+Episode 78: 200.0
+Episode 79: 200.0
+Episode 80: 200.0
+Episode 81: 200.0
+Episode 82: 200.0
+Episode 83: 200.0
+Episode 84: 200.0
+Episode 85: 200.0
+Episode 86: 200.0
+Episode 87: 200.0
+Episode 88: 200.0
+Episode 89: 200.0
+Episode 90: 200.0
+Episode 91: 200.0
+Episode 92: 200.0
+Episode 93: 200.0
+Episode 94: 200.0
+Episode 95: 200.0
+Episode 96: 200.0
+Episode 97: 200.0
+Episode 98: 200.0
+Episode 99: 200.0
+Episode 100: 200.0
+Average total reward over 1000 episode: 200.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>The average reward for the testing episodes is close to the maximum value of 200 for the learned policy. You can re-run the evaluation multiple times. The results are pretty consistent.</p>
+<p>The policy gradient algorithm trains an agent by taking small steps and updating the weight based on the rewards associated with those steps at the end of an episode. The technique of having the agent run through an entire episode and then updating the policy based on the rewards obtained is called Monte Carlo policy gradient.</p>
+<p>The action is selected based on the probability distribution computed based on the current state and the model’s weight. For example, if the probabilities for the left and right actions are [0.6, 0.4], this means the left action is selected 60% of the time; it doesn’t mean the left action is chosen, as in the random search and hill-climbing algorithms.</p>
+<p>We know that the reward is 1 for each step before an episode terminates. Hence, the future reward we use to calculate the policy gradient at each step is the number of steps remaining. After each episode, we feed the gradient history multiplied by the future rewards to update the weight using the stochastic gradient ascent method. In this way, the longer an episode is, the bigger the update of the weight. This will eventually increase the chance of getting a larger total reward.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">CartPole using REINFORCE in PyTorch</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Q-Learning on Lunar Lander and Frozen Lake</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -1,0 +1,1117 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code-Driven Introduction to Reinforcement Learning &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CartPole using Cross-Entropy" href="T705437_CartPole_using_Cross_Entropy.html" />
+    <link rel="prev" title="Introduction to Gym toolkit" href="T726861_Introduction_to_Gym_toolkit.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T441700_REINFORCE.html">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T589782_Code_Driven_Introduction_to_Reinforcement_Learning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T589782_Code_Driven_Introduction_to_Reinforcement_Learning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T589782_Code_Driven_Introduction_to_Reinforcement_Learning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-markov-decision-process">
+   The Markov Decision Process
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-mdp-entities">
+     The MDP Entities
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-mdp-interface">
+     The MDP Interface
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-gridworld-environment">
+     Creating a “GridWorld” Environment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imports-and-definitions">
+     Imports and Definitions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-environment-class">
+     The Environment Class
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-reset-function">
+     The Reset Function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#taking-a-step">
+     Taking a Step
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualisation">
+     Visualisation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#running-the-environment">
+     Running the Environment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#key-takeaways">
+     Key Takeaways
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-reinforcement-learning-solution-to-the-mdp-implementing-the-monte-carlo-rl-algorithm">
+   A Reinforcement Learning Solution to the MDP: Implementing the Monte Carlo RL Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generating-trajectories">
+     Generating trajectories
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualising-trajectories">
+     Visualising Trajectories
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#quantifying-value">
+     Quantifying Value
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#running-the-trajectory-generation">
+     Running the Trajectory Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualising-the-state-value-function">
+     Visualising the State Value Function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generating-optimal-policies">
+     Generating Optimal Policies
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plotting-the-optimal-policy">
+     Plotting the Optimal Policy
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="code-driven-introduction-to-reinforcement-learning">
+<h1>Code-Driven Introduction to Reinforcement Learning<a class="headerlink" href="#code-driven-introduction-to-reinforcement-learning" title="Permalink to this headline">¶</a></h1>
+<p>In the following examples I intentionally use a very simple and visual example. This makes it easier to understand, since that is the main goal. Although there are industrial examples that are similar, real-life implementations are likely to be more complex.</p>
+<div class="section" id="the-markov-decision-process">
+<h2>The Markov Decision Process<a class="headerlink" href="#the-markov-decision-process" title="Permalink to this headline">¶</a></h2>
+<p>The Markov decision process (MDP) is a mathematical framework that helps you encapsulate the real-world. Desptite simple and restrictive – the sign of a good interface – a suprising number of situations can be squeezed into the MDP formalism.</p>
+<div class="section" id="the-mdp-entities">
+<h3>The MDP Entities<a class="headerlink" href="#the-mdp-entities" title="Permalink to this headline">¶</a></h3>
+<p>An MDP has two “entities”:</p>
+<ol class="simple">
+<li><p>An agent: An application that is able to observe state and suggest an action. It also receives feedback to let it know whether the action was good, or not.</p></li>
+<li><p>An environment: This is the place where the agent acts within. It accepts an action, which alterts its internal state, and produces a new observation of that state.
+In nearly all of the examples that I have seen, these two entities are implemented independently. The agent is often an RL algorithm (although not always) and the environment is either real life or a simulation.</p></li>
+</ol>
+</div>
+<div class="section" id="the-mdp-interface">
+<h3>The MDP Interface<a class="headerlink" href="#the-mdp-interface" title="Permalink to this headline">¶</a></h3>
+<p>The agent and the environment interact through an interface. You have some control over what goes into that interface and a large amount of effort is typically spent improving the quality of the data that flows through it. You need representations of:</p>
+<ol class="simple">
+<li><p>State: This is the observation of the environment. You often get to choose what to “show” to the agent. There is a compromise between simplifying the state to speed up learning and preventing overfitting, but often it pays to include as much as you can.</p></li>
+<li><p>Action: Your agent must suggest an action. This mutates the environment in some way. So called “options” or “null-actions” allow you to do nothing, if that’s what you want to do.</p></li>
+<li><p>Reward: You use the reward to fine-tune your action choices.</p></li>
+</ol>
+</div>
+<div class="section" id="creating-a-gridworld-environment">
+<h3>Creating a “GridWorld” Environment<a class="headerlink" href="#creating-a-gridworld-environment" title="Permalink to this headline">¶</a></h3>
+<p>To make it easy to understand, I’m going to show you how to create a simulation of a simple grid-based “world”. Many real-life implementations begin with a simulation of the real world, because it’s much easier to iterate and improve your design with a software stub of real-life.</p>
+<p>The goal of this environment is to define a “world” in which a “robot” can move. The so-called-world is actually a series of cells inside a 2-dimensional box. The agent can move north, east, south, or west which moves the robot between the cells. The goal of the environment is to reach a goal. There is a reward of -1 for every step, to promote reaching the goal as fast as possible.</p>
+</div>
+<div class="section" id="imports-and-definitions">
+<h3>Imports and Definitions<a class="headerlink" href="#imports-and-definitions" title="Permalink to this headline">¶</a></h3>
+<p>First let me import a few libraries (to enable the autocompletion in later cells) and define a few important definitions. The first is the defacto definition of a “point” object, with x and y coordinates and the second is a direction enumeration. These are use to define the position of the agent in the environment and the direction of movement for an action, respectively. Note that I’m assuming that east moves in a positive x direction and north moves in a positive y direction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span>
+
+<span class="n">Point</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;Point&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+  <span class="n">NORTH</span> <span class="o">=</span> <span class="s2">&quot;⬆&quot;</span>
+  <span class="n">EAST</span> <span class="o">=</span> <span class="s2">&quot;⮕&quot;</span>
+  <span class="n">SOUTH</span> <span class="o">=</span> <span class="s2">&quot;⬇&quot;</span>
+  <span class="n">WEST</span> <span class="o">=</span> <span class="s2">&quot;⬅&quot;</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span>    
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-environment-class">
+<h3>The Environment Class<a class="headerlink" href="#the-environment-class" title="Permalink to this headline">¶</a></h3>
+<p>Next I create a Python class that represents the environment. The first function in the class is the initialisation function in which we can specify the width and height of the environment.</p>
+<p>After that I define a helper parameter which encodes the possible actions and then I reset the state of the environment with a reset function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleGridWorld</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">action_space</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">Direction</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-reset-function">
+<h3>The Reset Function<a class="headerlink" href="#the-reset-function" title="Permalink to this headline">¶</a></h3>
+<p>Many environments have an implicit “reset”, whereby the environment’s state is moved away from the goal state. In this implementation I reset the environment back to the (0, 0) position, but this isn’t strictly necessary. Many real-life environments reset randomly or have no reset at all.</p>
+<p>Here I also set the goal, which is located in the south-eastern corner of the environment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleGridWorld</span><span class="p">(</span><span class="n">SimpleGridWorld</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">goal</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># If debug, print state</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="taking-a-step">
+<h3>Taking a Step<a class="headerlink" href="#taking-a-step" title="Permalink to this headline">¶</a></h3>
+<p>Recall that the MDP interface three key components: the state, the action, and the reward. The environment’s step function accepts an action, then produces a new state and reward.</p>
+<p>The large amount of code is a consequence of the direction implementation. You can refactor this to use fewer lines of code with some clever indexing. However, I think this level of verbosity helps explain what is going on. In essence, every direction moves the current position by one square. You can see the code incrementing or decrementing the x or y coordinates.</p>
+<p>The second part of the function is testing to see if the agent is at the goal. If it is, then it signals that it is at a terminal state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleGridWorld</span><span class="p">(</span><span class="n">SimpleGridWorld</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Direction</span><span class="p">):</span>
+    <span class="c1"># Depending on the action, mutate the environment state</span>
+    <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">NORTH</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">EAST</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">WEST</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    <span class="c1"># Check if out of bounds</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># If at goal, terminate</span>
+    <span class="n">is_terminal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal</span>
+
+    <span class="c1"># Constant -1 reward to promote speed-to-goal</span>
+    <span class="n">reward</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1"># If debug, print state</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">is_terminal</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="visualisation">
+<h3>Visualisation<a class="headerlink" href="#visualisation" title="Permalink to this headline">¶</a></h3>
+<p>And finally, like all of data science, it is vitally important that you are able to visualise the behaviour and performance of your agent. The first step in this process is being able to visualise the agent within the environment. The next function does this by printing a textual grid, with an x at the agent’s location, a o at the goal, an &#64; if the agent is on top of the goal, and a _ otherwise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleGridWorld</span><span class="p">(</span><span class="n">SimpleGridWorld</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)):</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+          <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;@&quot;</span>
+          <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;o&quot;</span>
+          <span class="k">continue</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_pos</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+          <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;x&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;_&quot;</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-environment">
+<h3>Running the Environment<a class="headerlink" href="#running-the-environment" title="Permalink to this headline">¶</a></h3>
+<p>To run the environment you need to instantiate the class, call reset to move the agent back to the start, then perform a series of actions to move the agent. For now let me move it manually, to make sure it is working, visualising the agent at each step. I also print the result of the step (the new state, reward, and terminal flag) for completeness.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">SimpleGridWorld</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;☝ This shows a simple visualisation of the environment state.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">),</span> <span class="s2">&quot;⬅ This displays the state and reward from the environment 𝐀𝐅𝐓𝐄𝐑 moving.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">EAST</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">EAST</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">EAST</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">EAST</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x____
+_____
+_____
+_____
+____o
+
+☝ This shows a simple visualisation of the environment state.
+
+_____
+x____
+_____
+_____
+____o
+
+_____
+_____
+x____
+_____
+____o
+
+(Point(x=0, y=2), -1, False) ⬅ This displays the state and reward from the environment 𝐀𝐅𝐓𝐄𝐑 moving.
+
+_____
+_____
+_____
+x____
+____o
+
+_____
+_____
+_____
+_____
+x___o
+
+_____
+_____
+_____
+_____
+_x__o
+
+_____
+_____
+_____
+_____
+__x_o
+
+_____
+_____
+_____
+_____
+___xo
+
+_____
+_____
+_____
+_____
+____@
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(Point(x=4, y=0), -1, True)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="key-takeaways">
+<h3>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permalink to this headline">¶</a></h3>
+<p>There are a few key lessons that you should commit to memory:</p>
+<ul class="simple">
+<li><p>The state is an observation of the environment, which contains everything outside of the agent. For example, the agent’s current position within the environment. In real world applications this could be the time of the day, the weather, data from a video camera, literally anything.</p></li>
+<li><p>The reward fully specifies the optimal solution to the problem. In real life this might be profit or the number of new customers.</p></li>
+<li><p>Every action mutates the state of the environment. This may or may not be observable.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="a-reinforcement-learning-solution-to-the-mdp-implementing-the-monte-carlo-rl-algorithm">
+<h2>A Reinforcement Learning Solution to the MDP: Implementing the Monte Carlo RL Algorithm<a class="headerlink" href="#a-reinforcement-learning-solution-to-the-mdp-implementing-the-monte-carlo-rl-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Rather confusingly, RL, like ML, is meant both as a technique and a collection of algorithms. Exactly when an algorithm becomes an RL algorithms is up for debate, but it is generally accepted that there has to be multiple steps (otherwise it would just be a bandit problem) and it attempts to quantify the value of being in a particular state.</p>
+<p>An algorithm called the cross-entropy method is an algorithm that attempts to stumble accross the goal. However, once it has then it replicates the same movements again to reach the goal. This is not stricly learning, it is memoising, so it is not an RL algorithm. However, you shouldn’t discount it, because it is a very good and simple baseline. It can easily complete very sophisticated tasks if you give it enough time.</p>
+<p>Instead, let me introduce a slight variation to this algorithm called the Monte Carlo (MC) method. This lies at the heart of all modern RL algorithms so it is a great way to start.</p>
+<p>In short – you can read more about this in Chapter 2 of the book – MC methods attempt to randomly sample states and judge their value. Once you have sampled the states enough times then you can derive a strategy that follows the path of the next best value.</p>
+<p>Let’s give it a try.</p>
+<div class="section" id="generating-trajectories">
+<h3>Generating trajectories<a class="headerlink" href="#generating-trajectories" title="Permalink to this headline">¶</a></h3>
+<p>Monte Carlo techniques operate by sampling the environment. In general, the idea is that if you can sample the environment enough times, you can begin to build a picture of the output, given any input. We can use this idea in RL. If we capture enough trajectories, where a trajectory is one full pass through an environment, then we can see which states are advantagous.</p>
+<p>To begin, I will create a class that is capable of generating trajectories. Here I pass in the environment, then in the run function I repeatedly step in the environment using a random action. I store each step in a list and return it to the user.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MonteCarloGeneration</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">env</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">max_steps</span> <span class="o">=</span> <span class="n">max_steps</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug</span>
+
+  <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n_steps</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Keep track of the number of steps so I can bail out if it takes too long</span>
+    <span class="n">state</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> <span class="c1"># Reset environment back to start</span>
+    <span class="n">terminal</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">terminal</span><span class="p">:</span> <span class="c1"># Run until terminal state</span>
+      <span class="n">action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="p">)</span> <span class="c1"># Random action. Try replacing this with Direction.EAST</span>
+      <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">terminal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="c1"># Take action in environment</span>
+      <span class="n">buffer</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">))</span> <span class="c1"># Store the result</span>
+      <span class="n">state</span> <span class="o">=</span> <span class="n">next_state</span> <span class="c1"># Ready for the next step</span>
+      <span class="n">n_steps</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="n">n_steps</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_steps</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+          <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Terminated early due to large number of steps&quot;</span><span class="p">)</span>
+        <span class="n">terminal</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Bail out if we&#39;ve been working for too long</span>
+    <span class="k">return</span> <span class="n">buffer</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="visualising-trajectories">
+<h3>Visualising Trajectories<a class="headerlink" href="#visualising-trajectories" title="Permalink to this headline">¶</a></h3>
+<p>As before, it’s vitally important to visualise as much as possible, to gain an intuition into your problem. A simple first step is to view the agent’s movement and trajectory. Here I severely limit the amount of exploration to save reams of output. Depending on your random seed you will see the agent stumbling around.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">SimpleGridWorld</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Instantiate the environment</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">MonteCarloGeneration</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">max_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Instantiate the generation</span>
+<span class="n">trajectory</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">run</span><span class="p">()</span> <span class="c1"># Generate a trajectory</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trajectory</span><span class="p">])</span> <span class="c1"># Print chosen actions</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;total reward: </span><span class="si">{</span><span class="nb">sum</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trajectory</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1"># Print final reward</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x____
+_____
+_____
+_____
+____o
+
+x____
+_____
+_____
+_____
+____o
+
+_____
+_____
+_____
+_____
+____o
+
+____x
+_____
+_____
+_____
+____o
+
+___x_
+_____
+_____
+_____
+____o
+
+__x__
+_____
+_____
+_____
+____o
+
+_____
+__x__
+_____
+_____
+____o
+
+_____
+_____
+__x__
+_____
+____o
+
+_____
+_____
+_____
+__x__
+____o
+
+_____
+_____
+_____
+_____
+__x_o
+
+_____
+_____
+_____
+_____
+__x_o
+
+_____
+_____
+_____
+_____
+__x_o
+
+Terminated early due to large number of steps
+[&#39;⬆&#39;, &#39;⮕&#39;, &#39;⬅&#39;, &#39;⬅&#39;, &#39;⬇&#39;, &#39;⬇&#39;, &#39;⬇&#39;, &#39;⬇&#39;, &#39;⬇&#39;, &#39;⬇&#39;]
+total reward: -10
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="quantifying-value">
+<h3>Quantifying Value<a class="headerlink" href="#quantifying-value" title="Permalink to this headline">¶</a></h3>
+<p>There’s an important quanity called the action value function. In summary, it is a measure of the value of taking a particular action, given all the experience. In other words, you can look at the previous trajectories, find out which of them lead to the highest values and look to use them again. See Chapter 2 in the book for more details.</p>
+<p>To generate an estimate of this value, generate a full trajectory, then look at how far away the agent is from the terminal states at all steps.</p>
+<p>So this means we need a class to generate a full trajectory, from start to termination. That code is below. First I create a new class that accepts the generator from before; I’ll use this later to generate the full trajectory.</p>
+<p>Then I create two fields to retain the experience observed by the agent. The first is recording the expected value at each state. This is the effectively the distance to the goal. The second is recording the number of times the agent has visited that state.</p>
+<p>Then I create a helper function to return a key for the dictionary (a.k.a. map) and an action value function to calculate the value of taking each action in each state. This is simply the average value over all visits.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MonteCarloExperiment</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="p">:</span> <span class="n">MonteCarloGeneration</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="n">generator</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">counts</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">_to_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+  
+  <span class="k">def</span> <span class="nf">action_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_key</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next I create a function to store this data after generating a full trajectory. There are several important parts of this function.</p>
+<p>The first is that I’m using reversed trajectories. I.e. I’m starting from the end and working backwards.</p>
+<p>The second is that I’m averaging the expected return over all visits. So this is reporting the value of an action, on average.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MonteCarloExperiment</span><span class="p">(</span><span class="n">MonteCarloExperiment</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">run_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">trajectory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">run</span><span class="p">()</span> <span class="c1"># Generate a trajectory</span>
+    <span class="n">episode_reward</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">trajectory</span><span class="p">)):</span> <span class="c1"># Starting from the terminal state</span>
+      <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">t</span>
+      <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_key</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+      <span class="n">episode_reward</span> <span class="o">+=</span> <span class="n">reward</span>  <span class="c1"># Add the reward to the buffer</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="n">episode_reward</span> <span class="c1"># And add this to the value of this action</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c1"># Increment counter</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-trajectory-generation">
+<h3>Running the Trajectory Generation<a class="headerlink" href="#running-the-trajectory-generation" title="Permalink to this headline">¶</a></h3>
+<p>Let’s test this by setting some expectations. We’re reporting the value of taking an action on average. So on average, you would expect the value of taking the EAST action when next to the terminal state would be -1, because it’s right there, it’s a single step and therefore a single reward of -1 to get to the terminal state.</p>
+<p>However, other directions will not be -1, because the agent will continue to stumble around.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">SimpleGridWorld</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># Instantiate the environment - set the debug to true to see the actual movemen of the agent.</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">MonteCarloGeneration</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Instantiate the trajectory generator</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">MonteCarloExperiment</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+  <span class="n">agent</span><span class="o">.</span><span class="n">run_episode</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: &quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">agent</span><span class="o">.</span><span class="n">action_value</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Run 0:  [-4.0, -1.0, -8.0, -16.0]
+Run 1:  [-4.0, -1.0, -8.0, -34.5]
+Run 2:  [-4.0, -1.0, -8.0, -34.5]
+Run 3:  [-5.0, -1.0, -7.8, -34.5]
+</pre></div>
+</div>
+</div>
+</div>
+<p>So you can see from above that yes, when choosing east from the point to the west of the terminal state the expected return is -1. But notice that the agent (probably) did not observe that result straight away, because it takes time to randomly select it. (Run it a few more times to see what happens, you’ll see random changes)</p>
+</div>
+<div class="section" id="visualising-the-state-value-function">
+<h3>Visualising the State Value Function<a class="headerlink" href="#visualising-the-state-value-function" title="Permalink to this headline">¶</a></h3>
+<p>The state value function is the average expected return for all actions. In general, you should see that the value increases the closer you get to the goal. But because of the random movement, especially far away from the goal, there will be a lot of noise.</p>
+<p>Below I create a helper function to plot this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">state_value_2d</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">height</span><span class="p">)):</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">env</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+          <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;   @  &quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">state_value</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">agent</span><span class="o">.</span><span class="n">action_value</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="p">])</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="p">)</span>
+          <span class="n">res</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">state_value</span><span class="si">:</span><span class="s1">6.2f</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot; | &quot;</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">state_value_2d</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-90.62 | -87.00 | -101.12 | -100.16 | -93.84 | 
+-59.29 | -73.48 | -100.50 | -105.59 | -110.07 | 
+-56.35 | -78.90 | -75.26 | -85.44 | -82.64 | 
+-33.09 | -51.19 | -35.58 | -46.64 | -45.17 | 
+-29.50 | -29.40 | -26.62 | -12.07 |    @   | 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="generating-optimal-policies">
+<h3>Generating Optimal Policies<a class="headerlink" href="#generating-optimal-policies" title="Permalink to this headline">¶</a></h3>
+<p>A policy is a set of rules that an agent should follow. It is a strategy that works for that particular environment. You can now generate thousands of trajectories and track the expected value over time.</p>
+<p>With enough averaging, the expected values should present a clear picture of what the optimal policy is. See if you can see what it is?</p>
+<p>In the code below I’m instantiating all the previous code and then generating 1000 episodes. Then I print out the state value function for every position.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">SimpleGridWorld</span><span class="p">()</span> <span class="c1"># Instantiate the environment</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">MonteCarloGeneration</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span> <span class="c1"># Instantiate the trajectory generator</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">MonteCarloExperiment</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+  <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">agent</span><span class="o">.</span><span class="n">run_episode</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="c1"># print([agent.action_value(Point(0,4), d) for d in env.action_space]) # Uncomment this line to see the actual values for a particular state</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">state_value_2d</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">),</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="c1"># time.sleep(0.1) # Uncomment this line if you want to see every episode</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 999
+-88.55 | -92.55 | -88.66 | -86.54 | -85.07 | 
+-86.04 | -88.72 | -85.82 | -83.26 | -80.52 | 
+-85.36 | -84.73 | -81.72 | -75.02 | -70.74 | 
+-85.85 | -81.42 | -75.36 | -60.79 | -46.28 | 
+-86.95 | -83.89 | -73.78 | -45.90 |    @   | 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plotting-the-optimal-policy">
+<h3>Plotting the Optimal Policy<a class="headerlink" href="#plotting-the-optimal-policy" title="Permalink to this headline">¶</a></h3>
+<p>That’s right! The optimal policy is to choose the action that picks the highest expected return. In other words, you want to move the agent towards regions of higher reward.</p>
+<p>Let me create another helper function to visualise where the maximal actions are pointing</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">argmax</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">next_best_value_2d</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">height</span><span class="p">)):</span>
+      <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">width</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">env</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">env</span><span class="o">.</span><span class="n">goal</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+          <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;@&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="c1"># Find the action that has the highest value</span>
+          <span class="n">loc</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">([</span><span class="n">agent</span><span class="o">.</span><span class="n">action_value</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="p">])</span>
+          <span class="n">res</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">env</span><span class="o">.</span><span class="n">action_space</span><span class="p">[</span><span class="n">loc</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot; | &quot;</span>
+      <span class="n">res</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">next_best_value_2d</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>⬆ | ⬆ | ⮕ | ⮕ | ⬇ | 
+⮕ | ⮕ | ⬇ | ⬇ | ⬇ | 
+⮕ | ⮕ | ⮕ | ⬇ | ⬇ | 
+⮕ | ⮕ | ⮕ | ⬇ | ⬇ | 
+⬅ | ⮕ | ⮕ | ⮕ | @ | 
+</pre></div>
+</div>
+</div>
+</div>
+<p>And there you have it. A policy. The above image spells out what the agent should do in each state. It should move towards regions of higher value. You can see (in general) that the arrows are all pointing towards the goal, as if by magic.</p>
+<p>For the arrows that are not, that is a more interesting story. The problem is that the agent is still entirely random at this point. It’s stumbling around until it reachest the goal. The agent started in the top left, so on average, it takes a lot of stumbling to find the goal.</p>
+<p>Therefore, for the points at the top left, furthest away from the goal, the agent will probably take many more random steps before it reachest the goal. In essence, it doesn’t matter which way the agent goes. It will still take a long time to get there.</p>
+<p>Subsequent Monte Carlo algorithms fix this by updating the action value function every episode and using this knowledge to choose the action. So latter iterations of the agent are far more guided and intelligent.</p>
+<p>One Final Run
+To wrap this up, let me run the whole thing one more time. I will plot the state value function and the policy for all iteration steps. Watch how it changes over time. Add a sleep to slow it down to see it changing on each step.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">SimpleGridWorld</span><span class="p">()</span> <span class="c1"># Instantiate the environment</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">MonteCarloGeneration</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span> <span class="c1"># Instantiate the trajectory generator</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">MonteCarloExperiment</span><span class="p">(</span><span class="n">generator</span><span class="o">=</span><span class="n">generator</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+  <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">agent</span><span class="o">.</span><span class="n">run_episode</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">state_value_2d</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">))</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">next_best_value_2d</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">agent</span><span class="p">),</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="c1"># time.sleep(0.1) # Uncomment this line if you want to see the iterations</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 999
+-78.56 | -77.64 | -78.25 | -77.67 | -77.65 | 
+-79.80 | -79.55 | -77.05 | -73.82 | -71.92 | 
+-81.50 | -75.48 | -72.11 | -65.55 | -61.73 | 
+-79.06 | -72.52 | -65.76 | -51.61 | -38.43 | 
+-74.31 | -69.30 | -58.56 | -35.20 |    @   | 
+
+⮕ | ⬅ | ⬆ | ⬇ | ⬇ | 
+⬇ | ⬇ | ⬇ | ⬇ | ⬇ | 
+⬆ | ⮕ | ⬇ | ⬇ | ⬇ | 
+⮕ | ⮕ | ⮕ | ⬇ | ⬇ | 
+⮕ | ⮕ | ⮕ | ⮕ | @ | 
+</pre></div>
+</div>
+</div>
+</div>
+<p>I appreciate that this might be the first time that you have encountered Monte Carlo (MC) techniques or RL. So I have intentionally made this notebook as simple and free of libraries as possible, to gain experience at the coal-face.</p>
+<p>This obviously means that the actual algorithm isn’t that intelligent. For example, MC techniques usually go through two phases, policy evaluation, where full trajectories are captured, then policy improvement, where a new policy is derived. This helps stabilise and speed up learning, beacuse you are learning on every episode.</p>
+<p>But I’m getting ahead of myself. I really do encourage you to play around with this code and tinker with the results. Here are some things that you can try:</p>
+<ul class="simple">
+<li><p>Increase or decrease the size of the grid.</p></li>
+<li><p>Add other terminating states</p></li>
+<li><p>Change the reward to a different value</p></li>
+<li><p>Change the reward to produce 0 reward per step, and a positive reward for the terminating state</p></li>
+<li><p>Add a terminating state with a massive negative reward, to simulate a cliff</p></li>
+<li><p>Add a hole in the middle</p></li>
+<li><p>Add a wall</p></li>
+<li><p>See if you can add the code to use the policy derived by the agent</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T726861_Introduction_to_Gym_toolkit.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Introduction to Gym toolkit</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T705437_CartPole_using_Cross_Entropy.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">CartPole using Cross-Entropy</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

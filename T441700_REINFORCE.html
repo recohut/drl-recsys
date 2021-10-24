@@ -1,0 +1,1320 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>REINFORCE &#8212; drl-recsys</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Importance Sampling" href="T079716_Importance_sampling.html" />
+    <link rel="prev" title="Q-Learning on Lunar Lander and Frozen Lake" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">drl-recsys</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="R984600_DRL_in_RecSys.html">
+   Deep Reinforcement Learning in Recommendation Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Concepts
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L268705_Offline_Reinforcement_Learning.html">
+   Offline Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L732057_Markov_Decision_Process.html">
+   Markov Decision Process
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RL Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T726861_Introduction_to_Gym_toolkit.html">
+   Introduction to Gym toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T589782_Code_Driven_Introduction_to_Reinforcement_Learning.html">
+   Code-Driven Introduction to Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T705437_CartPole_using_Cross_Entropy.html">
+   CartPole using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T163940_FrozenLake_using_Cross_Entropy.html">
+   FrozenLake using Cross-Entropy
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T471382_FrozenLake_using_Value_Iteration.html">
+   FrozenLake using Value Iteration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T587798_FrozenLake_using_Q_Learning.html">
+   FrozenLake using Q-Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T752494_CartPole_using_REINFORCE_in_PyTorch.html">
+   CartPole using REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T294930_Cartpole_in_PyTorch.html">
+   Cartpole in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html">
+   Q-Learning on Lunar Lander and Frozen Lake
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   REINFORCE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T079716_Importance_sampling.html">
+   Importance Sampling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T759314_Kullback_Leibler_Divergence.html">
+   Kullback-Leibler Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T035236_MDP_with_Dynamic_Programming_in_PyTorch.html">
+   MDP with Dynamic Programming in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T365137_REINFORCE_in_PyTorch.html">
+   REINFORCE in PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T159137_MDP_Basics_with_Inventory_Control.html">
+   MDP Basics with Inventory Control
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T046728_n_step_algorithms_and_eligibility_traces.html">
+   n-step algorithms and eligibility traces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T635579_Q_Learning_vs_SARSA_and_Q_Learning_extensions.html">
+   Q-Learning vs SARSA and Q-Learning extensions
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  RecSys Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T000348_Multi_armed_Bandit_for_Banner_Ad.html">
+   Multi-armed Bandit for Banner Ad
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T119194_Contextual_RL_Product_Recommender.html">
+   Contextual Recommender with Vowpal Wabbit
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T441700_REINFORCE.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/drl-recsys/main?urlpath=tree/docs/T441700_REINFORCE.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/drl-recsys/blob/main/docs/T441700_REINFORCE.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installations">
+     Installations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imports">
+     Imports
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#environment">
+   Environment
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#monte-carlo-policy-gradient-methods">
+   Monte Carlo Policy Gradient Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforce-agent">
+     REINFORCE Agent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training-the-agent">
+     Training the Agent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#results">
+     Results
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reinforce-with-baseline-policy-gradient-algorithm">
+   REINFORCE with Baseline Policy Gradient Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforce-with-baseline-agent">
+     Reinforce with Baseline Agent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Training the Agent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#episode-return">
+     Episode Return
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Results
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#one-step-actor-critic-algorithm">
+   One-Step Actor-Critic Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tile-coding">
+     Tile Coding
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#n-step-actor-critic-algorithm">
+     n-Step Actor-Critic Algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Training the Agent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     Results
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="reinforce">
+<h1>REINFORCE<a class="headerlink" href="#reinforce" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installations">
+<h3>Installations<a class="headerlink" href="#installations" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install pygame==1.9.6 pandas==1.0.5 matplotlib==3.2.1 gym==0.17.3
+!pip install --upgrade git+git://github.com/david-abel/simple_rl.git@77c0d6b910efbe8bdd5f4f87337c5bc4aed0d79c
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="imports">
+<h3>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="kn">from</span> <span class="nn">simple_rl.tasks</span> <span class="kn">import</span> <span class="n">GymMDP</span>
+<span class="kn">from</span> <span class="nn">simple_rl.agents</span> <span class="kn">import</span> <span class="n">PolicyGradientAgent</span>
+<span class="kn">from</span> <span class="nn">simple_rl.run_experiments</span> <span class="kn">import</span> <span class="n">run_agents_on_mdp</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">ScalarFormatter</span><span class="p">,</span> <span class="n">AutoMinorLocator</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;agg&quot;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h2>
+<p>For this experiment I will use the cartpole environment. Then I set the seeds to produce consistent results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gym MDP</span>
+<span class="n">gym_mdp</span> <span class="o">=</span> <span class="n">GymMDP</span><span class="p">(</span><span class="n">env_name</span><span class="o">=</span><span class="s2">&quot;CartPole-v1&quot;</span><span class="p">,</span> <span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">num_feats</span> <span class="o">=</span> <span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_num_state_feats</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GLOBAL_SEED</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">GLOBAL_SEED</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">GLOBAL_SEED</span><span class="p">)</span>
+<span class="n">gym_mdp</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">GLOBAL_SEED</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="monte-carlo-policy-gradient-methods">
+<h2>Monte Carlo Policy Gradient Methods<a class="headerlink" href="#monte-carlo-policy-gradient-methods" title="Permalink to this headline">¶</a></h2>
+<p>Policy gradient methods work by first choosing actions directly from a parameterized model, then secondly updating the weights of the model to nudge the next predictions towards higher expected returns.</p>
+<p>REINFORCE achieves this by collecting a full trajectory then updating the policy weights in a Monte Carlo-style.</p>
+<div class="section" id="reinforce-agent">
+<h3>REINFORCE Agent<a class="headerlink" href="#reinforce-agent" title="Permalink to this headline">¶</a></h3>
+<p>The code below defines the REINFORCE agent. The key to this implementation is that I have manually differentiated the logistic function so the gradient can be calculated directly. In reality you would probably use an automatic differentiation framework, or use a framework that provides the gradients for you.</p>
+<p>Once you have the gradient, then all you need to do is use the policy gradient update rule to nudge the parameters towards areas of higher return.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LogisticPolicyAgent</span><span class="p">(</span><span class="n">PolicyGradientAgent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">num_feats</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">α</span> <span class="o">=</span> <span class="mf">0.01</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_feats</span> <span class="o">=</span> <span class="n">num_feats</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;logistic_policy_gradient&quot;</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="n">actions</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">logistic</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">π</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="n">π</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">logistic</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">θ</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">π</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">π</span><span class="p">])</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">Δ</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="n">π</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">logistic</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">θ</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">s</span> <span class="o">-</span> <span class="n">s</span> <span class="o">*</span> <span class="n">π</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span> <span class="o">*</span> <span class="n">π</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span><span class="p">,</span> <span class="n">reward</span><span class="p">))</span>
+        <span class="n">π</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">π</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">π</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="n">Pair</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_feats</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">()</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;episode_history&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">grad_buf</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)):</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">reward</span>
+            <span class="n">grad</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">Δ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">state</span><span class="p">)[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">action</span>
+            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">α</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">γ</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">G</span>
+            <span class="n">grad_buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">γ</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">G</span><span class="p">)</span>
+        <span class="n">reinforce_gradient_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">grad_buf</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">grad_buf</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LogisticPolicyAgentWithBaseline</span><span class="p">(</span><span class="n">PolicyGradientAgent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">num_feats</span><span class="p">,</span> <span class="n">α_θ</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">α_θ</span> <span class="o">=</span> <span class="n">α_θ</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">α_w</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_feats</span> <span class="o">=</span> <span class="n">num_feats</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;logistic_policy_gradient_with_baseline&quot;</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="n">actions</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span><span class="p">,</span> <span class="n">reward</span><span class="p">))</span>
+        <span class="n">π</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">π</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">π</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="n">Pair</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_feats</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">()</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;episode_history&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">grad_buf</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)):</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">reward</span>
+            <span class="n">δ</span> <span class="o">=</span> <span class="n">G</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span>
+            <span class="n">global_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">G</span><span class="p">])])</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">α_w</span> <span class="o">*</span> <span class="n">δ</span>
+            <span class="n">Δπ</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">Δ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">state</span><span class="p">)[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">action</span>
+            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">α_θ</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">γ</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">δ</span> <span class="o">*</span> <span class="n">Δπ</span>
+            <span class="n">grad_buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">γ</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">δ</span> <span class="o">*</span> <span class="n">Δπ</span><span class="p">)</span>
+        <span class="n">baseline_gradient_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">grad_buf</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">grad_buf</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="training-the-agent">
+<h3>Training the Agent<a class="headerlink" href="#training-the-agent" title="Permalink to this headline">¶</a></h3>
+<p>Now I’m ready to run the experiment to train the agent. You might want to play around with the instances parameter, which controls the number of repeats to average over.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Step</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Step&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="s2">&quot;reward&quot;</span><span class="p">])</span>
+<span class="n">Pair</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Pair&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">])</span>
+
+<span class="n">reinforce_gradient_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">REINFORCE</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="p">(</span><span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span> <span class="n">num_feats</span><span class="p">)</span>
+<span class="n">run_agents_on_mdp</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">REINFORCE</span><span class="p">],</span>
+    <span class="n">gym_mdp</span><span class="p">,</span>
+    <span class="n">instances</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">episodes</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">open_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cumulative_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;gradient_REINFORCE.txt&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">reinforce_gradient_buffer</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running experiment: 
+(MDP)
+	gym-CartPole-v1
+(Agents)
+	logistic_policy_gradient,0
+(Params)
+	instances : 2
+	episodes : 500
+	steps : 1000
+	track_disc_reward : False
+
+logistic_policy_gradient is learning.
+  Instance 1 of 2.
+  Instance 2 of 2.
+
+
+--- TIMES ---
+logistic_policy_gradient agent took 37.83 seconds.
+-------------
+
+	logistic_policy_gradient: 334.0 (conf_interv: 230.06 )
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="results">
+<h3>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_files</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">cutoff</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Average Reward (10 runs)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">data_files</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;REINFORCE (logistic)&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/logistic_policy_gradient.csv&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">plot</span><span class="p">(</span><span class="s2">&quot;reinforce_reward_plot&quot;</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T441700_REINFORCE_19_0.png" src="_images/T441700_REINFORCE_19_0.png" />
+</div>
+</div>
+<p>The image above shows the result of plotting the average reward over 500 episodes. The specific curve will depend on your seed and the number of repetitions to average over.</p>
+<p>The thing to take away from this experiment is the sheer simplicity of what is going on here. I have defined a very simple model and manually derived the gradient. The environment has 4 continuous features so I need a 4-parameter model. To find an optimal policy, you just need to nudge the gradients towards higher returns. That’s it!</p>
+<p>This means that policy gradient methods work really well with continuous state spaces, where value-based methods would struggle, due to the required discretisation.</p>
+</div>
+</div>
+<div class="section" id="reinforce-with-baseline-policy-gradient-algorithm">
+<h2>REINFORCE with Baseline Policy Gradient Algorithm<a class="headerlink" href="#reinforce-with-baseline-policy-gradient-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>The various baseline algorithms attempt to stabilise learning by subtracting the average expected return from the action-values, which leads to stable action-values. Contrast this to vanilla policy gradient or Q-learning algorithms that continuously increment the Q-value, which leads to situations where a minor incremental update to one of the actions causes vast changes in the policy.</p>
+<p>In this section I will build upon the previous and also show you how to visualise the discounted reward over various states.</p>
+<div class="section" id="reinforce-with-baseline-agent">
+<h3>Reinforce with Baseline Agent<a class="headerlink" href="#reinforce-with-baseline-agent" title="Permalink to this headline">¶</a></h3>
+<p>The new agent is basically the same as the standard REINFORCE agent, except for the addition of a weighted moving average to estimate the baseline, which is subtracted from the expected return.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LogisticPolicyAgentWithBaseline</span><span class="p">(</span><span class="n">PolicyGradientAgent</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">num_feats</span><span class="p">,</span> <span class="n">α_θ</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">α_θ</span> <span class="o">=</span> <span class="n">α_θ</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">α_w</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_feats</span> <span class="o">=</span> <span class="n">num_feats</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;logistic_policy_gradient_with_baseline&quot;</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="n">actions</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span><span class="p">,</span> <span class="n">reward</span><span class="p">))</span>
+        <span class="n">π</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">π</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">π</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="n">Pair</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_feats</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">()</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;episode_history&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">grad_buf</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">)):</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">G</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">reward</span>
+            <span class="n">δ</span> <span class="o">=</span> <span class="n">G</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span>
+            <span class="n">global_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+                    <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">state</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">G</span><span class="p">])])</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">α_w</span> <span class="o">*</span> <span class="n">δ</span>
+            <span class="n">Δπ</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">Δ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">state</span><span class="p">)[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">pair</span><span class="o">.</span><span class="n">action</span>
+            <span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">α_θ</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">γ</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">δ</span> <span class="o">*</span> <span class="n">Δπ</span>
+            <span class="n">grad_buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">γ</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">δ</span> <span class="o">*</span> <span class="n">Δπ</span><span class="p">)</span>
+        <span class="n">baseline_gradient_buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">grad_buf</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">grad_buf</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">episode_history</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Training the Agent<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Now I’m ready to run the experiment to train the agent. You might want to play around with the instances parameter, which controls the number of repeats to average over.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Step</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Step&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="s2">&quot;reward&quot;</span><span class="p">])</span>
+<span class="n">Pair</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Pair&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">])</span>
+
+<span class="n">reinforce_gradient_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">REINFORCE</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="p">(</span><span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span> <span class="n">num_feats</span><span class="p">)</span>
+<span class="n">run_agents_on_mdp</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">REINFORCE</span><span class="p">],</span>
+    <span class="n">gym_mdp</span><span class="p">,</span>
+    <span class="n">instances</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">episodes</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">open_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cumulative_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;gradient_REINFORCE.txt&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">reinforce_gradient_buffer</span><span class="p">))</span>
+
+<span class="n">global_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">baseline_gradient_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">REINFORCE_baseline</span> <span class="o">=</span> <span class="n">LogisticPolicyAgentWithBaseline</span><span class="p">(</span>
+    <span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span> <span class="n">num_feats</span>
+<span class="p">)</span>
+<span class="n">run_agents_on_mdp</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">REINFORCE_baseline</span><span class="p">],</span>
+    <span class="n">gym_mdp</span><span class="p">,</span>
+    <span class="n">instances</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">episodes</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">open_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cumulative_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;state_reward_REINFORCE_baseline.txt&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">global_buffer</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;gradient_REINFORCE_baseline.txt&quot;</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">baseline_gradient_buffer</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running experiment: 
+(MDP)
+	gym-CartPole-v1
+(Agents)
+	logistic_policy_gradient,0
+(Params)
+	instances : 2
+	episodes : 500
+	steps : 1000
+	track_disc_reward : False
+
+logistic_policy_gradient is learning.
+  Instance 1 of 2.
+  Instance 2 of 2.
+
+
+--- TIMES ---
+logistic_policy_gradient agent took 37.11 seconds.
+-------------
+
+	logistic_policy_gradient: 356.0 (conf_interv: 199.57 )
+Running experiment: 
+(MDP)
+	gym-CartPole-v1
+(Agents)
+	logistic_policy_gradient_with_baseline,0
+(Params)
+	instances : 2
+	episodes : 500
+	steps : 1000
+	track_disc_reward : False
+
+logistic_policy_gradient_with_baseline is learning.
+  Instance 1 of 2.
+  Instance 2 of 2.
+
+
+--- TIMES ---
+logistic_policy_gradient_with_baseline agent took 57.66 seconds.
+-------------
+
+	logistic_policy_gradient_with_baseline: 433.5 (conf_interv: 92.16 )
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="episode-return">
+<h3>Episode Return<a class="headerlink" href="#episode-return" title="Permalink to this headline">¶</a></h3>
+<p>The baseline algorithm needs the ability to predict the return for a given state. This means you need a representative model to be able to predict that. I tried a few things, but quickly realised that the data are remarkably complex. The code below takes some trajectories, runs principal component analysis and plots the result.</p>
+<p>Remember that there are four features, so the space is more complex than this. But you can quickly see that the data is strange. It’s shaped like a triangle. This is primarily because the next return depends on the previous; it’s cumulative. Therefore, I thought that I could use a simple online rolling average of previously observed rewards.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;state_reward_REINFORCE_baseline.txt&quot;</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;First Principal Component of State&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Discounted Reward&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T441700_REINFORCE_28_0.png" src="_images/T441700_REINFORCE_28_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Results<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_files</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">cutoff</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Average Reward (10 runs)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">data_files</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;REINFORCE with baseline (logistic)&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/logistic_policy_gradient_with_baseline.csv&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;REINFORCE (logistic)&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/logistic_policy_gradient.csv&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">plot</span><span class="p">(</span><span class="s2">&quot;reinforce_reward_plot&quot;</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T441700_REINFORCE_30_0.png" src="_images/T441700_REINFORCE_30_0.png" />
+</div>
+</div>
+<p>You can see that the baseline algorithm performs better, just, than the basic REINFORCE algorithm. If you performed more repeats, this would become clearer.</p>
+<p>I encourage you to try this yourself with a single repeat. You should be able to observe the baseline algorithm increasing in performance more consistently than the standard algorithm, which seems to repeatedly drop back to zero. This is because of subtle, but catastrophic updates to the Q-values. Sometimes they nudge the policies towards bad policies.</p>
+</div>
+</div>
+<div class="section" id="one-step-actor-critic-algorithm">
+<h2>One-Step Actor-Critic Algorithm<a class="headerlink" href="#one-step-actor-critic-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Monte Carlo implementations like those of REINFORCE and baseline do not bootstrap, so they are slow to learn. Temporal difference solutions do bootstrap and can be incorporated into policy gradient algorithms in the same way that n-Step algorithms use it. The addition of n-Step expected returns to the REINFORCE with baseline algorithm yeilds an n-Step actor-critic.</p>
+<p>I’m not a huge fan of the actor-critic terminology, because it obfuscates the fact that it is simply REINFORCE with a baseline, where the expected return is implemented as n-Step returns. That’s it.</p>
+<p>I’ll implement that below and you’ll be suprised how similar the algorithm is. However, this time I’m going to use tile coding to encode the continous state space, to get a better baseline estimate.</p>
+<div class="section" id="tile-coding">
+<h3>Tile Coding<a class="headerlink" href="#tile-coding" title="Permalink to this headline">¶</a></h3>
+<p>Tile coding attemps to split the feature space into discrete bins, where you set the bin to 1 if the value is contained within that bin. If you overlap the bin boundaries, you end up with quite an accurate representation of a continuous feature in discrete form.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Taken from https://github.com/MeepMoop/tilecoding</span>
+<span class="k">class</span> <span class="nc">TileCoder</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tiles_per_dim</span><span class="p">,</span>
+        <span class="n">value_limits</span><span class="p">,</span>
+        <span class="n">tilings</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">tiling_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">tiles_per_dim</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_offsets</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">offset</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tiles_per_dim</span><span class="p">))</span>
+            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tilings</span><span class="p">)],</span> <span class="nb">len</span><span class="p">(</span><span class="n">tiles_per_dim</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+            <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">tilings</span><span class="p">)</span>
+            <span class="o">%</span> <span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_limits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value_limits</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_norm_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tiles_per_dim</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_limits</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tile_base_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">tiling_dims</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tilings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hash_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">tiling_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tiles_per_dim</span><span class="p">))]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_tiles</span> <span class="o">=</span> <span class="n">tilings</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">tiling_dims</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">off_coords</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_norm_dims</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offsets</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tile_base_ind</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">off_coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash_vec</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_tiles</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="n-step-actor-critic-algorithm">
+<h3>n-Step Actor-Critic Algorithm<a class="headerlink" href="#n-step-actor-critic-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>The major addition in this implementation is the use of Tile Coding for the baseline estimate. This improves performance over the previous rolling average method. In addition you will also notice the use of the next state to predict the 1-step expected return. There are no other differences.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">OneStepActorCritic</span><span class="p">(</span><span class="n">PolicyGradientAgent</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">v</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">Δv</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">S</span>
+
+    <span class="k">def</span> <span class="nf">augment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">S</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">n_tiles</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">S</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">num_feats</span><span class="p">,</span> <span class="n">α_θ</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">α_w</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">α_θ</span> <span class="o">=</span> <span class="n">α_θ</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">α_w</span> <span class="o">=</span> <span class="n">α_w</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_feats</span> <span class="o">=</span> <span class="n">num_feats</span>
+        <span class="c1"># tile coder tiling dimensions, value limits, number of tilings</span>
+        <span class="n">tiles_per_dim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_feats</span>
+        <span class="n">lims</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mf">0.72</span><span class="p">,</span> <span class="mf">0.72</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+        <span class="n">tilings</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">TileCoder</span><span class="p">(</span><span class="n">tiles_per_dim</span><span class="p">,</span> <span class="n">lims</span><span class="p">,</span> <span class="n">tilings</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">n_tiles</span><span class="p">)</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;one_step_actor_critic&quot;</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="n">actions</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">terminal</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="n">raw_state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">next_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
+
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">terminal</span><span class="p">:</span>
+            <span class="n">δ</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">-</span> <span class="n">v</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">δ</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">γ</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">v</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">next_state</span><span class="p">)</span> <span class="o">-</span> <span class="n">v</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">α_w</span> <span class="o">*</span> <span class="n">δ</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Δv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">α_θ</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="o">*</span> <span class="n">δ</span> <span class="o">*</span>
+            <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">Δ</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="n">raw_state</span><span class="p">)[</span><span class="n">action</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">γ</span>
+
+    <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span><span class="o">.</span><span class="n">action</span><span class="p">,</span>
+                <span class="n">reward</span><span class="p">,</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">is_terminal</span><span class="p">(),</span>
+            <span class="p">)</span>
+        <span class="n">π</span> <span class="o">=</span> <span class="n">LogisticPolicyAgent</span><span class="o">.</span><span class="n">π</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">θ</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">p</span><span class="o">=</span><span class="n">π</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="n">Pair</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">action</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">θ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">n_tiles</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">()</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># print(np.mean(self.w), np.std(self.w), np.min(self.w), np.max(self.w), np.count_nonzero(self.w) / self.T.n_tiles)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous_pair</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">PolicyGradientAgent</span><span class="o">.</span><span class="n">end_of_episode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Training the Agent<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Now I’m ready to run the experiment to train the agents. I reduce the number of instances to 1 now to save time, since I’m trying to run 4 separate algorithms. If you increase the number of repetitions this will smooth out the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Step</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Step&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;pair&quot;</span><span class="p">,</span> <span class="s2">&quot;reward&quot;</span><span class="p">])</span>
+<span class="n">Pair</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Pair&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">,</span> <span class="s2">&quot;action&quot;</span><span class="p">])</span>
+
+<span class="n">global_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">baseline_gradient_buffer</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">REINFORCE_baseline</span> <span class="o">=</span> <span class="n">LogisticPolicyAgentWithBaseline</span><span class="p">(</span>
+    <span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span> <span class="n">num_feats</span>
+<span class="p">)</span>
+<span class="n">run_agents_on_mdp</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">REINFORCE_baseline</span><span class="p">],</span>
+    <span class="n">gym_mdp</span><span class="p">,</span>
+    <span class="n">instances</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">episodes</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">steps</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">open_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cumulative_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;state_reward_REINFORCE_baseline.txt&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">global_buffer</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;gradient_REINFORCE_baseline.txt&quot;</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">baseline_gradient_buffer</span><span class="p">))</span>
+
+<span class="n">TDAC_slow</span> <span class="o">=</span> <span class="n">OneStepActorCritic</span><span class="p">(</span>
+    <span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">α_θ</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">α_w</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;slow_weight_&quot;</span><span class="p">)</span>
+<span class="n">TDAC_fast</span> <span class="o">=</span> <span class="n">OneStepActorCritic</span><span class="p">(</span>
+    <span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">α_θ</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">α_w</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;fast_weight_&quot;</span><span class="p">)</span>
+<span class="n">TDAC_super_fast</span> <span class="o">=</span> <span class="n">OneStepActorCritic</span><span class="p">(</span>
+    <span class="n">gym_mdp</span><span class="o">.</span><span class="n">get_actions</span><span class="p">(),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">α_θ</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">α_w</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;super_fast_weight_&quot;</span><span class="p">)</span>
+<span class="n">run_agents_on_mdp</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">TDAC_slow</span><span class="p">,</span> <span class="n">TDAC_fast</span><span class="p">,</span> <span class="n">TDAC_super_fast</span><span class="p">],</span>
+    <span class="n">gym_mdp</span><span class="p">,</span>
+    <span class="n">instances</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">episodes</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">steps</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">open_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">cumulative_plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running experiment: 
+(MDP)
+	gym-CartPole-v1
+(Agents)
+	logistic_policy_gradient_with_baseline,0
+(Params)
+	instances : 1
+	episodes : 500
+	steps : 1000
+	track_disc_reward : False
+
+logistic_policy_gradient_with_baseline is learning.
+  Instance 1 of 1.
+
+
+--- TIMES ---
+logistic_policy_gradient_with_baseline agent took 28.25 seconds.
+-------------
+
+	logistic_policy_gradient_with_baseline: 500.0 (conf_interv: 0.0 )
+605
+605
+605
+Running experiment: 
+(MDP)
+	gym-CartPole-v1
+(Agents)
+	slow_weight_one_step_actor_critic,0
+	fast_weight_one_step_actor_critic,1
+	super_fast_weight_one_step_actor_critic,2
+(Params)
+	instances : 1
+	episodes : 500
+	steps : 500
+	track_disc_reward : False
+
+slow_weight_one_step_actor_critic is learning.
+  Instance 1 of 1.
+
+fast_weight_one_step_actor_critic is learning.
+  Instance 1 of 1.
+
+super_fast_weight_one_step_actor_critic is learning.
+  Instance 1 of 1.
+
+
+--- TIMES ---
+slow_weight_one_step_actor_critic agent took 29.19 seconds.
+fast_weight_one_step_actor_critic agent took 42.73 seconds.
+super_fast_weight_one_step_actor_critic agent took 44.25 seconds.
+-------------
+
+	slow_weight_one_step_actor_critic: 436.0 (conf_interv: 0.0 )
+	fast_weight_one_step_actor_critic: 500.0 (conf_interv: 0.0 )
+	super_fast_weight_one_step_actor_critic: 500.0 (conf_interv: 0.0 )
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Results<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">experiment_name</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data_file</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_files</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">cutoff</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">truncate</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">formatter</span><span class="o">.</span><span class="n">_useMathText</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Average Reward (1 run)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">data_files</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;REINFORCE with baseline (logistic)&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/logistic_policy_gradient_with_baseline.csv&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;1-Step Actor-Critic&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/fast_weight_one_step_actor_critic.csv&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">plot</span><span class="p">(</span><span class="s2">&quot;reinforce_reward_plot&quot;</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T441700_REINFORCE_40_0.png" src="_images/T441700_REINFORCE_40_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_files</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;1-Step Actor-Critic (α_w = 0.01)&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/slow_weight_one_step_actor_critic.csv&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;1-Step Actor-Critic (α_w = 0.1)&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/fast_weight_one_step_actor_critic.csv&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;1-Step Actor-Critic (α_w = 0.5)&quot;</span><span class="p">,</span> <span class="s2">&quot;results/gym-CartPole-v1/super_fast_weight_one_step_actor_critic.csv&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">plot</span><span class="p">(</span><span class="s2">&quot;reinforce_reward_plot&quot;</span><span class="p">,</span> <span class="n">data_files</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/T441700_REINFORCE_41_0.png" src="_images/T441700_REINFORCE_41_0.png" />
+</div>
+</div>
+<p>Algorithms that can bootstrap, or in other words, algorithms that can learn from the get-go, learn faster than those that have to wait until an episode is over. n-step algorithms do this and the first plots demonstrates the increase in performance. The plot is a little noisy due to no averaging.</p>
+<p>The second image shows the difference between different learning rate parameters. The fastest (0.5) is very unstable. Sometimes it learns, other times it doesn’t, because the policy is changing on each step. The slow (0.01) has a similar performance to the Monte Carlo methods. The learning rate in the middle (0.1) learns fast and is about as stable as the other algorithms. This demonstrates how you must tune your hyperparameters to your specific problem.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/drl-recsys",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T859183_Q_Learning_on_Lunar_Lander_and_Frozen_Lake.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Q-Learning on Lunar Lander and Frozen Lake</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T079716_Importance_sampling.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Importance Sampling</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
