@@ -1,0 +1,22 @@
+users_num: 943
+items_num: 1682
+embedding_dim: 50
+emb_model: "user_movie"
+model_train:
+    algorithm: "fairrec"
+    state_size: 5
+    srm_size: 2
+    max_eps_num: 30000
+    actor_hidden_dim: 512
+    actor_learning_rate: 0.0001
+    critic_hidden_dim: 512
+    critic_learning_rate: 0.001
+    discount_factor: 0.9
+    tau: 0.01
+    learning_starts: 5000
+    replay_memory_size: 1000000
+    batch_size: 64
+    embedding_network_weights: model/pmf/emb_50_ratio_0.800000_bs_1000_e_258_wd_0.100000_lr_0.000100_trained_pmf.pt
+    n_groups: 10
+    done_count: 10
+    fairness_constraints: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
