@@ -350,97 +350,97 @@ class WFairLinUCB(LinUCB):
         return actions, ucb_scores, (np.array(_wfair) * np.absolute(ucb_scores))
 
 
-# @dataclass
-# class FairLinUCB(LinUCB):
-#     """Linear Upper Confidence Bound.
-#     Parameters
-#     ----------
-#     dim: int
-#         Number of dimensions of context vectors.
-#     n_actions: int
-#         Number of actions.
-#     len_list: int, default=1
-#         Length of a list of actions recommended in each impression.
-#         When Open Bandit Dataset is used, 3 should be set.
-#     batch_size: int, default=1
-#         Number of samples used in a batch parameter update.
-#     random_state: int, default=None
-#         Controls the random seed in sampling actions.
-#     epsilon: float, default=0.
-#         Exploration hyperparameter that must be greater than or equal to 0.0.
-#     References
-#     --------------
-#     L. Li, W. Chu, J. Langford, and E. Schapire.
-#     A contextual-bandit approach to personalized news article recommendation.
-#     In Proceedings of the 19th International Conference on World Wide Web, pp. 661–670. ACM, 2010.
-#     """
+@dataclass
+class FairLinUCB(LinUCB):
+    """Linear Upper Confidence Bound.
+    Parameters
+    ----------
+    dim: int
+        Number of dimensions of context vectors.
+    n_actions: int
+        Number of actions.
+    len_list: int, default=1
+        Length of a list of actions recommended in each impression.
+        When Open Bandit Dataset is used, 3 should be set.
+    batch_size: int, default=1
+        Number of samples used in a batch parameter update.
+    random_state: int, default=None
+        Controls the random seed in sampling actions.
+    epsilon: float, default=0.
+        Exploration hyperparameter that must be greater than or equal to 0.0.
+    References
+    --------------
+    L. Li, W. Chu, J. Langford, and E. Schapire.
+    A contextual-bandit approach to personalized news article recommendation.
+    In Proceedings of the 19th International Conference on World Wide Web, pp. 661–670. ACM, 2010.
+    """
 
-#     epsilon: float = 0.0
-#     alpha: float = 0.0
-#     n_group: int = 0
-#     item_group: dict = field(default_factory=dict)
-#     fairness_weight: dict = field(default_factory=dict)
+    epsilon: float = 0.0
+    alpha: float = 0.0
+    n_group: int = 0
+    item_group: dict = field(default_factory=dict)
+    fairness_weight: dict = field(default_factory=dict)
 
-#     def __post_init__(self) -> None:
-#         """Initialize class."""
-#         check_scalar(self.epsilon, "epsilon", float, min_val=0.0)
-#         super().__post_init__()
+    def __post_init__(self) -> None:
+        """Initialize class."""
+        check_scalar(self.epsilon, "epsilon", float, min_val=0.0)
+        super().__post_init__()
 
-#         self.group_count: dict = {}
-#         self.arm_count: dict = {}
-#         self.policy_name = f"fair_linear_ucb_{self.epsilon}_{self.alpha}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+        self.group_count: dict = {}
+        self.arm_count: dict = {}
+        self.policy_name = f"fair_linear_ucb_{self.epsilon}_{self.alpha}_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
 
-#     def calculate_score_fairness(self) -> np.array:
-#         fair = np.array(list(self.fairness_weight.value())) * (
-#             np.sum(np.array(list(self.action_counts.value()))) - 1
-#         ) - np.array(list(self.action_counts.value()))
+    def calculate_score_fairness(self) -> np.array:
+        fair = np.array(list(self.fairness_weight.value())) * (
+            np.sum(np.array(list(self.action_counts.value()))) - 1
+        ) - np.array(list(self.action_counts.value()))
 
-#         return fair[~(fair < self.alpha)]
+        return fair[~(fair < self.alpha)]
 
-#     def select_action(self, context: np.ndarray, available_items=None) -> np.ndarray:
-#         """Select action for new data.
-#         Parameters
-#         ----------
-#         context: array
-#             Observed context vector.
-#         Returns
-#         ----------
-#         selected_actions: array-like, shape (len_list, )
-#             List of selected actions.
-#         """
-#         check_array(array=context, name="context", expected_dim=2)
-#         if context.shape[0] != 1:
-#             raise ValueError("Expected `context.shape[0] == 1`, but found it False")
+    def select_action(self, context: np.ndarray, available_items=None) -> np.ndarray:
+        """Select action for new data.
+        Parameters
+        ----------
+        context: array
+            Observed context vector.
+        Returns
+        ----------
+        selected_actions: array-like, shape (len_list, )
+            List of selected actions.
+        """
+        check_array(array=context, name="context", expected_dim=2)
+        if context.shape[0] != 1:
+            raise ValueError("Expected `context.shape[0] == 1`, but found it False")
 
-#         A = self.calculate_score_fairness()
-#         if len(A) > 0:
-#             actions = [int(np.argmax(A))]
-#         else:
-#             self.theta_hat = np.concatenate(
-#                 [
-#                     self.A_inv[i] @ self.b[:, i][:, np.newaxis]
-#                     for i in np.arange(self.n_actions)
-#                 ],
-#                 axis=1,
-#             )  # dim * n_actions
-#             sigma_hat = np.concatenate(
-#                 [
-#                     np.sqrt(context @ self.A_inv[i] @ context.T)
-#                     for i in np.arange(self.n_actions)
-#                 ],
-#                 axis=1,
-#             )  # 1 * n_actions
-#             ucb_scores = (context @ self.theta_hat + self.epsilon * sigma_hat).flatten()
-#             actions = ucb_scores.argsort()[::-1][: self.len_list]
+        A = self.calculate_score_fairness()
+        if len(A) > 0:
+            actions = [int(np.argmax(A))]
+        else:
+            self.theta_hat = np.concatenate(
+                [
+                    self.A_inv[i] @ self.b[:, i][:, np.newaxis]
+                    for i in np.arange(self.n_actions)
+                ],
+                axis=1,
+            )  # dim * n_actions
+            sigma_hat = np.concatenate(
+                [
+                    np.sqrt(context @ self.A_inv[i] @ context.T)
+                    for i in np.arange(self.n_actions)
+                ],
+                axis=1,
+            )  # 1 * n_actions
+            ucb_scores = (context @ self.theta_hat + self.epsilon * sigma_hat).flatten()
+            actions = ucb_scores.argsort()[::-1][: self.len_list]
 
-#         self.update_fairness_status(actions)
-#         return actions
+        self.update_fairness_status(actions)
+        return actions
 
-#     def update_fairness_status(self, actions):
-#         for action in actions:
-#             self.group_count[self.item_group[action]] += 1
-#             self.arm_count[action] += 1
+    def update_fairness_status(self, actions):
+        for action in actions:
+            self.group_count[self.item_group[action]] += 1
+            self.arm_count[action] += 1
 
-#     def clear_group_count(self):
-#         self.group_count = {k: 0 for k in range(1, self.n_group + 1)}
-#         self.arm_count = {k: 0 for k in range(self.n_actions)}
+    def clear_group_count(self):
+        self.group_count = {k: 0 for k in range(1, self.n_group + 1)}
+        self.arm_count = {k: 0 for k in range(self.n_actions)}

@@ -98,7 +98,7 @@ def run_bandit_simulation(
 
             selected_actions_list.append(selected_actions)
 
-        _propfair = policy_.propfair()
+        _propfair = policy_.propfair
         _cvr = cumulative_rewards / bandit_feedback["n_rounds"]
         _ufg = policy_.propfair / max(
             1 - (cumulative_rewards / bandit_feedback["n_rounds"]), 0.01
