@@ -4,7 +4,7 @@ execute:
   execute_notebooks: "off"
 exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
 repository:
-  url: https://github.com/sparsh-ai/drl-recsys
+  url: https://github.com/RecoHut-Projects/drl-recsys
   path_to_book: docs
   branch: main
 launch_buttons:
