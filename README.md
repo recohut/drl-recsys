@@ -8,6 +8,8 @@
 
 [Read in notion instead](https://recohut.notion.site/Reinforcement-Learning-101-Tensorflow-5bc9762451264bcd818ee7f014cc936f)
 
+[Medium post](https://sparsh-ai.medium.com/reinforcement-learning-101-tensorflow-a5900318b490)
+
 
 ## Tree
 ```
