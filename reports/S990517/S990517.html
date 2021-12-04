@@ -1,0 +1,662 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Reinforcement Learning 101</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="648aad85-17e9-4955-843d-b0e19ec40efd" class="page sans"><header><h1 class="page-title">Reinforcement Learning 101</h1></header><div class="page-body"><h2 id="d781c9c2-3fde-4f99-856a-fac4ea586629" class="">Process flow</h2><figure id="f4d7f074-f82e-472b-9d8f-853b96d6bab9" class="image"><a href="https://github.com/RecoHut-Projects/drl-recsys/raw/main/images/S990517_process_flow.svg"><img src="https://github.com/RecoHut-Projects/drl-recsys/raw/main/images/S990517_process_flow.svg"/></a></figure><h2 id="80c4db84-e759-4b08-bd7f-ccece35e3fe0" class="">Environments</h2><h3 id="d37de953-71a9-47f2-8bfc-fb057c4a55ea" class="">Simple Gridworld</h3><p id="6b35ae69-df11-4726-9c2d-2d71e21ff2ad" class="">This is a simple environment where the world is represented as a grid. Each location on the grid can be referred to as a cell. The goal of an agent in this environment is to find its way to the goal state in a grid like the one shown here:</p><figure id="d10009d4-2f7d-4e62-87c9-b8154637446b" class="image"><a href="./images/image0.png"><img style="width:250px" src="./images/image0.png"/></a></figure><p id="21227a15-d5d3-4312-a83b-1003ab75ebc5" class="">The agent&#x27;s location is represented by the blue cell in the grid, while the goal and a mine/bomb/obstacle&#x27;s location is represented in the grid using green and red cells, respectively. The agent (blue cell) needs to find its way through the grid to reach the goal (green cell) without running over the mine/bomb (red cell).</p><h3 id="2e22ec0a-7030-4440-bbd7-933874216568" class="">Simple Gridworld v2</h3><p id="9b3abfc5-5d72-4f36-a4ab-f2677fbb9d19" class="">This is a simplified version of the grid environment. This simplification would help in understanding and visualizing the learning processes of various algorithms. As shown in the figure below, it is a 3x4 gridworld, where the goal is at [0,3] and the bomb is at [1,3]. (so near to each other, that our RL agent need to learn moving with care 😇).</p><figure id="278a51c5-49a5-4822-acee-e88f08eee8f9" class="image"><a href="./images/image1.png"><img style="width:384px" src="./images/image1.png"/></a></figure><h3 id="5beac1fd-ef66-4ced-9b23-4dc7170f1c23" class="">Stochastic Maze</h3><p id="56e21d92-c933-44c7-a55d-efeb4ba482fa" class="">To train RL agents for the real world, we need learning environments that are stochastic, since real-world problems are stochastic in nature. This recipe will walk you through the steps for building a Maze learning environment to train RL agents. The Maze is a simple, stochastic environment where the world is represented as a grid. Each location on the grid can be referred to as a cell. The goal of an agent in this environment is to find its way to the goal state. Consider the maze shown in the following diagram, where the black cells represent walls:</p><figure id="96686f2b-49cb-44ed-bed4-5bbba94dc6d7" class="image"><a href="./images/image2.png"><img style="width:288px" src="./images/image2.png"/></a></figure><p id="f713b754-4c0b-4ec0-919b-811a28f5fa90" class="">The agent&#x27;s location is initialized to be at the top-left cell in the Maze. The agent needs to find its way around the grid to reach the goal located at the top-right cell in the Maze, collecting a maximum number of coins along the way while avoiding walls. The location of the goal, coins, walls, and the agent&#x27;s starting location can be modified in the environment&#x27;s code.</p><p id="fedf35c8-c539-46e4-8b5e-e46174146efe" class="">The reward is based on the number of coins that are collected by the agent before they reach the goal state. Because the environment is stochastic, the action that&#x27;s taken by the environment has a slight (0.1) probability of &quot;slipping&quot; wherein the actual action that&#x27;s executed will be altered stochastically.</p><h3 id="da5fc210-1760-4f72-a5b7-aff3126a9f7f" class="">CartPole</h3><p id="e3a7c4e2-46e8-4e50-92d8-d1365dc4ec8d" class="">In this environment, a pole is attached by an un-actuated joint to a cart, which moves along a frictionless track. The system is controlled by applying a force of +1 or -1 to the cart. The pendulum starts upright, and the goal is to prevent it from falling over. A reward of +1 is provided for every timestep that the pole remains upright. The episode ends when the pole is more than 15 degrees from vertical, or the cart moves more than 2.4 units from the center.</p><div id="f06cca6f-081d-4f9b-ae7c-c28e05aa275a" class="column-list"><div id="180c4631-824f-45be-ad72-4dda4d7a891f" style="width:50%" class="column"><figure id="62966088-7a9e-4a26-91be-13916a36e961" class="image"><a href="https://miro.medium.com/max/600/1*LnQ5sRu-tJmlvRWmDsdSvw.gif"><img src="https://miro.medium.com/max/600/1*LnQ5sRu-tJmlvRWmDsdSvw.gif"/></a><figcaption>CartPole before training. <a href="https://gsurma.medium.com/cartpole-introduction-to-reinforcement-learning-ed0eb5b58288">source</a>.</figcaption></figure></div><div id="d2ddef8b-5b53-4350-ada0-57d9dfbc53c6" style="width:50%" class="column"><figure id="47f6193f-e711-496e-8eb6-e4bcb35508a7" class="image"><a href="https://miro.medium.com/max/600/1*jLj9SYWI7e6RElIsI3DFjg.gif"><img src="https://miro.medium.com/max/600/1*jLj9SYWI7e6RElIsI3DFjg.gif"/></a><figcaption>CartPole after training. <a href="https://gsurma.medium.com/cartpole-introduction-to-reinforcement-learning-ed0eb5b58288">source</a>.</figcaption></figure></div></div><h3 id="89930775-bcd4-4c5e-a080-e4e4aa4dabf9" class="">MountainCar</h3><p id="03de2258-5e37-4219-a191-42325d41dd60" class="">In this environment, a car is on a one-dimensional track, positioned between two &quot;mountains&quot;. The goal is to drive up the mountain on the right; however, the car&#x27;s engine is not strong enough to scale the mountain in a single pass. Therefore, the only way to succeed is to drive back and forth to build up momentum.</p><figure id="97e26eb8-4f26-41b0-afff-ecad4668a566"><div class="source"><a href="https://gym.openai.com/videos/2019-10-21--mqt8Qj1mwo/MountainCar-v0/original.mp4">https://gym.openai.com/videos/2019-10-21--mqt8Qj1mwo/MountainCar-v0/original.mp4</a></div></figure><h3 id="1ce627e1-313d-46f6-a13a-83e247ad0bc3" class="">Pendulum</h3><p id="c7e0c805-985b-483d-b311-62305677062b" class="">In this environment, the pendulum starts in a random position, and the goal is to swing it up so it stays upright.</p><figure id="aba98806-2164-4934-9c32-17107794e4ae"><div class="source"><a href="https://youtu.be/XbXZ9dmKG_s">https://youtu.be/XbXZ9dmKG_s</a></div></figure><h3 id="364ee9d5-017f-42f0-93ea-ace4f7dcc43f" class="">Cryptocurrency Trading</h3><p id="c75a76f6-30ce-486e-af30-05d84c26b2f7" class="">This environment simulates a Bitcoin trading exchange based on real-world data from the Gemini cryptocurrency exchange. In this environment, your RL agent can place buy/sell/hold trades and get rewards based on the profit/loss it makes, starting with an initial cash balance in the agent&#x27;s trading account.</p><p id="5f227f38-29c1-42ec-99a9-8888df87a6ca" class="">In continuous action space, instead of allowing the Agent to only take discrete actions, such as buying/selling/holding a pre-set amount of Bitcoin or Ethereum tokens, we allow the Agent to decide how many crypto coins/tokens it would like to buy or sell.</p><h3 id="d84543a6-2d2c-4a7d-8592-1bf5673eb9c1" class="">Stock Trading</h3><p id="5f6d1abe-0100-4d77-ad2d-a8f8e23964a1" class="">The stock market provides anyone with a highly lucrative opportunity to participate and make profits. While it is easily accessible, not all humans can make consistently profitable trades due to the dynamic nature of the market and the emotional aspects that can impair people&#x27;s actions. RL agents take emotion out of the equation and can be trained to make profits consistently.</p><p id="78b8efd1-2ab8-45ae-94cc-d7ad0acc8a04" class="">This stock market trading environment enable RL agents to trade stocks using real stock market data. When you have trained them enough, you can deploy them so that they automatically make trades (and profits) for you!</p><h3 id="aea641c0-0181-4816-a233-b5791a8c4c92" class="">WebGym World-of-Bits (WoB)</h3><p id="3a176e26-c833-4e04-b529-781d4b441aab" class="">WebGym is a <strong>World of Bits</strong> (<strong>WoB</strong>)-based OpenAI Gym compatible learning platform for training RL Agents for world wide web-based real-world tasks. It provides learning environments for agents to perceive the world-wide-web like how we (humans) perceive – using the pixels rendered on to the display screen. The agent interacts with the environment using keyboard and mouse events as actions. This allows the agent to experience the world-wide-web like how we do thereby require no new additional modifications for the agents to train. This allows us to train RL agents that can directly work with the web-based pages and applications to complete real-world tasks. For more information about WoB, check out <a href="http://proceedings.mlr.press/v70/shi17a/shi17a.pdf">this</a> link.</p><h2 id="f233efa6-0c95-4530-8218-fa325f1fcd60" class="">Algorithms</h2><h3 id="fb45ac18-0cb2-421a-8430-a73f8f41d4e8" class="">Value Iteration</h3><p id="aa066f7a-aa9d-4143-8c60-c8bf0ab5ad24" class="">Value-based reinforcement learning works by learning the state-value function or the action-value function in a given environment. Learning value functions, especially in model-free RL problems where a model of the environment is not available, can prove to be quite effective, especially for RL problems with low-dimensional state space.</p><h3 id="a85e2445-72f3-418e-861c-7ff2d92fc581" class="">Temporal Difference</h3><p id="158afcdc-785f-4447-836d-27895f8cdda2" class="">TD algorithms allow us to incrementally learn from incomplete episodes of agent experiences, which means they can be used for problems that require online learning capabilities. TD algorithms are useful in model-free RL settings as they do not depend on a model of the MDP transitions or rewards.</p><h3 id="8d3c8fd4-a27d-41cc-8349-69cb8824d103" class="">Monte-Carlo Prediction &amp; Control</h3><p id="b077edea-abc9-45cf-9b66-df25fed63ab7" class="">Monte Carlo methods for episodic tasks learn directly from experience from full sample returns obtained in an episode. Once a series of trajectories have been collected by the agent, we can use the transition information in the Monte Carlo Control algorithm to learn the state-action value function. This can be used by an agent so that they can act in a given RL environment.</p><h3 id="57c56aa6-5de3-49f3-94ed-fc9e2ac6b971" class="">SARSA</h3><p id="f06f1c4b-7074-40e8-9fef-29d93f765946" class="">The SARSA algorithm can be applied to model-free control problems and allows us to optimize the value function of an unknown MDP. SARSA is an on-policy temporal difference learning-based control algorithm. The SARSA algorithm can be summarized as follows:</p><figure id="678a7342-32aa-43a3-b308-3a3a77b4ad9e" class="image"><a href="./images/image3.png"><img style="width:853px" src="./images/image3.png"/></a></figure><h3 id="20188b55-bcd5-4f0b-9704-d6dd41069c9a" class="">Q-Learning</h3><p id="a8383f6a-2492-4b67-b510-8ab95c2e6739" class="">Q-learning can be applied to model-free RL problems. It supports off-policy learning and therefore provides a practical solution to problems where available experiences were/are collected using some other policy or by some other agent (even humans).</p><p id="77833479-8479-4181-9331-e2e771c9384c" class="">The Q-learning algorithm involves the Q value update, which can be summarized by the following equation:</p><figure id="3664bfb4-664e-42e5-afc4-1cbaa6cd454d" class="image"><a href="./images/image4.png"><img style="width:1058px" src="./images/image4.png"/></a></figure><h3 id="4eb66176-99e4-4b3e-b26b-746e89134725" class="">Deep Q-Learning (DQN)</h3><p id="72efbf82-8d24-460b-83fd-38d48874850c" class="">DQN agent uses a deep neural network to learn the Q-value function. DQN has shown itself to be a powerful algorithm for discrete action-space environments and problems and is considered to be a notable milestone in the history of deep reinforcement learning when DQN mastered Atari Games.</p><p id="8bada890-74a4-485e-93da-c107881107a0" class="">The Double-DQN agent uses two identical deep neural networks that are updated differently and so hold different weights. The second neural network is a copy of the main neural network from some time in the past (typically from the last episode).</p><h3 id="ffb54470-9db5-4fec-9fef-6f0c06023a39" class="">Dueling DQN</h3><p id="ff1fa3b2-4740-42b4-ae9f-4591b94c44a2" class="">A Dueling DQN agent explicitly estimates two quantities through a modified network architecture:</p><ul id="af1f5138-982a-4527-a2d7-1e1f2e7ccdb3" class="bulleted-list"><li style="list-style-type:disc">State values, V(<em>s</em>)</li></ul><ul id="bb13af54-0531-494f-9c0b-d5561c9ff784" class="bulleted-list"><li style="list-style-type:disc">Advantage values, A(<em>s</em>, <em>a</em>)</li></ul><p id="fff96e8f-5cdb-496b-a653-3b8a4cd904b1" class="">The state value estimates the value of being in state s, and the advantage value represents the advantage of taking action <em>a</em> in state <em>s</em>. This key idea of explicitly and separately estimating the two quantities enables the Dueling DQN to perform better in comparison to DQN.</p><p id="481ab519-b3a1-4ff6-8d3c-b08737cd1c48" class="">The Dueling-DQN agent differs from the DQN agent in terms of the neural network architecture.</p><p id="324f78fa-0d4c-4a77-b255-3492c30fdefc" class="">The differences are summarized in the following diagram:</p><figure id="645be4d2-fa7b-470b-af5e-c7467f0c1b27" class="image"><a href="./images/image5.png"><img style="width:739px" src="./images/image5.png"/></a><figcaption>The DQN (top half of the diagram) has a linear architecture and predicts a single quantity (Q(s, a)), whereas the Dueling-DQN has a bifurcation in the last layer and predicts multiple quantities.</figcaption></figure><h3 id="53b03f4c-f3ab-4eb3-901b-9f6ede1b6c99" class="">Deep Recurrent Q-Network (DRQN)</h3><p id="905ad503-0d87-4b82-a31e-dd2d2e1098b1" class="">DRQN is a combination of a recurrent neural network (RNN) and a deep Q-network (DQN). The idea being that the RNN will be able to retain information from states further back in time and incorporate that into predicting better Q values and thus performing better on games that require long term planning.</p><h3 id="c66f2ecb-b9cb-4848-93d1-2316100da35c" class="">Actor-Critic</h3><p id="0323d8ba-2774-402d-98bc-23494d252554" class=""><strong>Actor-critic algorithms</strong> allow us to combine value-based and policy-based reinforcement learning – an all-in-one agent. While policy gradient methods directly search and optimize the policy in the policy space, leading to smoother learning curves and improvement guarantees, they tend to get stuck at the local maxima (for a long-term reward optimization objective). Value-based methods do not get stuck at local optimum values, but they lack convergence guarantees, and algorithms such as Q-learning tend to have high variance and are not very sample-efficient. Actor-critic methods combine the good qualities of both value-based and policy gradient-based algorithms. Actor-critic methods are also more sample-efficient.</p><h3 id="cca1b866-59b1-4dcf-8e9c-ddd8b2b8dd0c" class="">Soft Actor-Critic (SAC)</h3><p id="2f737f7a-5435-4713-bcc3-128245c220aa" class="">SAC not only boasts of being more sample efficient than traditional RL algorithms but also promises to be robust to brittleness in convergence.</p><div id="63693e88-9e60-4f5a-9c24-2fd8c64a73b8" class="column-list"><div id="7436dad4-6350-413d-9327-3a3042763ab6" style="width:50%" class="column"><figure id="62431456-f818-41ac-980f-bca2de3afc4a"><div class="source"><a href="https://youtu.be/FmMPHL3TcrE">https://youtu.be/FmMPHL3TcrE</a></div></figure></div><div id="2a11747a-8827-4a52-8ac6-24bbef03b28f" style="width:50%" class="column"><figure id="9d45925c-6025-40d2-a51f-0b061b4e8cd1"><div class="source"><a href="https://youtu.be/KOObeIjzXTY">https://youtu.be/KOObeIjzXTY</a></div></figure></div></div><p id="e55163cd-b6bc-4733-bdb6-30d7b9e933ed" class="">Not only does the Minotaur Robot learn in a really short time duration but it also learns to generalize to conditions that it hasn’t seen during training! SAC thus brings us ever so close to using Reinforcement Learning in non-simulation environments for applications in robotics and other domains.</p><h3 id="48ed52b5-9067-4392-8735-144d1bb546f4" class="">Advanced Asynchronous Actor-Critic (A3C)</h3><p id="3e1098e1-f31c-4beb-81ce-e71604eaa6da" class="">The A3C algorithm builds upon the Actor-Critic class of algorithms by using a neural network to approximate the actor (and critic). The actor learns the policy function using a deep neural network, while the critic estimates the value function. The asynchronous nature of the algorithm allows the agent to learn from different parts of the state space, allowing parallel learning and faster convergence. Unlike DQN agents, which use an experience replay memory, the A3C agent uses multiple workers to gather more samples for learning.</p><h3 id="55c1f9d0-dfbd-4bf8-ab40-8fe982a5adad" class="">Policy Gradient</h3><p id="64522e8f-5c4b-4166-a0a2-b17ddb7f4aad" class="">Policy-based methods allow the agent to select actions without consulting a value function and learn an optimal policy directly. Policy gradient algorithms are fundamental to reinforcement learning and serve as the basis for several advanced RL algorithms. These algorithms directly optimize for the best policy, which can lead to faster learning compared to value-based algorithms. Policy gradient algorithms are effective for problems/applications with high-dimensional or continuous action spaces.</p><h3 id="9d1a1fa0-d2bc-439c-8e88-f7bb9694b29e" class="">Deep Deterministic Policy Gradient (DDPG)</h3><p id="f680f953-5689-492d-9e54-23deb84dc956" class="">DDPG, or Deep Deterministic Policy Gradient, is an actor-critic, model-free algorithm based on the deterministic policy gradient that can operate over continuous action spaces. It combines the actor-critic approach with insights from DQNs: in particular, the insights that 1) the network is trained off-policy with samples from a replay buffer to minimize correlations between samples, and 2) the network is trained with a target Q network to give consistent targets during temporal difference backups. DDPG makes use of the same ideas along with batch normalization.</p><p id="b146c317-822a-4a7f-85d6-c3dce8992fbe" class="">It combines ideas from DPG (Deterministic Policy Gradient) and DQN (Deep Q-Network). It uses Experience Replay and slow-learning target networks from DQN, and it is based on DPG, which can operate over continuous action spaces.</p><h3 id="9f75cc36-e169-42fb-acc3-fa807b76c69d" class="">Proximal Policy Optimization (PPO)</h3><p id="2c203889-448c-4e0a-b94d-bb3899e89f19" class="">The PPO Agent uses convolutional neural network layers to process the high-dimensional visual inputs in the Actor and Critic classes. The PPO algorithm updates the Agent&#x27;s policy parameters using a surrogate loss function that prevents the policy parameters from being drastically updated. It then keeps the policy updates within the trust region, which makes it robust to hyperparameter choices and a few other factors that may lead to instability during the Agent&#x27;s training regime.</p><p id="813cced3-762d-44a3-b09b-dca6a157165f" class="">PPO involves collecting a small batch of experiences interacting with the environment and using that batch to update its decision-making policy. Once the policy is updated with that batch, the experiences are thrown away and a newer batch is collected with the newly updated policy. This is the reason why it is an “on-policy learning” approach where the experience samples collected are only useful for updating the current policy.</p><p id="ad430c93-8ed0-433c-968a-e2e4df247719" class="">The main idea is that after an update, the new policy should be not too far from the old policy. For that, PPO uses clipping to avoid too large updates. This leads to less variance in training at the cost of some bias, but ensures smoother training and also makes sure the agent does not go down to an unrecoverable path of taking senseless actions.</p><h2 id="f94d2378-77ce-462f-8a44-038eca7e771a" class="">Tutorials</h2><h3 id="efe12e91-c482-41c2-8f72-6dc15ba2a8bc" class="">Building a simple Gridworld Environment</h3><p id="2b23d2eb-caf4-4d57-997d-c7836ea84b36" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T533231_Building_a_simple_Gridworld_Environment.ipynb">Link to notebook →</a></p><p id="798a1a72-f083-4bb0-9c08-fbf543cd6bb2" class="">In this, we are building the gridworld environment as a python class object <code>GridworldEnv</code> by subclassing <code>gym.Env</code> module.</p><h3 id="7c4b7e22-4c81-4583-9ad7-05848267803d" class="">Building a simple Gridworld v2 Environment</h3><p id="ef0e8aff-e1f0-4daa-aef9-acacac4147c7" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T195475_Building_a_simple_Gridworld_v2_Environment.ipynb">Link to notebook →</a></p><p id="5d25c6ec-b662-4c8a-baf5-4af8d6b42243" class="">In this, we are building a simple 3x4 gridworld environment as a python class object <code>GridworldV2Env</code> by subclassing <code>gym.Env</code> module.</p><h3 id="223160e8-56e9-4cb7-a080-b902e7c8ac6f" class="">Building a Stochastic Maze Gridworld Environment</h3><p id="fdc41fec-c4d7-4240-8089-90e1cbce234c" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T495794_Building_a_Stochastic_Maze_Gridworld_Environment.ipynb">Link to notebook →</a></p><p id="64e41e6b-1da4-4684-aa0e-3a0260b0709e" class="">In this, we are building a stochastic maze environment as a python class object <code>MazeEnv</code> by subclassing <code>gym.Env</code> module. The slip probability is set to 10%.</p><h3 id="461c8ae0-de35-46d3-89e3-716a0a511a8e" class="">Training RL Agent in Gridworld with MLP Model</h3><p id="027cebb9-7929-45c3-9d05-374e08540dec" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T490651_Training_RL_Agent_in_Gridworld_Environment_with_MLP_Model.ipynb">Link to notebook →</a></p><p id="196d788b-5d9e-4ef5-9789-b704824fa334" class="">In this, we are first building the simple gridworld environment. Then we are building the agent model <code>Brain</code> by subclassing <code>keras.Model</code>, and a wrapper class <code>Agent</code>. Then we train the agent in the given gridworld environment.</p><h3 id="09ad7475-6ec9-4571-a057-88ab379664b3" class="">Training RL Agent in Maze Gridworld with Value-iteration</h3><p id="aa49f0f9-ac2a-4c8a-9a56-2931c7665b11" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T920001_Training_RL_Agent_in_Maze_Gridworld_with_Value_iteration_method.ipynb">Link to notebook →</a></p><p id="b9fb308a-a617-41d5-b3f5-341b49488335" class="">In this, we are first building the stochastic maze environment. Then we apply value-iteration to learn the optimal actions in each and every state.</p><div id="1f8e9d05-c656-4914-a1e5-6d05862c7db4" class="column-list"><div id="15ddc783-659c-44c3-b37c-7dcb86d9e32a" style="width:50%" class="column"><figure id="33b4a3d6-c25c-4028-9252-c311a0d59841" class="image"><a href="./images/image6.png"><img style="width:286px" src="./images/image6.png"/></a><figcaption>Agent started with a random policy.</figcaption></figure></div><div id="fbf87c3e-7826-4086-adb1-0c20eb209aa7" style="width:50%" class="column"><figure id="36aebc4e-6b34-415e-b132-db3e170ce03e" class="image"><a href="./images/image7.png"><img style="width:286px" src="./images/image7.png"/></a><figcaption>And after few iterations, learned the optimal policy.</figcaption></figure></div></div><pre id="e4fc12bc-358d-487d-bf01-c12df10dc401" class="code code-wrap"><code>Action mapping:[0 - UP; 1 - DOWN; 2 - LEFT; 3 - RIGHT
+Optimal actions:
+[1. 1. 1. 1. 1. 1. 1. 1. 3. 3. 3. 3. 3. 3. 3. 3. 1. 1. 3. 1. 3. 1. 3. 3.
+ 3. 3. 3. 3. 3. 3. 3. 3. 3. 3. 0. 0. 3. 3. 0. 0. 2. 2. 0. 2. 0. 2. 0. 0.
+ 0. 1. 0. 0. 1. 1. 0. 1. 0. 3. 0. 0. 3. 3. 0. 3. 0. 3. 0. 0. 3. 0. 0. 0.
+ 1. 1. 2. 2. 3. 3. 3. 3. 1. 1. 1. 2. 1. 0. 0. 0. 1. 1. 1. 0. 1. 0. 0. 0.
+ 1. 0. 0. 0. 0. 0. 0. 0. 2. 0. 2. 0. 0. 0. 0. 0.]</code></pre><h3 id="51754705-048a-4ab7-ad04-037feeb93186" class="">Training RL Agent in Gridworld with Temporal Difference</h3><p id="d8359030-40a4-4abb-8ab4-87403ef8b41e" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T122762_Training_RL_Agent_in_Gridworld_with_Temporal_Difference_learning_method.ipynb">Link to notebook →</a></p><p id="c1581020-e82f-4e31-9fd0-682ec8e69359" class="">In this, we are first building the gridworld v2 environment. Then we learn the optimal policy by applying temporal-difference learning method.</p><div id="9db8d7aa-050c-41fa-97a5-a1ec42ace7f9" class="column-list"><div id="039c1d4c-2ddc-42d2-8b7e-cc0fc7c4b38c" style="width:50%" class="column"><figure id="747a2d48-87b9-42a9-b070-95a4dc35e945" class="image"><a href="./images/image1.png"><img style="width:288px" src="./images/image1.png"/></a><figcaption>Ground-truth state.</figcaption></figure></div><div id="89b95652-15e7-46fa-8fab-4fc599912d51" style="width:50%" class="column"><figure id="f0cf055a-cfd4-437c-b94b-cb82ddcad4d1" class="image"><a href="./images/image8.png"><img style="width:464px" src="./images/image8.png"/></a><figcaption>optimal state values learned by the TD algorithm.</figcaption></figure></div></div><h3 id="454b4e71-6b4c-47a6-adca-3cfc4042c13a" class="">Training RL Agent in Gridworld with Monte-Carlo</h3><p id="4722303b-54c3-47cb-af37-bf4928c35feb" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T303629_Training_RL_Agent_in_Gridworld_with_Monte_Carlo_Prediction_and_Control_method.ipynb">Link to notebook →</a></p><p id="8e9b376a-e48b-48cb-ac33-bb5928e62374" class="">In this, we are first building the gridworld v2 environment. Then we applied the monte-carlo prediction method to learn the optimal state values and later on, we also applied monte-carlo control method to learn the optimal action values.</p><figure id="15e514a0-54ac-44f4-a432-2c8f0c9e1067" class="image"><a href="./images/image9.png"><img style="width:464px" src="./images/image9.png"/></a><figcaption>Monte Carlo Prediction.</figcaption></figure><figure id="46fd12f1-c7a0-4c5b-b33d-d2b6560ffad4" class="image"><a href="./images/image10.png"><img style="width:455px" src="./images/image10.png"/></a><figcaption>Monte Carlo Control.</figcaption></figure><h3 id="d9f6288d-c62f-4f28-b84a-b32a4902b0e1" class="">Training RL Agent in Gridworld with SARSA</h3><p id="2c758f49-b060-4109-9309-52b7711f1d1f" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T515396_Training_RL_Agent_in_Gridworld_with_SARSA_method.ipynb">Link to notebook →</a></p><p id="d52759f6-1775-4305-83e9-946d552b8759" class="">In this, we are first building the gridworld v2 environment. Then we applied the SARSA algorithm to learn the optimal action-values.</p><figure id="9dbfb7da-dfc9-4080-b504-0384e3745c49" class="image"><a href="./images/image11.png"><img style="width:455px" src="./images/image11.png"/></a><figcaption>Action values learned by SARSA.</figcaption></figure><h3 id="1bf188c8-cc7d-48b1-8d32-7d6140e516e5" class="">Training RL Agent in Gridworld with Q-learning</h3><p id="d700f2bf-012c-4552-9daa-30b147266152" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T453493_Training_RL_Agent_in_Gridworld_with_Q_learning_method.ipynb">Link to notebook →</a></p><p id="62be49b8-15c5-4577-825f-fde2868fcf94" class="">In this, we are first building the gridworld v2 environment. Then we applied the Q-learning algorithm to learn the optimal action-values.</p><figure id="ba1096fe-9a84-4e36-8c6a-7076a4163a4a" class="image"><a href="./images/image12.png"><img style="width:455px" src="./images/image12.png"/></a><figcaption>Action values learned by Q-learning.</figcaption></figure><h3 id="85e291e4-9865-4909-bb79-c9307f89149c" class="">Training RL Agent in CartPole Env. with Actor-Critic</h3><p id="0f36064b-327d-4a7f-885e-9c400513cc5b" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T043789_Training_RL_Agent_in_CartPole_Environment_with_Actor_Critic_method.ipynb">Link to notebook →</a></p><p id="a72fb35d-85f0-48d0-88a0-6d4707285a81" class="">In this, we first create the CartPole environment using <code>gym.make</code> api call. Then we built the agent model <code>ActorCritic</code> by subclassing <code>keras.Model</code>, and a wrapper class <code>Agent</code>. Then we train the agent in this CartPole environment.</p><h3 id="a78bc9b6-1d61-4352-ac5a-1b7f761c9602" class="">Training RL Agent in CartPole Env. with DQN</h3><p id="a5529dee-d636-43e4-b911-7cf739862da6" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T473399_Training_RL_Agent_in_CartPole_Environment_with_DQN_method.ipynb">Link to notebook →</a></p><p id="1352b8bd-68f6-4677-9bc8-bf928b37e007" class="">In this, we first create the CartPole environment using <code>gym.make</code> api call. Then we built the <code>ReplayBuffer</code> and <code>DQN</code> class objects, and a wrapper class <code>Agent</code>. Then we train the agent in this CartPole environment.</p><h3 id="f9a9376d-1e46-4bd9-b959-677ce0760dde" class="">Training RL Agent in CartPole Env. with Dueling DQN</h3><p id="a05a3f3a-05a7-4a2e-8c8f-97f9d33ab561" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T432381_Training_RL_Agent_in_CartPole_Environment_with_Dueling_DQN_method.ipynb">Link to notebook →</a></p><p id="d49d5129-f52d-4479-aadd-2abcb509e70a" class="">In this, we first create the CartPole environment using <code>gym.make</code> api call. Then we built the <code>ReplayBuffer</code> and <code>DuelingDQN</code> class objects, and a wrapper class <code>Agent</code>. Then we train the agent in this CartPole environment.</p><h3 id="d985fae0-608f-4447-ab9f-5359d82a16ce" class="">Training RL Agent in CartPole Env. with DRQN</h3><p id="fe7db426-f4ee-474e-be9a-20a84c7d9275" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T244614_Training_RL_Agent_in_CartPole_Environment_with_DRQN_method.ipynb">Link to notebook →</a></p><p id="1ff6db2b-2294-47cf-b1f8-4ecd19dd771b" class="">In this, we first create the CartPole environment using <code>gym.make</code> api call. Then we built the <code>ReplayBuffer</code> and <code>DRQN</code> class objects, and a wrapper class <code>Agent</code>. Then we train the agent in this CartPole environment.</p><h3 id="a1532d40-163a-41cc-ba03-44a07102dc2a" class="">Training RL Agent in MountainCar Env. with Policy Gradient</h3><p id="ffbfd4b7-4862-43a7-b7b4-46ee593b5d60" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T611861_Training_RL_Agent_in_Mountain_Car_Environment_with_Policy_gradient_method.ipynb">Link to notebook →</a></p><p id="56706dbe-141a-42d9-bf58-8768435e2c82" class="">In this, we first create the MountainCar environment using <code>gym.make</code> api call. Then we built the agent model <code>PolicyNet</code> by subclassing <code>keras.Model</code>, and a wrapper class <code>Agent</code>. Then we train the agent in this MountainCar environment.</p><h3 id="723e6aae-cb56-48c7-be20-fd87638ca6a9" class="">Training RL Agent in MountainCar Env. with A3C Continuous</h3><p id="e3e21464-21fe-423d-83d7-aeec40ce4d39" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T307891_Training_RL_Agent_in_Mountain_Car_Environment_with_A3C_Continuous_method.ipynb">Link to notebook →</a></p><p id="4ce0ad31-7cc6-49f8-857a-9a829869f3a6" class="">In this, we first create the MountainCar-continuous environment using <code>gym.make</code> api call. Then we built the <code>Actor</code> and <code>Critic</code> class objects, and a wrapper class <code>Agent</code>. For A3C algorithm, we also built <code>A3CWorker</code> object by subclassing <code>thread.Thread</code> module. Then we train the agent in this MountainCar-continuous environment.</p><h3 id="f0f846c8-8de9-4d3d-9b8c-34782de6080b" class="">Training RL Agent in Pendulum Env. with PPO Continuous</h3><p id="9daacf01-59b1-4182-950a-61cdc027fb7c" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T626473_Training_RL_Agent_in_Pendulum_Environment_with_PPO_Continuous_method.ipynb">Link to notebook →</a></p><p id="d7987c17-e41e-444c-9195-7050afc2d3eb" class="">In this, we first create the Pendulum environment using <code>gym.make</code> api call. Then we built the <code>Actor</code> and <code>Critic</code> class objects, and a wrapper class <code>Agent</code>. Then we train the agent in this Pendulum environment.</p><h3 id="6cb28e7e-388a-4b92-a080-e41d55416e09" class="">Training RL Agent in Pendulum Env. with DDPG</h3><p id="6170b212-bd39-4f73-a815-e55ae62f55d2" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T559464_Training_RL_Agent_in_Pendulum_Environment_with_DDPG_method.ipynb">Link to notebook →</a></p><p id="c3966a4c-cd7f-444c-8f71-d14886de9e8c" class="">In this, we first create the Pendulum environment using <code>gym.make</code> api call. Then we built the <code>ReplayBuffer</code>, the <code>Actor</code> and <code>Critic</code> class objects, and a wrapper class <code>Agent</code>. Then we train the agent in this Pendulum environment.</p><h3 id="1d847aa7-126b-40e8-9c55-8b2fb68e3b2c" class="">Building Bitcoin and Ethereum Cryptocurrency Trading Env.</h3><p id="16dab303-808e-4198-ba97-1a54a05f613f" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T350011_Building_Bitcoin_and_Ethereum_Cryptocurrency_based_Trading_RL_Environment.ipynb">Link to notebook →</a></p><p id="827f5a7b-9ca4-46e9-9e49-b8776541857a" class="">In this, we implemented custom OpenAI Gym-compatible learning environments for cryptocurrency trading with both discrete and continuous-value action spaces.</p><ul id="f97e16d7-2107-4efd-9c5a-bee7aa044de6" class="bulleted-list"><li style="list-style-type:disc">Building a Bitcoin trading RL platform using real market data (<code>CryptoTradingEnv</code> class object)</li></ul><ul id="c156992f-63a3-469c-981c-15ebbea6ea6f" class="bulleted-list"><li style="list-style-type:disc">Building an Ethereum trading RL platform using price charts (<code>CryptoTradingVisualEnv</code> class object)</li></ul><ul id="3242a613-7032-40f5-be2c-63bb87c951e7" class="bulleted-list"><li style="list-style-type:disc">Building an advanced cryptocurrency trading platform for RL agents (<code>CryptoTradingContinuousEnv</code>, and <code>CryptoTradingVisualContinuousEnv</code> class objects)</li></ul><p id="624e7715-b016-40ff-8add-789af71edab1" class="">We used the Bitcoin (<code>Gemini_BTCUSD_d.csv</code>) and Ethereum (<code>Gemini_ETHUSD_d.csv</code>) data from Gemini in building the environment.</p><h3 id="1c34e3d2-c967-44cf-917f-df6a2af0dac4" class="">Training RL Agent for Trading Cryptocurrencies with SAC</h3><p id="4a004e0b-79fa-4bfb-8377-e8a54bd6cde6" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T778350_Training_an_RL_Agent_for_Trading_Cryptocurrencies_using_SAC_method.ipynb">Link to notebook →</a></p><p id="08d47093-2628-418e-a698-c999374abc71" class="">In this, we are first building the crypto trading environment <code>CryptoTradingContinuousEnv</code>, and then using the SAC method to train the RL agent to trade the Bitcoins in the trading RL environment.</p><figure id="9d3584e1-1937-43f2-bd19-6730c3dff4cf" class="image"><a href="./images/image13.png"><img style="width:602px" src="./images/image13.png"/></a></figure><h3 id="486d6574-1773-4cba-8018-47a976d28049" class="">Building Stock Trading RL Environment</h3><p id="605f5e6f-5d05-4c2f-bb38-d37a705e4f6d" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T344654_Building_Stock_Trading_RL_Environment.ipynb">Link to notebook →</a></p><p id="4df3d58f-d111-4231-b6f9-94d3d0a980f6" class="">In this, we are:</p><ul id="41141491-fda3-4864-9869-e0a4cc534883" class="bulleted-list"><li style="list-style-type:disc">Building a stock market trading RL platform using real stock exchange data</li></ul><ul id="02edb9e4-2180-43ba-9c8b-07c06b425534" class="bulleted-list"><li style="list-style-type:disc">Building a stock market trading RL platform using price charts</li></ul><ul id="cf6104df-4bcc-4fa8-80f2-ca1413d474ec" class="bulleted-list"><li style="list-style-type:disc">Building an advanced stock trading RL platform to train agents to mimic professional traders</li></ul><p id="534669b9-ad7e-4270-84ed-074c795643f8" class="">We used the Tesla (<code>TSLA.csv</code>) and Microsoft (<code>MSFT.csv</code>) stocks data from Gemini in building the environment.</p><h3 id="fc548479-895f-4ea5-b1ed-0e80a2665eb1" class="">Training RL Agent for Trading Stocks with SAC</h3><p id="9ef347ed-adcb-4522-bc03-bd8e4300fb55" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T836251_Training_an_RL_Agent_for_Trading_Stocks_using_SAC_method.ipynb">Link to notebook →</a></p><p id="3fae57ef-ab18-47bd-892d-c6059b9067a1" class="">In this, we are first building the stocks trading environment <code>StockTradingContinuousEnv</code>, and then using the SAC method to train the RL agent to trade the Tesla stocks in the trading RL environment.</p><h3 id="7a52bbd9-c666-487b-81a6-23e12c96ff3b" class="">Building RL Agent to complete tasks on the web – Call to Action</h3><p id="50bd4be2-ce95-4d4d-b9d0-6c42b473bb99" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T702798_Building_an_RL_Agent_to_complete_tasks_on_the_web_%E2%80%93_Call_to_Action.ipynb">Link to notebook →</a></p><p id="c17d4e0e-c65c-4f64-95e5-e37d13b5c15b" class="">In this, we are first building the <code>MiniWoBClickButtonVisualEnv</code> environment, and then training a PPO agent to handle <strong>Call-To-Action</strong> (<strong>CTA</strong>) type tasks for you. CTA buttons are the actionable buttons that you typically find on web pages that you need to click in order to proceed to the next step. While there are several CTA button examples available, some common examples include the <strong>OK</strong>/<strong>Cancel</strong> dialog boxes, where you need you to click to acknowledge/dismiss the pop-up notification, and the <strong>Click to learn more</strong> button. </p><p id="aaa2a46d-8e08-4d32-9e08-e0ea9842edd6" class="">The following image illustrates a set of observations from a randomized CTA environment (with different seeds) so that you understand the task that the Agent will be solving:</p><figure id="8cfa3b12-f259-480d-9ce2-349eeb9fdd70" class="image"><a href="./images/image14.png"><img style="width:602px" src="./images/image14.png"/></a><figcaption>Screenshot of the Agent&#x27;s observations from a randomized CTA environment.</figcaption></figure><p id="e8994247-1009-4828-b531-13832eb66396" class="">Note that for simplicity, we used one instance of the environment, though the code can scale for a greater number of environment instances to speed up training.</p><p id="7775a88f-e117-4244-9646-a227ffd17bbe" class="">To understand how the Agent training progresses, consider the following sequence of images. During the initial stages of training, when the Agent is trying to understand the task and the objective of the task, the Agent may just be executing random actions (exploration) or even clicking outside the screen, as shown in the following screenshot:</p><figure id="8c3d5b32-9e94-4dc0-b8b7-b1b3a981ef9e" class="image"><a href="./images/image15.png"><img style="width:390px" src="./images/image15.png"/></a><figcaption>Agent clicking outside the screen (no visible blue dot) during initial exploration.</figcaption></figure><p id="2975e411-2a51-4dd1-b609-ab6b559303fe" class="">As the Agent learns by stumbling upon the correct button to click, it starts to make progress. The following screenshot shows the Agent making some progress:</p><figure id="3a9ab39f-e7be-4bfb-ac23-0d688f4662b4" class="image"><a href="./images/image16.png"><img style="width:381px" src="./images/image16.png"/></a><figcaption>Deep PPO Agent making progress in the CTA task.</figcaption></figure><p id="aa742ab1-8e89-4646-bd13-0fda30495d0a" class="">Finally, when the episode is complete or ends (due to a time limit), the Agent receives an observation similar to the one shown in the following screenshot (left):</p><figure id="084dd65e-4815-4056-9c81-ed4c0a1bbba8" class="image"><a href="./images/image17.png"><img style="width:390px" src="./images/image17.png"/></a><figcaption>End of episode observation (left) and summary of performance (right).</figcaption></figure><h3 id="70cb61a0-3d15-41b9-b63c-08c5aa148d81" class="">Building RL Agent to auto-login on the web</h3><p id="678a7ba9-c332-448d-a74b-c3086d1fb89b" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T769395_Building_an_RL_Agent_to_auto_login_on_the_web.ipynb">Link to notebook →</a></p><p id="b6d22f86-bb4a-4ff6-9868-b57676532082" class="">Imagine that you have an Agent or a bot that watches what you are doing and automatically logs you into websites whenever you click on a login screen. While browser plugins exist that can automatically log you in, they do so using hardcoded scripts that only work on the pre-programmed website&#x27;s login URLs. But what if you had an Agent that only relied on the rendered web page – just like you do to perform a task – and worked even when the URL changes and when you are on a new website with no prior saved data? How cool would that be?!</p><p id="727cd79b-3ddd-43a2-8296-3033a4dbf2dc" class="">In this, we are first building the <code>MiniWoBLoginUserVisualEnv</code> environment, and then training a PPO agent to log in on a web page! You will learn how to randomize, customize, and increase the generality of the Agent to get it to work on any login screen. An example of randomizing and customizing the usernames and passwords for a task can be seen in the following image:</p><figure id="7235cbd7-1bd8-4ca2-8ba7-7aebfda58eb9" class="image"><a href="./images/image18.png"><img style="width:602px" src="./images/image18.png"/></a><figcaption>Sample observations from a randomized user login task.</figcaption></figure><p id="a7b9e3c9-70f8-4125-98c7-6a88a192c82b" class="">The login task involves clicking on the correct form field and typing in the correct username and/or password. For an Agent to be able to do this, it needs to master how to use a mouse and keyboard, in addition to processing the visual web page to understand the task and the web login form. With enough samples, the deep RL Agent will learn a policy to complete this task. Let&#x27;s take a look at the state of the Agent&#x27;s progress, snapshotted at different stages.</p><p id="baa43228-fcec-4597-a348-bd0616b56df5" class="">The following image shows the Agent successfully entering the username and correctly clicking on the password field to enter the password, but not being able to complete the task yet:</p><figure id="173c4304-d7ae-49bf-ae65-afbefe1ba609" class="image"><a href="./images/image19.png"><img style="width:377px" src="./images/image19.png"/></a><figcaption>Screenshot of a trained Agent successfully entering the username but not a password.</figcaption></figure><p id="7934045e-b8bd-45d6-a3b8-1a2886e2a4f7" class="">In the following image, you can see that the Agent has learned to enter both the username and password, but they are not quite right for the task to be classed as complete:</p><figure id="56550d40-1937-45c9-b8ec-3540e9033ce2" class="image"><a href="./images/image20.png"><img style="width:374px" src="./images/image20.png"/></a><figcaption>Agent entering both the username and password but incorrectly.</figcaption></figure><p id="f514ddff-985b-4add-a01f-2b71bd4ed97d" class="">The same Agent with a different checkpoint, after several thousand more episodes of learning, is close to completing the task, as shown in the following image</p><figure id="0b733cb1-06e8-44b1-b714-2508812a2d7b" class="image"><a href="./images/image21.png"><img style="width:377px" src="./images/image21.png"/></a><figcaption>A well-trained Agent model about to complete the login task successfully.</figcaption></figure><p id="1001036f-acc0-4c66-acce-452256b2f9c1" class="">Now that you understand how the Agent works and behaves, you can customize it to your liking and use use cases to train the Agent to automatically log into any custom website you want!</p><h3 id="7cc0b61a-0d2e-4aa8-9a19-c8268dd7cdba" class="">Building RL Agent to book flights on the web</h3><p id="a5ba88ce-4d1d-4830-82da-077780c4505e" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T462163_Building_an_RL_Agent_to_book_flights_on_the_web.ipynb">Link to notebook →</a></p><p id="4b380d5e-0160-4a03-8aa0-efa44132c98d" class="">In this, we are first building the <code>MiniWoBBookFlightVisualEnv</code> environment, and then training a PPO agent to visually operate flight booking websites using a keyboard and mouse to book flights! This task is quite useful but complicated due to the varying amount of task parameters we need to implement, such as source city, destination, date, and more. The following image shows a sample of the start states from a randomized <strong>MiniWoBBookFlightVisualEnv</strong> flight booking environment:</p><figure id="66e09925-f39e-47d7-9785-827fb8a4373e" class="image"><a href="./images/image22.png"><img style="width:602px" src="./images/image22.png"/></a><figcaption>Sample start-state observations from the randomized MiniWoBBookFlightVisualEnv environment.</figcaption></figure><p id="76f3b09b-7f8b-473a-bf62-7b031e42e66c" class="">The flight booking environment is quite complex as it requires the Agent to master both the keyboard and the mouse, in addition to understanding the task by looking at visual images of the task description (visual text parsing), inferring the intended task objective, and executing the actions in the correct sequence. The following screenshot shows the performance of the Agent upon completing a sufficiently large number of episodes of training:</p><figure id="9ce3afa1-65b5-4636-8972-0bf9316d1ac6" class="image"><a href="./images/image23.png"><img style="width:296px" src="./images/image23.png"/></a><figcaption>A screenshot of the Agent performing the flight booking task at different stages of learning.</figcaption></figure><p id="1b957ba5-d846-45f0-a240-63c240165eb5" class="">The following screenshot shows the Agent&#x27;s screen after the Agent progressed to the final stage of the task (although it&#x27;s not close to completing the task):</p><figure id="0417c579-e689-4a5c-a6fd-5a380c7005cc" class="image"><a href="./images/image24.png"><img style="width:316px" src="./images/image24.png"/></a><figcaption>Screenshot of the Agent progressing all the way to the final stage of the flight booking task.</figcaption></figure><h3 id="0e35bae0-d3c5-44dd-9f11-3e4babf7e2c7" class="">Building RL Agent to manage emails on the web</h3><p id="d809f29f-56e2-458e-b363-eb28a1f3b3fa" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T515244_Building_an_RL_Agent_to_manage_emails_on_the_web.ipynb">Link to notebook →</a></p><p id="7a8d8149-73ce-417e-b544-02d71bfb6a85" class="">Email has become an integral part of many people&#x27;s lives. The number of emails that an average working professional goes through in a workday is growing daily. While a lot of email filters exist for spam control, how nice would it be to have an intelligent Agent that can perform a series of email management tasks that just provide a task description (through text or speech via speech-to-text) and are not limited by any APIs that have rate limits?</p><p id="5630e2d6-55ed-45c9-a505-b815ad515303" class="">In this, we are first building the <code>MiniWoBEmailInboxImportantVisualEnv</code> environment, and then training a PPO agent to manage emails on the web.</p><p id="cf2f9210-6fe5-4dba-9652-eb742975fa80" class="">A set of sample tasks can be seen in the following image:</p><figure id="2a66ab1e-b66c-4490-912a-43713b331c06" class="image"><a href="./images/image25.png"><img style="width:1379px" src="./images/image25.png"/></a><figcaption>A sample set of observations from the randomized MiniWoBEmailInboxImportantVisualEnv environment.</figcaption></figure><p id="648ed310-9f5b-446e-9409-3bc66e5eb182" class="">The email management environment poses as a nice sequential decision-making problem for the deep RL Agent. First, the Agent has to choose the correct email from a series of emails in an inbox and then perform the desired action (starring the email and so on). The Agent only has access to the visual rendering of the inbox, so it needs to extract the task specification details, interpret the task specification, and then plan and execute the actions!</p><p id="b064355f-3692-444c-9d11-b69f9d8c254c" class="">The following is a screenshot of the Agent&#x27;s performance at different stages of learning (loaded from different checkpoints):</p><figure id="f07e3660-3aba-4866-8bd1-c3fa2fb05416" class="image"><a href="./images/image26.png"><img style="width:778px" src="./images/image26.png"/></a><figcaption>A series of screenshots showing the Agent&#x27;s learning progress.</figcaption></figure><h3 id="7c441fea-b80f-48a3-90fc-b4ed7ec73c8d" class="">Building RL Agent to manage social media accounts on the web</h3><p id="efcf8ea0-66c6-4e2a-b615-4ab8693310af" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T098537_Building_an_RL_Agent_to_manage_social_media_accounts_on_the_web.ipynb">Link to notebook →</a></p><p id="9a398111-a221-44d0-b6c9-9c664c8d23b2" class="">In this, we are first building 3 environments:</p><ul id="dee51368-c698-4367-8284-31f2da6ae122" class="bulleted-list"><li style="list-style-type:disc"><code>MiniWoBSocialMediaReplyVisualEnv</code> to train a social media like &amp; reply agent with PPO.</li></ul><ul id="f7ec2de2-cda9-4b5f-92f0-31f9a6de8432" class="bulleted-list"><li style="list-style-type:disc"><code>MiniWoBSocialMediaMuteUserVisualEnv</code> to train a social media user mute agent with PPO.</li></ul><ul id="221d8660-cd13-40e6-8021-575aafa707d0" class="bulleted-list"><li style="list-style-type:disc"><code>MiniWoBSocialMediaMuteUserVisualEnv</code> to train a social media user mute agent with DDPG.</li></ul><p id="09d60579-1134-47d2-af13-de6530e30e2e" class="">Then we are building an RL Agent that is trained to perform management tasks on the social media account! The following image shows a series of (randomized) tasks from the environment that we will be training the Agent in:</p><figure id="d26396bf-1288-49e4-9ef4-30a123e3b172" class="image"><a href="./images/image27.png"><img style="width:1382px" src="./images/image27.png"/></a><figcaption>A sample set of social media account management tasks that the Agent has been asked to solve.</figcaption></figure><p id="05610146-477d-4a03-9092-63b511970c21" class="">Note that there is a scroll bar in this task that the Agent needs to learn how to use! The tweet that&#x27;s relevant to this task may be hidden from the visible part of the screen, so the Agent will have to actively explore (by sliding the scroll bar up/down) in order to progress!</p><p id="a5a2ce99-94c7-4d83-bf2a-85a08f3b0f9e" class="">Let&#x27;s visually explore how a well-trained Agent progresses through social media management tasks. The following screenshot shows the Agent learning to use the scroll bar to &quot;navigate&quot; in this environment:</p><figure id="6bf7e142-c4ab-42b2-a128-0cf3fbf13e86" class="image"><a href="./images/image28.png"><img style="width:392px" src="./images/image28.png"/></a><figcaption>The Agent learning to navigate using the scroll bar.</figcaption></figure><p id="a66b4251-2375-4590-9d48-2331ebe1cb00" class="">Note that the task specification does not imply anything related to the scroll bar or the navigation, and that the Agent was able to explore and figure out that it needs to navigate in order to progress with the task! The following screenshot shows the Agent progressing much further by choosing the correct tweet but clicking on the wrong action; that is, <strong>Embed Tweet</strong> instead of the <strong>Mute</strong> button:</p><figure id="98e07889-895d-40df-af47-2c8bd0c76047" class="image"><a href="./images/image29.png"><img style="width:392px" src="./images/image29.png"/></a><figcaption>The Agent clicking on Embed Tweet when the goal was to click on Mute.</figcaption></figure><p id="57bac09d-98c6-4577-bff3-e79cb309c1b9" class="">After 96 million episodes of training, the Agent was sufficiently able to solve the task. The following screenshot shows the Agent&#x27;s performance on an evaluation episode (the Agent was loaded from a checkpoint)</p><figure id="eb4d535f-ce2d-4964-9e28-f1aa1fa47f39" class="image"><a href="./images/image30.png"><img style="width:392px" src="./images/image30.png"/></a><figcaption>The Agent loaded from trained parameters about to complete the task successfully.</figcaption></figure><h3 id="976dbff7-bd10-4167-95be-114603795c8e" class="">Training Stock Trading RL Agent and Deploying as a Service</h3><p id="89702568-f4f3-4381-a4ec-02431eb2e597" class=""><a href="https://github.com/RecoHut-Projects/drl-recsys/blob/main/tutorials/T219631_Training_Stock_Trading_RL_Agent_using_SAC_and_Deploying_as_a_Service.ipynb">Link to notebook →</a></p><p id="588305f7-271d-45ff-8187-710bad612abe" class="">In this, we first implemented the essential components for SAC method. Then we built an RL environment simulator as a service and deployed using flask (at <code>0.0.0.0:6666</code>). It contain two core modules – the tradegym server and the tradegym client, which are built based on the OpenAI Gym HTTP API. We first defined a minimum set of custom environments exposed as part of the tradegym library and then built the server and client modules.</p><p id="79a101ba-89a8-416e-98dc-27079d3cd957" class="">Then we trained a deep RL agent using remote simulator. And then evaluated the trained RL agent. After evaluation, we packaged this trained RL agent to be deployed as a service and deployed using flask (at <code>0.0.0.0:5555</code>). And after deployment, performed a simple testing to make sure that RL agent as a service is successfully deployed.</p><h2 id="fa134d1a-3a7c-4254-a49a-347e6056eaba" class="">References</h2><ol type="1" id="335662ce-1b49-4f28-aafd-f571bc083320" class="numbered-list" start="1"><li><a href="https://learning.oreilly.com/library/view/tensorflow-2-reinforcement/9781838982546">&quot;TensorFlow 2 Reinforcement Learning Cookbook&quot; by Praveen Palanisamy (Packt, 2021)</a></li></ol><ol type="1" id="bfdbc102-928f-4ed6-8223-a032c7ccbd58" class="numbered-list" start="2"><li><a href="https://github.com/PacktPublishing/Tensorflow-2-Reinforcement-Learning-Cookbook">https://github.com/PacktPublishing/Tensorflow-2-Reinforcement-Learning-Cookbook</a></li></ol><ol type="1" id="dcb10eed-1169-4c0f-be52-901994cd06b3" class="numbered-list" start="3"><li><a href="https://github.com/RecoHut-Projects/drl-recsys">https://github.com/RecoHut-Projects/drl-recsys</a></li></ol></div></article></body></html>
