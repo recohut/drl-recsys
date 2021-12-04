@@ -5,7 +5,8 @@
 ## Reports
 ### Reinforcement Learning 101 (Tensorflow)
 [Click here to read the report](https://htmlpreview.github.io/?https://github.com/RecoHut-Projects/drl-recsys/blob/main/reports/S990517/S990517.html)
-[Read in `notion` instead](https://recohut.notion.site/Reinforcement-Learning-101-Tensorflow-5bc9762451264bcd818ee7f014cc936f)
+
+[Read in notion instead](https://recohut.notion.site/Reinforcement-Learning-101-Tensorflow-5bc9762451264bcd818ee7f014cc936f)
 
 
 ## Tree
